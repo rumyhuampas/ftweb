@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ftModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ftModelStoreContainer">
+          <EntitySet Name="team_members" EntityType="ftModel.Store.team_members" store:Type="Tables" Schema="ft" />
+          <EntitySet Name="teams" EntityType="ftModel.Store.teams" store:Type="Tables" Schema="ft" />
+          <AssociationSet Name="Team_IdFK" Association="ftModel.Store.Team_IdFK">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="team_members" EntitySet="team_members" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="team_members">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Team_Id" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="teams">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <Association Name="Team_IdFK">
+          <End Role="teams" Type="ftModel.Store.teams" Multiplicity="0..1" />
+          <End Role="team_members" Type="ftModel.Store.team_members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="team_members">
+              <PropertyRef Name="Team_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ftModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ftEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="team_members" EntityType="ftModel.team_members" />
+          <EntitySet Name="teams" EntityType="ftModel.team" />
+          <AssociationSet Name="Team_IdFK" Association="ftModel.Team_IdFK">
+            <End Role="team" EntitySet="teams" />
+            <End Role="team_members" EntitySet="team_members" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="team_members">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Team_Id" />
+          <Property Type="String" Name="Name" />
+          <NavigationProperty Name="team" Relationship="ftModel.Team_IdFK" FromRole="team_members" ToRole="team" />
+        </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="team_members" Relationship="ftModel.Team_IdFK" FromRole="team" ToRole="team_members" />
+        </EntityType>
+        <Association Name="Team_IdFK">
+          <End Type="ftModel.team" Role="team" Multiplicity="0..1" />
+          <End Type="ftModel.team_members" Role="team_members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="team_members">
+              <PropertyRef Name="Team_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ftModelStoreContainer" CdmEntityContainer="ftEntities">
+          <EntitySetMapping Name="team_members">
+            <EntityTypeMapping TypeName="ftModel.team_members">
+              <MappingFragment StoreEntitySet="team_members">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Team_Id" ColumnName="Team_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teams">
+            <EntityTypeMapping TypeName="ftModel.team">
+              <MappingFragment StoreEntitySet="teams">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="FTEntities">
+        <EntityTypeShape EntityType="ftModel.team_members" Width="1.5" PointX="3" PointY="0.875" Height="1.787985026041667" />
+        <EntityTypeShape EntityType="ftModel.team" Width="1.5" PointX="0.75" PointY="1" Height="1.59568359375" />
+        <AssociationConnector Association="ftModel.Team_IdFK" >
+          <ConnectorPoint PointX="2.25" PointY="1.797841796875" />
+          <ConnectorPoint PointX="3" PointY="1.797841796875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
