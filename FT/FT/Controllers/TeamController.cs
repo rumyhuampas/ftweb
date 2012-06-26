@@ -21,6 +21,7 @@ namespace FT.Controllers
         public ActionResult Index()
         {
             return View(db.teams.OrderBy(teams => teams.Name));
+            //return View();
         }
 
         //
