@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\style.css" />
+    <Content Include="Content\themes\base\images\bg-main.gif" />
     <Content Include="Content\themes\base\images\home-preloader.gif" />
     <Content Include="Content\themes\base\images\img-zoom-1.png" />
     <Content Include="Content\themes\base\images\img-zoom-2.png" />
@@ -89,6 +90,8 @@
     <Content Include="Content\themes\base\images\Logo.PNG" />
     <Content Include="Content\themes\base\images\Logo2.PNG" />
     <Content Include="Content\themes\base\karma-teal-grey.css" />
+    <Content Include="Content\themes\base\main.css" />
+    <Content Include="Content\themes\base\reset.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\js\jquery-1-slider.js" />
     <Content Include="Scripts\js\jquery-1.4.2.min.js" />
