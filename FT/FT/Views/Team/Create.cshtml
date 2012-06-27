@@ -10,28 +10,7 @@
 <link href="@Url.Content("~/Content/themes/base/main.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/themes/base/reset.css")" rel="stylesheet" type="text/css" />
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>team</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 
 
