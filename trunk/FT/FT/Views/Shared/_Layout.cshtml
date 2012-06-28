@@ -33,7 +33,7 @@
                     <!-- ***************** - Top Toolbar Left Side - ***************** -->
                      <div class="sub-nav">
                      <ul>
-                     <li><a href="index-jquery-1.html">Home</a></li>
+                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                      <li><a href="template-sitemap.html">Sitemap</a></li>
                      <li><a href="template-contact-iphone.html">Contact</a></li>
                      </ul></div><!-- end sub-nav -->
@@ -56,7 +56,7 @@
                     <div class="header-area">
 
                         <!-- ***************** - LOGO - ***************** -->
-                        <a href="index-jquery-1.html" class="logo"><img src="@Url.Content("~/Content/themes/base/images/logo.png")" alt="Football Tennis Web" /></a>
+                        <a href="@Url.Action("Index", "Home")" class="logo"><img src="@Url.Content("~/Content/themes/base/images/logo.png")" alt="Football Tennis Web" /></a>
                         <!-- ***************** - END LOGO - ***************** -->
 
                         <!-- ***************** - Main Navigation - ***************** -->
@@ -101,7 +101,30 @@
         <div id="main">
 
             <div class="main-area">
-            @RenderBody()
+                <!-- ***************** - START Title Bar - ***************** -->
+                <div class="tools">
+                    <div class="holder">
+                        <div class="frame">
+                            <h1>@ViewBag.Title</h1>
+
+                            <form method="get" id="searchform" action="#" class="search-form">
+                                <fieldset>
+                                    <span class="text">
+                                        <input type="submit" class="submit" value="search" id="searchsubmit" />
+                                        <input type="text" name="s" id="s" value="Search" onfocus="this.value=(this.value=='Search') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Search' : this.value;" />
+                                    </span>
+                                </fieldset>
+                            </form>
+
+
+                            <p class="breadcrumb"><span class='current_crumb'>@ViewBag.Subtitle</span></p>
+                        </div><!-- end frame -->
+                    </div><!-- end holder -->
+                </div><!-- end tools -->
+                <!-- ***************** - END Title Bar - ***************** -->
+                
+                @RenderBody()
+
             </div><!-- main-area -->
 
             <!-- /***************** - Bottom Footer - ***************** --> 
