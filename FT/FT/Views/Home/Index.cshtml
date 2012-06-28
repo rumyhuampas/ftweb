@@ -1,5 +1,6 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home";
+    ViewBag.Subtitle = "Index";
 }
 
 <div class="main-holder">
@@ -36,7 +37,7 @@
         <ul class="sub-menu">
             <li class="current_page_item"><a href="#"><span>Home</span></a></li>
             <li><a href="#"><span>Teams</span></a></li>
-            <li><a href="#"><span>Players</span></a></li>
+            <li><a href="@Url.Action("Index", "Player")"><span>Players</span></a></li>
             <li><a href="@Url.Action("Index","Championship")"><span>Championships</span></a></li>
         </ul>
     </div><!-- end sub_nav -->

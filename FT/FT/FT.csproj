@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ChampionshipController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -244,6 +245,8 @@
     <None Include="Content\themes\base\fonts\ColabThi-webfont.ttf" />
     <None Include="Content\themes\base\fonts\ColabThi-webfont.woff" />
     <None Include="Content\themes\base\fonts\ColabThi-webfont86d7.eot" />
+    <Content Include="Views\Player\Create.cshtml" />
+    <Content Include="Views\Player\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
