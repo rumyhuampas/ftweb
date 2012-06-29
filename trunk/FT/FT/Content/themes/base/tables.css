@@ -1,0 +1,49 @@
+﻿table, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table.display thead th {
+	padding: 3px 0px 3px 10px;
+	cursor: pointer;
+	* cursor: hand;
+}
+
+table.display thead th div.DataTables_sort_wrapper {
+	position: relative;
+	padding-right: 20px;
+	padding-right: 20px;
+}
+
+table.display thead th div.DataTables_sort_wrapper span {
+	position: absolute;
+	top: 50%;
+	margin-top: -8px;
+	right: 10px;
+}
+
+/*DATA TABLE*/
+/*ACTIVITY DATATABLE*/
+
+table.display tr th{
+	background:url(images/tables/thead_bg.png) repeat-x bottom center;
+	text-transform:uppercase;
+	font-size:11px;
+	color:#6c6c6c;
+	font-weight:bold;
+	padding:12px 0px;
+	text-align:center;
+	border-right:solid 1px #e5e5e5;
+	border-bottom:solid 1px #d3d3d3;
+	box-shadow:inset 0px 1px 0px 1px #fff;
+	-webkit-box-shadow:inset 0px 1px 0px 1px #fff;
+}
