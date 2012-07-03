@@ -45,12 +45,13 @@ namespace FT.Controllers
         // POST: /Player/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(player p)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                db.AddToplayers(p);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

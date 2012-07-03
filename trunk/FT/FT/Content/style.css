@@ -1285,7 +1285,7 @@ table td, table th{padding:6px;}
 .stdtable .con0 { background: #fcfcfc; }
 .stdtable .con1 { background: #f9f9f9; }
 .stdtable th, .stdtable td { line-height: 16px; vertical-align: middle; }
-.stdtable thead th, .stdtable thead td { padding: 5px 10px; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; border-top: 1px solid #ccc;}
+.stdtable thead th, .stdtable thead td { padding: 5px 10px; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc;}
 .stdtable tfoot th, .stdtable tfoot td { padding: 5px 10px; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; }
 .stdtable thead th:first-child, .stdtable tfoot th:first-child,
 .stdtable thead td:first-child, .stdtable tfoot td:first-child { border-left: 1px solid #ddd; }
@@ -1302,7 +1302,7 @@ table td, table th{padding:6px;}
 .stdtable thead th.object, .stdtable tfoot th.object, .stdtable thead td.object, .stdtable tfoot td.object {
     width: 50px; }
 
-.stdtable tbody tr td { padding: 8px 10px; border-right: 1px solid #eee; border-bottom: 1px solid #eee; }
+.stdtable tbody tr td { padding: 8px 10px; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; }
 .stdtable tbody tr:last-child td { border-bottom: 1px solid #ccc; }
 .stdtable tbody tr td:first-child { border-left: 1px solid #ddd; }
 .stdtable tbody tr td:last-child { border-right: 1px solid #ddd; }
@@ -1412,11 +1412,18 @@ background-position:center;
 
 
 /* *********************************************************************************** */
-/* BUTTONS
+/* FORMS
 /* *********************************************************************************** */
 
-.form_fields_container{
+.form_fields_container
+{
+    
 }
+
+.formback .tools {background:url(images/secondary-teal-grey/bg-tools-c.jpg) repeat-y;color:#fff;}
+.formback .tools .holder {background:url(images/secondary-teal-grey/bg-tools-t.jpg) no-repeat;}
+.formback .tools .frame {background:url(images/secondary-teal-grey/bg-tools-b.jpg) 0 100% no-repeat;height:1%;overflow:hidden;padding:18px 22px 0 20px;}
+
 .form_fields_container li:first-child{
 	border:none;
 }
@@ -1426,7 +1433,6 @@ background-position:center;
 	list-style:none;
 	display:inline-block;
 	width:100%;
-	background:#fff;
 }
 .form_fields_container>li>label{
 	padding:5px 0px;
