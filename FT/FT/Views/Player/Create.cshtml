@@ -8,17 +8,38 @@
 <script src="@Url.Content("~/Scripts/js/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/js/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
+
+<div class="iphorm-outer">
+@using (Html.BeginForm("Create","Player", FormMethod.Post, new{@class="iphorm"})) {
     @Html.ValidationSummary(true)
-    <ul class="form_fields_container">
-        <li>
-            @Html.LabelFor(model => model.Name)  
-            <div class="form_input">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>          
-        </li>
-    </ul>
-    <input type="submit" value="Create" class="whitishBtn button_small"/>
-    @Html.ActionLink("Back to List", "Index", "Player", new { @class="whitishBtn button_small"})
-}
+	<!--form class="iphorm" action="http://themes.truethemes.net/Karma-HTML/contact-form/process.php" method="post" enctype="multipart/form-data">-->
+		<div class="iphorm-wrapper">
+	        <div class="iphorm-inner">
+                <div class="iphorm-message"></div>
+	            <div class="iphorm-container clearfix">
+	                <!-- Begin Name element -->
+                    <div class="element-wrapper name-element-wrapper clearfix">
+                        @Html.LabelFor(model => model.Name)  
+                        <!--label for="name">Name <span class="required">(required)</span></label>-->
+                        <div class="input-wrapper name-input-wrapper">
+                            @Html.TextBoxFor(model => model.Name, new {@class="name-element" })
+                            <p>
+                            @Html.ValidationMessageFor(model => model.Name)
+                            </p>
+                            <!--input class="name-element" id="name" type="text" name="name">-->
+                        </div>
+                    </div>
+                    <!-- End Name element -->
+                    <!-- Begin Submit button -->
+                    <div class="button-wrapper submit-button-wrapper clearfix">
+                        <div class="button-input-wrapper submit-button-input-wrapper">
+                            <input class="ka-form-submit" type="submit" name="contact" value="Submit"/>
+                            @Html.ActionLink("Back to List", "Index", "Player", new { @class = "ka-form-submit" })
+                        </div>
+                    </div>
+                    <!-- End Submit button -->
+	            </div>
+	        </div>
+		</div>
+	}
+</div>
