@@ -9,7 +9,6 @@ namespace FT.Controllers
 {
     public class PlayerController : Controller
     {
-
         private ftEntities db;
 
         public PlayerController()
@@ -45,12 +44,12 @@ namespace FT.Controllers
         // POST: /Player/Create
 
         [HttpPost]
-        public ActionResult Create(player p)
+        public ActionResult Create(player playerObj)
         {
             try
             {
                 // TODO: Add insert logic here
-                db.AddToplayers(p);
+                db.AddToplayers(playerObj);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
