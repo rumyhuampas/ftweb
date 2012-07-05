@@ -66,8 +66,7 @@
 .iphorm-inner .submit-button-input-wrapper{height:32px;font-size:15px;}
 .iphorm-inner .submit-button-input-wrapper input{cursor:pointer;display:inline-block;margin-top:5px;font-size:.8em;}
 .iphorm-inner .submit-button-wrapper div.loading-wrapper{float:left;padding-top:8px;font-style:italic;}
-
-
+.iphorm-inner .submit-button-input-wrapper a {text-decoration:none; cursor: pointer;display: inline-block;font-size: 0.8em;margin-top: 5px;vertical-align: middle;}
 
 /*---------------------------------------------------------------*/
 /* CAPTCHA

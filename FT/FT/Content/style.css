@@ -1141,7 +1141,8 @@ form, fieldset {margin:0;padding:0;border-style:none;}
 .contact-form label.checkbox, .contact-form label.radio {font-weight:normal;margin-bottom:8px;}
 
 #ka-submit, .ka-form-submit, .contact-form .ka-form-submit{border:0;margin:0;padding:10px 15px !important;background:#040404 url(themes/base/images/bg-input-comment.jpg) 0 0 repeat-x;cursor:pointer;letter-spacing:1px;text-transform: uppercase;color: #DDD;outline:none;border: 1px solid #000;display: block;}
-
+#ka-submit, .ka-form-submit, .contact-form .ka-form-submit .tablebtn{text-decoration:none; cursor: pointer;display: inline-block;font-size: 0.8em;margin-top: 5px;vertical-align: middle;display:inline-block;}
+#ka-submit, .ka-form-submit, .contact-form .ka-form-submit .tablebtn a:hover{text-decoration:none !important;}
 
 
 
