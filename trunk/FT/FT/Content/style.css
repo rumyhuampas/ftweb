@@ -1127,7 +1127,7 @@ form, fieldset {margin:0;padding:0;border-style:none;}
 
 
 .contact-form input, .contact-form textarea {padding:8px !important;}
-.textwidget input[type='text'], .textwidget textarea { width: 100% !important; }\
+.textwidget input[type='text'], .textwidget textarea { width: 100% !important; }
 .contact-form {padding-top:15px;}
 .contact-form .clear-form { clear: both; }
 .contact-form input[type='text'] { width: 300px; margin-bottom: 13px; }
