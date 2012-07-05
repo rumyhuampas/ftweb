@@ -7,6 +7,22 @@ using FT.Models;
 
 namespace FT.Controllers
 {
+    public class TeamPlayer
+    {
+        private ftEntities db;
+        public team team { get; set; }
+        public List<player> players { get; set; }
+
+        public TeamPlayer()
+        {
+            db = new ftEntities();
+        }
+        public List<player> GetAllPlayers()
+        {
+            return db.players.ToList();
+        }
+    }
+
     public class TeamController : Controller
     {
         private ftEntities db;
@@ -37,7 +53,9 @@ namespace FT.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            TeamPlayer teamplayer = new TeamPlayer();
+            teamplayer.team = new team();
+            return View(teamplayer);
         } 
 
         //
