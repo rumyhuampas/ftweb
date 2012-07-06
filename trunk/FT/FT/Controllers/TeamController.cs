@@ -7,22 +7,6 @@ using FT.Models;
 
 namespace FT.Controllers
 {
-    public class TeamPlayer
-    {
-        private ftEntities db;
-        public team team { get; set; }
-        public List<player> players { get; set; }
-
-        public TeamPlayer()
-        {
-            db = new ftEntities();
-        }
-        public List<player> GetAllPlayers()
-        {
-            return db.players.ToList();
-        }
-    }
-
     public class TeamController : Controller
     {
         private ftEntities db;
@@ -53,9 +37,18 @@ namespace FT.Controllers
 
         public ActionResult Create()
         {
-            TeamPlayer teamplayer = new TeamPlayer();
-            teamplayer.team = new team();
-            return View(teamplayer);
+            var players = (from p in db.players
+                              select p).OrderBy(player => player.Name);
+            SelectList list = new SelectList(players, "Id", "Name");
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (player p in players)
+            {
+                items.Add(new SelectListItem { Text = p.Name, Value = p.Id.ToString() });
+            }
+
+            ViewBag.Players = list;
+
+            return View(new team());
         } 
 
         //
