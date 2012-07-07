@@ -40,12 +40,6 @@ namespace FT.Controllers
             var players = (from p in db.players
                               select p).OrderBy(player => player.Name);
             SelectList list = new SelectList(players, "Id", "Name");
-            List<SelectListItem> items = new List<SelectListItem>();
-            foreach (player p in players)
-            {
-                items.Add(new SelectListItem { Text = p.Name, Value = p.Id.ToString() });
-            }
-
             ViewBag.Players = list;
 
             return View(new team());
@@ -62,6 +56,19 @@ namespace FT.Controllers
                 // TODO: Add insert logic here
                 db.AddToteams(teamObj);
                 db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult AddPlayer()
+        {
+            try
+            {
 
                 return RedirectToAction("Index");
             }
