@@ -30,19 +30,24 @@
                             <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
                     </div>
+
                     <div class="element-wrapper name-element-wrapper clearfix">
                         <label>Player</label>
                         <!--label for="name">Name <span class="required">(required)</span></label>-->
                         <div class="input-wrapper name-input-wrapper">
-                            @Html.DropDownListFor(model => model.Id, (SelectList)ViewBag.Players)
+                            @Html.DropDownList("playerId", FT.Controllers.TeamController.playersHelper.GetAllPlayers())
                             <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
-                        @Html.ActionLink("Add player", "Index", "Team", new { @Id = "btnAddPlayer", @class = "ka-form-submit" })
+                        <input class="ka-form-submit" type="submit" name="btnSubmit" value="AddPlayer"/>
                     </div>
-                    
+                        
+                    <br />
                     <table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablecb" id="dyntable">
                         <thead>
                             <tr>
+                                <th class="head0">
+                                    <div class="DataTables_sort_wrapper">Id<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+                                </th>
                                 <th class="head0">
                                     <div class="DataTables_sort_wrapper">Name<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
                                 </th>
@@ -53,7 +58,12 @@
                         </thead>
 
                         <tbody>
-                            
+                            @foreach(FT.Models.player p in FT.Controllers.TeamController.playersHelper.selectedPlayers){
+                                <tr>
+                                    <td>@p.Id</td>
+                                    <td>@p.Name</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                     <br />
@@ -61,7 +71,7 @@
                     <!-- Begin Submit button -->
                     <div class="button-wrapper submit-button-wrapper clearfix">
                         <div class="button-input-wrapper submit-button-input-wrapper">
-                            <input class="ka-form-submit" type="submit" name="contact" value="Submit"/>
+                            <input class="ka-form-submit" type="submit" name="btnSubmit" value="Submit"/>
                             @Html.ActionLink("Back to List", "Index", "Team", new { @class = "ka-form-submit" })
                         </div>
                     </div>
@@ -69,5 +79,5 @@
 	            </div>
 	        </div>
 		</div>
-	}
+}
 </div>
