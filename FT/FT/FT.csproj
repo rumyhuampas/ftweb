@@ -145,6 +145,7 @@
     <Content Include="Content\themes\base\images\buttons\redishBtn.png" />
     <Content Include="Content\themes\base\images\buttons\whiteBtn.png" />
     <Content Include="Content\themes\base\images\buttons\yellow_btn.png" />
+    <Content Include="Content\themes\base\images\bg-input-disabled.jpg" />
     <Content Include="Content\themes\base\images\feed.png" />
     <Content Include="Content\themes\base\images\global-sprite-color-boxes.png" />
     <Content Include="Content\themes\base\images\global-sprite.png" />

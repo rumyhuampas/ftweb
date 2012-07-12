@@ -66,18 +66,17 @@ namespace FT.Controllers
                 }
 
                 db.AddToteams(teamObj);
-                //db.SaveChanges();
-                teams_players tp = null;
+                db.SaveChanges();
+                team_player tp = null;
                 foreach (player p in playersHelper.selectedPlayers)
                 {
-                    tp = new teams_players();
-                    tp.team = teamObj;
-                    tp.TeamId = teamObj.Id;
-                    //tp.player = p;
-                    tp.PlayersId = p.Id;
-                    db.AddToteams_players(tp);
+                    tp = new team_player();
+                    tp.Team_Id = teamObj.Id;
+                    tp.Player_Id = p.Id;
+                    db.AddToteam_player(tp);
                 }
                 db.SaveChanges();
+                playersHelper = null;
 
                 return RedirectToAction("Index");
             }
@@ -85,6 +84,12 @@ namespace FT.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult DeletePlayer(team teamObj, int playerId)
+        {
+            playersHelper.DeletePlayer(playerId);
+            return RedirectToAction("Create", teamObj);
         }
         
         //

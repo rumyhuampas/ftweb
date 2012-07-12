@@ -38,7 +38,14 @@
                             @Html.DropDownList("playerId", FT.Controllers.TeamController.playersHelper.GetAllPlayers())
                             <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
-                        <input class="ka-form-submit" type="submit" name="btnSubmit" value="AddPlayer"/>
+                        @if (FT.Controllers.TeamController.playersHelper.selectedPlayers.Count != 2)
+                        {
+                            @:<input class="ka-form-submit" type="submit" name="btnSubmit" value="AddPlayer"/>
+                        }
+                        else
+                        {
+                            @:<input class="ka-form-submit disabled" type="submit" name="btnSubmit" value="AddPlayer" disabled="disabled"/>
+                        }
                     </div>
                         
                     <br />
@@ -58,10 +65,12 @@
                         </thead>
 
                         <tbody>
-                            @foreach(FT.Models.player p in FT.Controllers.TeamController.playersHelper.selectedPlayers){
+                            @foreach (FT.Models.player p in FT.Controllers.TeamController.playersHelper.selectedPlayers)
+                            {
                                 <tr>
                                     <td>@p.Id</td>
                                     <td>@p.Name</td>
+                                    <td>@Html.ActionLink("Delete", "DeletePlayer", "Team", new { teamObj = Model, playerId = p.Id }, null)</td>
                                 </tr>
                             }
                         </tbody>
