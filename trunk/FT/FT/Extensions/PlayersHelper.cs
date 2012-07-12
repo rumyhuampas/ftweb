@@ -39,6 +39,18 @@ namespace FT.Extensions
             selectedPlayers.Clear();
         }
 
+        public void DeletePlayer(int playerId)
+        {
+            for (int i = 0; i < selectedPlayers.Count; i++)
+            {
+                if (selectedPlayers[i].Id == playerId)
+                {
+                    selectedPlayers.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
         public SelectList GetAllPlayers()
         {
             db = new ftEntities();

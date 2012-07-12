@@ -18,8 +18,8 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("ftModel", "FK_teams_players_players", "player", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.player), "teams_players", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.teams_players), true)]
-[assembly: EdmRelationshipAttribute("ftModel", "FK_teams_players_teams", "team", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.team), "teams_players", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.teams_players), true)]
+[assembly: EdmRelationshipAttribute("ftModel", "Player_IdFK", "player", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.player), "team_player", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.team_player), true)]
+[assembly: EdmRelationshipAttribute("ftModel", "FK_team_player_teams", "team", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.team), "team_player", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.team_player), true)]
 
 #endregion
 
@@ -90,6 +90,22 @@ namespace FT.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<team_player> team_player
+        {
+            get
+            {
+                if ((_team_player == null))
+                {
+                    _team_player = base.CreateObjectSet<team_player>("team_player");
+                }
+                return _team_player;
+            }
+        }
+        private ObjectSet<team_player> _team_player;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<team> teams
         {
             get
@@ -102,22 +118,6 @@ namespace FT.Models
             }
         }
         private ObjectSet<team> _teams;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<teams_players> teams_players
-        {
-            get
-            {
-                if ((_teams_players == null))
-                {
-                    _teams_players = base.CreateObjectSet<teams_players>("teams_players");
-                }
-                return _teams_players;
-            }
-        }
-        private ObjectSet<teams_players> _teams_players;
 
         #endregion
         #region AddTo Methods
@@ -131,19 +131,19 @@ namespace FT.Models
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the team_player EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToteam_player(team_player team_player)
+        {
+            base.AddObject("team_player", team_player);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the teams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToteams(team team)
         {
             base.AddObject("teams", team);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the teams_players EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToteams_players(teams_players teams_players)
-        {
-            base.AddObject("teams_players", teams_players);
         }
 
         #endregion
@@ -241,18 +241,18 @@ namespace FT.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_teams_players_players", "teams_players")]
-        public EntityCollection<teams_players> teams_players
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "Player_IdFK", "team_player")]
+        public EntityCollection<team_player> team_player
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<teams_players>("ftModel.FK_teams_players_players", "teams_players");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<team_player>("ftModel.Player_IdFK", "team_player");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<teams_players>("ftModel.FK_teams_players_players", "teams_players", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<team_player>("ftModel.Player_IdFK", "team_player", value);
                 }
             }
         }
@@ -347,18 +347,18 @@ namespace FT.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_teams_players_teams", "teams_players")]
-        public EntityCollection<teams_players> teams_players
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_team_player_teams", "team_player")]
+        public EntityCollection<team_player> team_player
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<teams_players>("ftModel.FK_teams_players_teams", "teams_players");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<team_player>("ftModel.FK_team_player_teams", "team_player");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<teams_players>("ftModel.FK_teams_players_teams", "teams_players", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<team_player>("ftModel.FK_team_player_teams", "team_player", value);
                 }
             }
         }
@@ -369,26 +369,26 @@ namespace FT.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="ftModel", Name="teams_players")]
+    [EdmEntityTypeAttribute(NamespaceName="ftModel", Name="team_player")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class teams_players : EntityObject
+    public partial class team_player : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new teams_players object.
+        /// Create a new team_player object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="teamId">Initial value of the TeamId property.</param>
-        /// <param name="playersId">Initial value of the PlayersId property.</param>
-        public static teams_players Createteams_players(global::System.Int32 id, global::System.Int32 teamId, global::System.Int32 playersId)
+        /// <param name="team_Id">Initial value of the Team_Id property.</param>
+        /// <param name="player_Id">Initial value of the Player_Id property.</param>
+        public static team_player Createteam_player(global::System.Int32 id, global::System.Int32 team_Id, global::System.Int32 player_Id)
         {
-            teams_players teams_players = new teams_players();
-            teams_players.Id = id;
-            teams_players.TeamId = teamId;
-            teams_players.PlayersId = playersId;
-            return teams_players;
+            team_player team_player = new team_player();
+            team_player.Id = id;
+            team_player.Team_Id = team_Id;
+            team_player.Player_Id = player_Id;
+            return team_player;
         }
 
         #endregion
@@ -426,48 +426,48 @@ namespace FT.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 TeamId
+        public global::System.Int32 Team_Id
         {
             get
             {
-                return _TeamId;
+                return _Team_Id;
             }
             set
             {
-                OnTeamIdChanging(value);
-                ReportPropertyChanging("TeamId");
-                _TeamId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TeamId");
-                OnTeamIdChanged();
+                OnTeam_IdChanging(value);
+                ReportPropertyChanging("Team_Id");
+                _Team_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Team_Id");
+                OnTeam_IdChanged();
             }
         }
-        private global::System.Int32 _TeamId;
-        partial void OnTeamIdChanging(global::System.Int32 value);
-        partial void OnTeamIdChanged();
+        private global::System.Int32 _Team_Id;
+        partial void OnTeam_IdChanging(global::System.Int32 value);
+        partial void OnTeam_IdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 PlayersId
+        public global::System.Int32 Player_Id
         {
             get
             {
-                return _PlayersId;
+                return _Player_Id;
             }
             set
             {
-                OnPlayersIdChanging(value);
-                ReportPropertyChanging("PlayersId");
-                _PlayersId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("PlayersId");
-                OnPlayersIdChanged();
+                OnPlayer_IdChanging(value);
+                ReportPropertyChanging("Player_Id");
+                _Player_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Player_Id");
+                OnPlayer_IdChanged();
             }
         }
-        private global::System.Int32 _PlayersId;
-        partial void OnPlayersIdChanging(global::System.Int32 value);
-        partial void OnPlayersIdChanged();
+        private global::System.Int32 _Player_Id;
+        partial void OnPlayer_IdChanging(global::System.Int32 value);
+        partial void OnPlayer_IdChanged();
 
         #endregion
     
@@ -479,16 +479,16 @@ namespace FT.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_teams_players_players", "player")]
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "Player_IdFK", "player")]
         public player player
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<player>("ftModel.FK_teams_players_players", "player").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<player>("ftModel.Player_IdFK", "player").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<player>("ftModel.FK_teams_players_players", "player").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<player>("ftModel.Player_IdFK", "player").Value = value;
             }
         }
         /// <summary>
@@ -500,13 +500,13 @@ namespace FT.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<player>("ftModel.FK_teams_players_players", "player");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<player>("ftModel.Player_IdFK", "player");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<player>("ftModel.FK_teams_players_players", "player", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<player>("ftModel.Player_IdFK", "player", value);
                 }
             }
         }
@@ -517,16 +517,16 @@ namespace FT.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_teams_players_teams", "team")]
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_team_player_teams", "team")]
         public team team
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK_teams_players_teams", "team").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK_team_player_teams", "team").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK_teams_players_teams", "team").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK_team_player_teams", "team").Value = value;
             }
         }
         /// <summary>
@@ -538,13 +538,13 @@ namespace FT.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK_teams_players_teams", "team");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK_team_player_teams", "team");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<team>("ftModel.FK_teams_players_teams", "team", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<team>("ftModel.FK_team_player_teams", "team", value);
                 }
             }
         }
