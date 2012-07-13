@@ -38,14 +38,7 @@
                             @Html.DropDownList("teamId", FT.Controllers.ChampionshipController.teamsHelper.GetAllTeams())
                             <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
-                        @if (FT.Controllers.ChampionshipController.teamsHelper.selectedTeams.Count != 2)
-                        {
-                            @:<input class="ka-form-submit" type="submit" name="btnSubmit" value="AddTeam"/>
-                        }
-                        else
-                        {
-                            @:<input class="ka-form-submit disabled" type="submit" name="btnSubmit" value="AddTeam" disabled="disabled"/>
-                        }
+                        <input class="ka-form-submit" type="submit" name="btnSubmit" value="AddTeam"/>
                     </div>
                         
                     <br />

@@ -29,7 +29,8 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
+                    @Html.ActionLink("Generate Matches", "GenerateMatches", new { champId=item.Id })
                 </td>
             @:</tr>
         }
