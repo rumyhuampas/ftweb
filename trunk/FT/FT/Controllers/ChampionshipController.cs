@@ -3,17 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FT.Models;
+using FT.Extensions;
 
 namespace FT.Controllers
 {
     public class ChampionshipController : Controller
     {
+        private ftEntities db;
+        public static TeamsHelper teamsHelper;
+        public static championship champHelper;
+
+        public ChampionshipController()
+        {
+            db = new ftEntities();
+        }
         //
         // GET: /Championship/
 
         public ActionResult Index()
         {
+            ChampionshipController.champHelper = null;
+            ChampionshipController.teamsHelper = null;
             return View();
+        }
+
+        public ActionResult List()
+        {
+            ChampionshipController.champHelper = null;
+            ChampionshipController.teamsHelper = null;
+            return View(db.championships.OrderBy(champ => champ.Name));
         }
 
         //
@@ -29,7 +48,9 @@ namespace FT.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            if (ChampionshipController.teamsHelper == null) ChampionshipController.teamsHelper = new TeamsHelper();
+            if (ChampionshipController.champHelper == null) ChampionshipController.champHelper = new championship();
+            return View(ChampionshipController.champHelper);
         } 
 
         //

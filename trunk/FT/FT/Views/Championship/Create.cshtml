@@ -1,7 +1,7 @@
-﻿@model FT.Models.team
+﻿@model FT.Models.championship
 
 @{
-    ViewBag.Title = "Teams";
+    ViewBag.Title = "Championships";
     ViewBag.Subtitle = "New";
 }
 
@@ -10,7 +10,7 @@
 
 
 <div class="iphorm-outer">
-@using (Html.BeginForm("Create", "Team", FormMethod.Post, new { @class = "iphorm" }))
+@using (Html.BeginForm("Create", "Championship", FormMethod.Post, new { @class = "iphorm" }))
 {
     @Html.ValidationSummary(true)
 	<!--form class="iphorm" action="http://themes.truethemes.net/Karma-HTML/contact-form/process.php" method="post" enctype="multipart/form-data">-->
@@ -35,16 +35,16 @@
                         <label>Player</label>
                         <!--label for="name">Name <span class="required">(required)</span></label>-->
                         <div class="input-wrapper name-input-wrapper">
-                            @Html.DropDownList("playerId", FT.Controllers.TeamController.playersHelper.GetAllPlayers())
+                            @Html.DropDownList("teamId", FT.Controllers.ChampionshipController.teamsHelper.GetAllTeams())
                             <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
-                        @if (FT.Controllers.TeamController.playersHelper.selectedPlayers.Count != 2)
+                        @if (FT.Controllers.ChampionshipController.teamsHelper.selectedTeams.Count != 2)
                         {
-                            @:<input class="ka-form-submit" type="submit" name="btnSubmit" value="AddPlayer"/>
+                            @:<input class="ka-form-submit" type="submit" name="btnSubmit" value="AddTeam"/>
                         }
                         else
                         {
-                            @:<input class="ka-form-submit disabled" type="submit" name="btnSubmit" value="AddPlayer" disabled="disabled"/>
+                            @:<input class="ka-form-submit disabled" type="submit" name="btnSubmit" value="AddTeam" disabled="disabled"/>
                         }
                     </div>
                         
@@ -65,12 +65,12 @@
                         </thead>
 
                         <tbody>
-                            @foreach (FT.Models.player p in FT.Controllers.TeamController.playersHelper.selectedPlayers)
+                            @foreach (FT.Models.team t in FT.Controllers.ChampionshipController.teamsHelper.selectedTeams)
                             {
                                 <tr>
-                                    <td>@p.Id</td>
-                                    <td>@p.Name</td>
-                                    <td>@Html.ActionLink("Delete", "DeletePlayer", "Team", new { playerId=p.Id }, null)</td>
+                                    <td>@t.Id</td>
+                                    <td>@t.Name</td>
+                                    <td>@Html.ActionLink("Delete", "DeleteTeam", "Championship", new { teamId=t.Id }, null)</td>
                                 </tr>
                             }
                         </tbody>
@@ -81,7 +81,7 @@
                     <div class="button-wrapper submit-button-wrapper clearfix">
                         <div class="button-input-wrapper submit-button-input-wrapper">
                             <input class="ka-form-submit" type="submit" name="btnSubmit" value="Submit"/>
-                            @Html.ActionLink("Back to List", "Index", "Team", new { @class = "ka-form-submit" })
+                            @Html.ActionLink("Back to List", "List", "Championship", new { @class = "ka-form-submit" })
                         </div>
                     </div>
                     <!-- End Submit button -->

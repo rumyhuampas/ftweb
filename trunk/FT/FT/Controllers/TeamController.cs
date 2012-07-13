@@ -12,6 +12,7 @@ namespace FT.Controllers
     {
         private ftEntities db;
         public static PlayersHelper playersHelper;
+        public static team teamHelper;
 
         public TeamController()
         {
@@ -22,6 +23,8 @@ namespace FT.Controllers
 
         public ActionResult Index()
         {
+            TeamController.teamHelper = null;
+            TeamController.playersHelper = null;
             return View(db.teams.OrderBy(teams => teams.Name));
             //return View();
         }
@@ -39,12 +42,9 @@ namespace FT.Controllers
 
         public ActionResult Create()
         {
-            if (playersHelper == null)
-            {
-                playersHelper = new PlayersHelper();
-            }
-
-            return View(new team());
+            if (TeamController.playersHelper == null) TeamController.playersHelper = new PlayersHelper();
+            if(TeamController.teamHelper == null) TeamController.teamHelper = new team();
+            return View(TeamController.teamHelper);
         } 
 
         //
@@ -55,13 +55,15 @@ namespace FT.Controllers
         {
             try
             {
+                TeamController.teamHelper = teamObj;
+
                 if (btnSubmit == "AddPlayer")
                 {
                     int playerId = Convert.ToInt32(Request["playerId"]);
                     player p = (from player in db.players
                                 where player.Id == playerId
                                 select player).First();
-                    playersHelper.AddIfNotExist(p);
+                    TeamController.playersHelper.AddIfNotExist(p);
                     return View(teamObj);
                 }
 
@@ -76,7 +78,8 @@ namespace FT.Controllers
                     db.AddToteam_player(tp);
                 }
                 db.SaveChanges();
-                playersHelper = null;
+                TeamController.teamHelper = null;
+                TeamController.playersHelper = null;
 
                 return RedirectToAction("Index");
             }
@@ -86,12 +89,12 @@ namespace FT.Controllers
             }
         }
 
-        public ActionResult DeletePlayer(team teamObj, int playerId)
+        public ActionResult DeletePlayer(int playerId)
         {
-            playersHelper.DeletePlayer(playerId);
-            return RedirectToAction("Create", teamObj);
+            TeamController.playersHelper.DeletePlayer(playerId);
+            return RedirectToAction("Create");
         }
-        
+
         //
         // GET: /Team/Edit/5
  
@@ -123,19 +126,22 @@ namespace FT.Controllers
  
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        //
-        // POST: /Team/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add delete logic here
- 
+                IQueryable<team_player> list = from tps in db.team_player
+                                               where tps.Team_Id == id
+                                               select tps;
+                foreach (team_player tp in list)
+                {
+                    db.DeleteObject(tp);
+                }
+
+                team t = (from teams in db.teams
+                          where teams.Id == id
+                          select teams).First();
+                db.DeleteObject(t);
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             catch

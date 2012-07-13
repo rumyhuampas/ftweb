@@ -90,19 +90,22 @@ namespace FT.Controllers
  
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        //
-        // POST: /Player/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add delete logic here
- 
+                IQueryable<team_player> list = from tps in db.team_player
+                                               where tps.Player_Id == id
+                                               select tps;
+                foreach (team_player tp in list)
+                {
+                    db.DeleteObject(tp);
+                }
+
+                player p = (from players in db.players
+                          where players.Id == id
+                          select players).First();
+                db.DeleteObject(p);
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             catch

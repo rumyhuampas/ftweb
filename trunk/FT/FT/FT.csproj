@@ -69,6 +69,7 @@
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Extensions\PlayersHelper.cs" />
+    <Compile Include="Extensions\TeamsHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,6 +213,7 @@
     <Content Include="Content\themes\base\secondary-teal-grey.css" />
     <Content Include="Content\themes\base\standard.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\js\general.js" />
     <Content Include="Scripts\js\jquery-1-slider.js" />
     <Content Include="Scripts\js\jquery-1.4.2.min.js" />
     <Content Include="Scripts\js\jquery.cycle.all.min.js" />
@@ -270,6 +272,8 @@
     <None Include="Content\themes\base\fonts\ColabThi-webfont86d7.eot" />
     <Content Include="Views\Player\Index.cshtml" />
     <Content Include="Views\Player\Create.cshtml" />
+    <Content Include="Views\Championship\List.cshtml" />
+    <Content Include="Views\Championship\Create.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
