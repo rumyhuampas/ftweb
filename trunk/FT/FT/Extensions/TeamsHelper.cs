@@ -39,7 +39,7 @@ namespace FT.Extensions
             selectedTeams.Clear();
         }
 
-        public void DeletePlayer(int teamId)
+        public void DeleteTeam(int teamId)
         {
             for (int i = 0; i < selectedTeams.Count; i++)
             {

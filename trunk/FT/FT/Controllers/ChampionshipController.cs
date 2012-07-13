@@ -57,18 +57,48 @@ namespace FT.Controllers
         // POST: /Championship/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(championship champObj, string btnSubmit)
         {
             try
             {
-                // TODO: Add insert logic here
+                ChampionshipController.champHelper = champObj;
 
-                return RedirectToAction("Index");
+                if (btnSubmit == "AddTeam")
+                {
+                    int teamId = Convert.ToInt32(Request["teamId"]);
+                    team t = (from teams in db.teams
+                                where teams.Id == teamId
+                                select teams).First();
+                    ChampionshipController.teamsHelper.AddIfNotExist(t);
+                    return View(champObj);
+                }
+
+                db.AddTochampionships(champObj);
+                db.SaveChanges();
+                championship_teams ct = null;
+                foreach (team t in ChampionshipController.teamsHelper.selectedTeams)
+                {
+                    ct = new championship_teams();
+                    ct.championship_Id = champObj.Id;
+                    ct.team_Id = t.Id;
+                    db.AddTochampionship_teams(ct);
+                }
+                db.SaveChanges();
+                ChampionshipController.teamsHelper = null;
+                ChampionshipController.champHelper = null;
+
+                return RedirectToAction("List");
             }
             catch
             {
                 return View();
             }
+        }
+
+        public ActionResult DeleteTeam(int teamId)
+        {
+            ChampionshipController.teamsHelper.DeleteTeam(teamId);
+            return RedirectToAction("Create");
         }
         
         //
@@ -102,20 +132,84 @@ namespace FT.Controllers
  
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                IQueryable<championship_teams> list = from cts in db.championship_teams
+                                                      where cts.championship_Id == id
+                                                      select cts;
+                foreach (championship_teams ct in list)
+                {
+                    db.DeleteObject(ct);
+                }
+
+                championship c = (from champs in db.championships
+                                  where champs.Id == id
+                                  select champs).First();
+                db.DeleteObject(c);
+                db.SaveChanges();
+
+                return RedirectToAction("List");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         //
-        // POST: /Championship/Delete/5
+        // GET: /Championship/GenerateMatches/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult GenerateMatches(int champId)
         {
             try
             {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
+                IQueryable<championship_teams> champTeams = from cts in db.championship_teams
+                                                      where cts.championship_Id == champId
+                                                      select cts;
+
+                foreach (championship_teams ct in champTeams)
+                {
+                    int teamId = ct.team_Id;
+                    IQueryable<championship_teams> otherChampTeams = from cts in db.championship_teams
+                                                          where cts.championship_Id == champId && cts.team_Id != teamId
+                                                          select cts;
+                    foreach (championship_teams oct in otherChampTeams)
+                    {
+                        IQueryable<match> matchs = from m in db.matches
+                                                   where (m.team_a_Id == teamId && m.team_b_Id != oct.team_Id) ||
+                                                   (m.team_b_Id == teamId && m.team_a_Id != oct.team_Id)
+                                                   select m;
+                        if (matchs.Count() == 0)
+                        {
+                            match m = new match();
+                            m.team_a_Id = teamId;
+                            m.team_b_Id = oct.team_Id;
+                            db.AddTomatches(m);
+                            db.SaveChanges();
+
+                            championship_matches cm = new championship_matches();
+                            cm.championship_Id = champId;
+                            cm.match_Id = m.Id;
+                            db.SaveChanges();
+                        }
+                    }
+                }
+
+                /*IQueryable<championship_teams> list = from cts in db.championship_teams
+                                                      where cts.championship_Id == id
+                                                      select cts;
+                foreach (championship_teams ct in list)
+                {
+                    db.DeleteObject(ct);
+                }
+
+                championship c = (from champs in db.championships
+                                  where champs.Id == id
+                                  select champs).First();
+                db.DeleteObject(c);
+                db.SaveChanges();*/
+
+                return RedirectToAction("List");
             }
             catch
             {
