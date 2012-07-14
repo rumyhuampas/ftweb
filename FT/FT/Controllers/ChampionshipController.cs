@@ -38,9 +38,14 @@ namespace FT.Controllers
         //
         // GET: /Championship/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int champId)
         {
-            return View();
+            if (ChampionshipController.teamsHelper == null) ChampionshipController.teamsHelper = new TeamsHelper();
+
+            championship champ = (from c in db.championships
+                                  where c.Id == champId
+                                  select c).First();
+            return View(champ);
         }
 
         //
@@ -130,20 +135,29 @@ namespace FT.Controllers
         //
         // GET: /Championship/Delete/5
  
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int champId)
         {
             try
             {
                 IQueryable<championship_teams> list = from cts in db.championship_teams
-                                                      where cts.championship_Id == id
+                                                      where cts.championship_Id == champId
                                                       select cts;
                 foreach (championship_teams ct in list)
                 {
                     db.DeleteObject(ct);
                 }
 
+                IQueryable<championship_matches> champMatches = from cm in db.championship_matches
+                                                                where cm.championship_Id == champId
+                                                                select cm;
+                foreach (championship_matches cm in champMatches)
+                {
+                    db.DeleteObject(cm);
+                }
+                db.SaveChanges();
+
                 championship c = (from champs in db.championships
-                                  where champs.Id == id
+                                  where champs.Id == champId
                                   select champs).First();
                 db.DeleteObject(c);
                 db.SaveChanges();
@@ -163,51 +177,35 @@ namespace FT.Controllers
         {
             try
             {
+                IQueryable<championship_matches> champMatches = from cm in db.championship_matches
+                                                      where cm.championship_Id == champId
+                                                      select cm;
+                foreach(championship_matches cm in champMatches){
+                    db.DeleteObject(cm);
+                }
+                db.SaveChanges();
+
                 IQueryable<championship_teams> champTeams = from cts in db.championship_teams
                                                       where cts.championship_Id == champId
                                                       select cts;
 
-                foreach (championship_teams ct in champTeams)
+                List<championship_teams> champList = champTeams.ToList();
+                for (int i = 0; i < champList.Count; i++ )
                 {
-                    int teamId = ct.team_Id;
-                    IQueryable<championship_teams> otherChampTeams = from cts in db.championship_teams
-                                                          where cts.championship_Id == champId && cts.team_Id != teamId
-                                                          select cts;
-                    foreach (championship_teams oct in otherChampTeams)
+                    for (int j = i + 1; j < champList.Count; j++)
                     {
-                        IQueryable<match> matchs = from m in db.matches
-                                                   where (m.team_a_Id == teamId && m.team_b_Id != oct.team_Id) ||
-                                                   (m.team_b_Id == teamId && m.team_a_Id != oct.team_Id)
-                                                   select m;
-                        if (matchs.Count() == 0)
-                        {
-                            match m = new match();
-                            m.team_a_Id = teamId;
-                            m.team_b_Id = oct.team_Id;
-                            db.AddTomatches(m);
-                            db.SaveChanges();
-
-                            championship_matches cm = new championship_matches();
-                            cm.championship_Id = champId;
-                            cm.match_Id = m.Id;
-                            db.SaveChanges();
-                        }
-                    }
+                        match m = new match();
+                        m.team_a_Id = champList[i].team_Id;
+                        m.team_b_Id = champList[j].team_Id;
+                        db.AddTomatches(m);
+                        db.SaveChanges();
+                        championship_matches cm = new championship_matches();
+                        cm.championship_Id = champId;
+                        cm.match_Id = m.Id;
+                        db.AddTochampionship_matches(cm);
+                        db.SaveChanges();
+                    }   
                 }
-
-                /*IQueryable<championship_teams> list = from cts in db.championship_teams
-                                                      where cts.championship_Id == id
-                                                      select cts;
-                foreach (championship_teams ct in list)
-                {
-                    db.DeleteObject(ct);
-                }
-
-                championship c = (from champs in db.championships
-                                  where champs.Id == id
-                                  select champs).First();
-                db.DeleteObject(c);
-                db.SaveChanges();*/
 
                 return RedirectToAction("List");
             }

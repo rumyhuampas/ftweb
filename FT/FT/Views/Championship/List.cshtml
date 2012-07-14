@@ -26,7 +26,7 @@
         foreach (var item in Model) {
             @:<tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.ActionLink(item.Name, "Details", "Championship", new { champId=item.Id }, null)
                 </td>
                 <td>
                     @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
