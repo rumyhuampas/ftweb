@@ -13,6 +13,7 @@ namespace FT.Controllers
         private ftEntities db;
         public static TeamsHelper teamsHelper;
         public static championship champHelper;
+        public static FixtureHelper fixtureHelper;
 
         public ChampionshipController()
         {
@@ -40,7 +41,8 @@ namespace FT.Controllers
 
         public ActionResult Details(int champId)
         {
-            if (ChampionshipController.teamsHelper == null) ChampionshipController.teamsHelper = new TeamsHelper();
+            fixtureHelper = new FixtureHelper(champId);
+            fixtureHelper.BuildFixture();
 
             championship champ = (from c in db.championships
                                   where c.Id == champId
@@ -89,6 +91,9 @@ namespace FT.Controllers
                     db.AddTochampionship_teams(ct);
                 }
                 db.SaveChanges();
+
+                GenerateMatches(champObj.Id);
+
                 ChampionshipController.teamsHelper = null;
                 ChampionshipController.champHelper = null;
 
@@ -170,48 +175,37 @@ namespace FT.Controllers
             }
         }
 
-        //
-        // GET: /Championship/GenerateMatches/5
-
-        public ActionResult GenerateMatches(int champId)
+        public void GenerateMatches(int champId)
         {
-            try
+            IQueryable<championship_matches> champMatches = from cm in db.championship_matches
+                                                            where cm.championship_Id == champId
+                                                            select cm;
+            foreach (championship_matches cm in champMatches)
             {
-                IQueryable<championship_matches> champMatches = from cm in db.championship_matches
-                                                      where cm.championship_Id == champId
-                                                      select cm;
-                foreach(championship_matches cm in champMatches){
-                    db.DeleteObject(cm);
-                }
-                db.SaveChanges();
-
-                IQueryable<championship_teams> champTeams = from cts in db.championship_teams
-                                                      where cts.championship_Id == champId
-                                                      select cts;
-
-                List<championship_teams> champList = champTeams.ToList();
-                for (int i = 0; i < champList.Count; i++ )
-                {
-                    for (int j = i + 1; j < champList.Count; j++)
-                    {
-                        match m = new match();
-                        m.team_a_Id = champList[i].team_Id;
-                        m.team_b_Id = champList[j].team_Id;
-                        db.AddTomatches(m);
-                        db.SaveChanges();
-                        championship_matches cm = new championship_matches();
-                        cm.championship_Id = champId;
-                        cm.match_Id = m.Id;
-                        db.AddTochampionship_matches(cm);
-                        db.SaveChanges();
-                    }   
-                }
-
-                return RedirectToAction("List");
+                db.DeleteObject(cm);
             }
-            catch
+            db.SaveChanges();
+
+            IQueryable<championship_teams> champTeams = from cts in db.championship_teams
+                                                        where cts.championship_Id == champId
+                                                        select cts;
+
+            List<championship_teams> champList = champTeams.ToList();
+            for (int i = 0; i < champList.Count; i++)
             {
-                return View();
+                for (int j = i + 1; j < champList.Count; j++)
+                {
+                    match m = new match();
+                    m.team_a_Id = champList[i].team_Id;
+                    m.team_b_Id = champList[j].team_Id;
+                    db.AddTomatches(m);
+                    db.SaveChanges();
+                    championship_matches cm = new championship_matches();
+                    cm.championship_Id = champId;
+                    cm.match_Id = m.Id;
+                    db.AddTochampionship_matches(cm);
+                    db.SaveChanges();
+                }
             }
         }
     }

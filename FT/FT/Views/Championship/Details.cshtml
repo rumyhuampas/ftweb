@@ -9,6 +9,9 @@
 <br />
 
 <table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablecb" id="dyntable">
+    <div class="tableoptions">
+        @Html.ActionLink("Matches", "GetMatches", "Championship", new { @class = "ka-form-submit tablebtn" })
+    </div>
     <thead>
         <tr>
             <th class="head0">
@@ -18,22 +21,22 @@
                 <div class="DataTables_sort_wrapper">Team<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
             <th class="head0" style="width:150px">
-                <div class="DataTables_sort_wrapper">Played<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+                <div class="DataTables_sort_wrapper">GP<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
             <th class="head1" style="width:150px">
-                <div class="DataTables_sort_wrapper">Wins<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+                <div class="DataTables_sort_wrapper">W<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
             <th class="head0" style="width:150px">
-                <div class="DataTables_sort_wrapper">Draw<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+                <div class="DataTables_sort_wrapper">L<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
             <th class="head1" style="width:150px">
-                <div class="DataTables_sort_wrapper">Losses<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
-            </th>
-            <th class="head0" style="width:150px">
                 <div class="DataTables_sort_wrapper">Sets won<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
-            <th class="head1" style="width:150px">
+            <th class="head0" style="width:150px">
                 <div class="DataTables_sort_wrapper">Sets lost<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head1" style="width:150px">
+                <div class="DataTables_sort_wrapper">Sets diff<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
             <th class="head0" style="width:150px">
                 <div class="DataTables_sort_wrapper">Games won<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
@@ -42,6 +45,9 @@
                 <div class="DataTables_sort_wrapper">Games lost<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
             <th class="head0" style="width:150px">
+                <div class="DataTables_sort_wrapper">Games diff<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head1" style="width:150px">
                 <div class="DataTables_sort_wrapper">Points<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
         </tr>
@@ -51,20 +57,22 @@
 
     @{
         int i = 1;
-        foreach (var item in FT.Controllers.ChampionshipController.teamsHelper.selectedTeams) {
+        foreach (var item in FT.Controllers.ChampionshipController.fixtureHelper.rows) {
             @:<tr>
-                <td>i</td>
-                <td>@item.Name;</td>
-                <td>2</td>
-                <td>1</td>
-                <td>0</td>
-                <td>1</td>
-                <td>3</td>
-                <td>2</td>
-                <td>32</td>
-                <td>12</td>
-                <td>3</td>
+                <td>@i</td>
+                <td>@item.Team.Name</td>
+                <td>@item.Played</td>
+                <td>@item.Won</td>
+                <td>@item.Lost</td>
+                <td>@item.SetsWon</td>
+                <td>@item.SetsLost</td>
+                <td>@item.SetsDiff</td>
+                <td>@item.GamesWon</td>
+                <td>@item.GamesLost</td>
+                <td>@item.GamesDiff</td>
+                <td>@item.Points</td>
             @:</tr>
+            i++;
         }
     }
     </tbody>
