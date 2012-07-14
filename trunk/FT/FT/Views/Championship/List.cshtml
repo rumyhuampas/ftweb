@@ -29,8 +29,7 @@
                     @Html.ActionLink(item.Name, "Details", "Championship", new { champId=item.Id }, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
-                    @Html.ActionLink("Generate Matches", "GenerateMatches", new { champId=item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { champId = item.Id })
                 </td>
             @:</tr>
         }
