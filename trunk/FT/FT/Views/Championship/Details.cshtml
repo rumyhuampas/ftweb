@@ -1,0 +1,71 @@
+﻿@model FT.Models.championship
+
+@{
+    ViewBag.Title = "Championships";
+    ViewBag.Subtitle = "Details";
+}
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+<br />
+
+<table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablecb" id="dyntable">
+    <thead>
+        <tr>
+            <th class="head0">
+                <div class="DataTables_sort_wrapper">Pos<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head1">
+                <div class="DataTables_sort_wrapper">Team<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head0" style="width:150px">
+                <div class="DataTables_sort_wrapper">Played<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head1" style="width:150px">
+                <div class="DataTables_sort_wrapper">Wins<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head0" style="width:150px">
+                <div class="DataTables_sort_wrapper">Draw<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head1" style="width:150px">
+                <div class="DataTables_sort_wrapper">Losses<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head0" style="width:150px">
+                <div class="DataTables_sort_wrapper">Sets won<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head1" style="width:150px">
+                <div class="DataTables_sort_wrapper">Sets lost<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head0" style="width:150px">
+                <div class="DataTables_sort_wrapper">Games won<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head1" style="width:150px">
+                <div class="DataTables_sort_wrapper">Games lost<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head0" style="width:150px">
+                <div class="DataTables_sort_wrapper">Points<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @{
+        int i = 1;
+        foreach (var item in FT.Controllers.ChampionshipController.teamsHelper.selectedTeams) {
+            @:<tr>
+                <td>i</td>
+                <td>@item.Name;</td>
+                <td>2</td>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+                <td>3</td>
+                <td>2</td>
+                <td>32</td>
+                <td>12</td>
+                <td>3</td>
+            @:</tr>
+        }
+    }
+    </tbody>
+</table>
