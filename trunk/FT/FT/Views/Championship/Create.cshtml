@@ -18,7 +18,7 @@
 	        <div class="iphorm-inner">
                 <div class="iphorm-message"></div>
 	            <div class="iphorm-container clearfix">
-	                <!-- Begin Name element -->
+	                
                     <div class="element-wrapper name-element-wrapper clearfix">
                         @Html.LabelFor(model => model.Name)  
                         <!--label for="name">Name <span class="required">(required)</span></label>-->
@@ -27,6 +27,15 @@
                             <p>
                             @Html.ValidationMessageFor(model => model.Name)
                             </p>
+                            <!--input class="name-element" id="name" type="text" name="name">-->
+                        </div>
+                    </div>
+
+                    <div class="element-wrapper name-element-wrapper clearfix">
+                        @Html.LabelFor(model => model.Type)  
+                        <!--label for="name">Name <span class="required">(required)</span></label>-->
+                        <div class="input-wrapper name-input-wrapper">
+                            @Html.DropDownListFor(model=>model.Type, FT.Controllers.ChampionshipController.GetChampTypes())
                             <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
                     </div>
@@ -69,12 +78,11 @@
                         </tbody>
                     </table>
                     <br />
-                    <!-- End Name element -->
                     <!-- Begin Submit button -->
                     <div class="button-wrapper submit-button-wrapper clearfix">
                         <div class="button-input-wrapper submit-button-input-wrapper">
                             <input class="ka-form-submit" type="submit" name="btnSubmit" value="Submit"/>
-                            @Html.ActionLink("Back to List", "List", "Championship", new { @class = "ka-form-submit" })
+                            @Html.ActionLink("Back to List", "List", "Championship", null, new { @class = "ka-form-submit" })
                         </div>
                     </div>
                     <!-- End Submit button -->

@@ -58,7 +58,23 @@ namespace FT.Controllers
             if (ChampionshipController.teamsHelper == null) ChampionshipController.teamsHelper = new TeamsHelper();
             if (ChampionshipController.champHelper == null) ChampionshipController.champHelper = new championship();
             return View(ChampionshipController.champHelper);
-        } 
+        }
+
+        public static SelectList GetChampTypes()
+        {
+            List<SelectListItem> types = new List<SelectListItem>();
+            types.Add(new SelectListItem{
+                Text = "SINGLE",
+                Value = "SINGLE",
+                Selected = true
+            });
+            types.Add(new SelectListItem{
+                Text = "DOUBLE",
+                Value = "DOUBLE"
+            });
+
+            return new SelectList(types, "Text", "Value");
+        }
 
         //
         // POST: /Championship/Create
@@ -207,6 +223,14 @@ namespace FT.Controllers
                     db.SaveChanges();
                 }
             }
+        }
+
+        public ActionResult GetMatches(int champId)
+        {
+            championship champ = (from c in db.championships
+                                  where c.Id == champId
+                                  select c).First();
+            return View(champ);
         }
     }
 }

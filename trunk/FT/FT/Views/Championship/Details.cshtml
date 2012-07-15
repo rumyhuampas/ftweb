@@ -10,7 +10,7 @@
 
 <table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablecb" id="dyntable">
     <div class="tableoptions">
-        @Html.ActionLink("Matches", "GetMatches", "Championship", new { @class = "ka-form-submit tablebtn" })
+        @Html.ActionLink("Matches", "GetMatches", "Championship", new { champId = Model.Id }, new { @class = "ka-form-submit tablebtn" })
     </div>
     <thead>
         <tr>
@@ -77,3 +77,8 @@
     }
     </tbody>
 </table>
+<div class="button-wrapper submit-button-wrapper clearfix">
+    <div class="button-input-wrapper submit-button-input-wrapper">
+        @Html.ActionLink("Back", "List", "Championship", new { champId = Model.Id }, new { @class = "ka-form-submit" })
+    </div>
+</div>

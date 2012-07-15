@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace FT.Controllers
 {
-    public class HomeController : Controller
+    public class AboutController : Controller
     {
         //
-        // GET: /Home/
+        // GET: /About/
 
         public ActionResult Index()
         {

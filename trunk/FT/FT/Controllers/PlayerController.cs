@@ -88,12 +88,12 @@ namespace FT.Controllers
         //
         // GET: /Player/Delete/5
  
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int playerId)
         {
             try
             {
                 IQueryable<team_player> list = from tps in db.team_player
-                                               where tps.Player_Id == id
+                                               where tps.Player_Id == playerId
                                                select tps;
                 foreach (team_player tp in list)
                 {
@@ -101,7 +101,7 @@ namespace FT.Controllers
                 }
 
                 player p = (from players in db.players
-                          where players.Id == id
+                          where players.Id == playerId
                           select players).First();
                 db.DeleteObject(p);
                 db.SaveChanges();
