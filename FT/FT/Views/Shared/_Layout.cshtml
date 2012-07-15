@@ -34,18 +34,18 @@
 
                     <!-- ***************** - Top Toolbar Left Side - ***************** -->
                      <div class="sub-nav">
-                     <ul>
-                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                     <li><a href="template-sitemap.html">Sitemap</a></li>
-                     <li><a href="template-contact-iphone.html">Contact</a></li>
-                     </ul></div><!-- end sub-nav -->
+                        <ul>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li><a href="http://www.heineken.com/AgeGateway.aspx">Sponsors</a></li>
+                        </ul>
+                     </div><!-- end sub-nav -->
                      <!-- ***************** - END Top Toolbar Left Side - ***************** -->
 
                     <!-- ***************** - Top Toolbar Right Side - ***************** -->
                     <div class="sub-nav2">
                         <ul>
-                        <li><a href="http://en.wikipedia.org/wiki/Football_tennis">football tennis</a></li>
-                        <li><a href="http://www.twitter.com/truethemes">truethemes</a></li>
+                        <li><a href="http://en.wikipedia.org/wiki/Football_tennis">Football Tennis</a></li>
+                        <li>@Html.ActionLink("JJ" + Convert.ToChar(8482), "Index", "About")</li>
                         </ul>
                     </div><!-- end sub-nav2 -->
                     <!-- ***************** - END Top Toolbar Right Side - ***************** -->
@@ -58,37 +58,31 @@
                     <div class="header-area">
 
                         <!-- ***************** - LOGO - ***************** -->
-                        <a href="@Url.Action("Index", "Home")" class="logo"><img src="@Url.Content("~/Content/themes/base/images/logo.png")" alt="Football Tennis Web" /></a>
+                        <a href="@Url.Action("Index", "Home")" class="logo"><img src="@Url.Content("~/Content/themes/base/images/logo1.png")" alt="Football Tennis Web" /></a>
                         <!-- ***************** - END LOGO - ***************** -->
 
                         <!-- ***************** - Main Navigation - ***************** -->
                         <ul id="menu-main-nav">
-                        <li><a href="content-3d-effects.html"><span><strong>Teams</strong><span class="navi-description">teams information</span></span></a>
+                        <li><a href="@Url.Action("Index", "Player")"><span><strong>Players</strong><span class="navi-description">Players information</span></span></a>
                             <ul class="sub-menu">
-	                            <li><a href="content-3d-effects.html"><span>Add new team</span></a></li>
-	                            <li><a href="content-code-snippets.html"><span>Registered teams</span></a></li>
+	                            <li><a href="@Url.Action("Create", "Player")"><span>Add new player</span></a></li>
 	                        </ul>
                         </li>
 
-                        <li class="current_page_item"><a href="index-jquery-2.html"><span><strong>Players</strong><span class="navi-description">players information</span></span></a>
+                        <li class="current_page_item"><a href="@Url.Action("Index", "Team")"><span><strong>Teams</strong><span class="navi-description">Teams information</span></span></a>
                             <ul class="sub-menu">
-                                <li><a href="index-jquery-2.html"><span>Add new player</span></a></li>
-                                <li><a href="index-video-left.html"><span>Registered players</span></a></li>
+                                <li><a href="@Url.Action("Create", "Team")"><span>Add new player</span></a></li>
                             </ul>
                         </li>
 
-                        <li><a href="_demo-colors/color-autumn.html"><span><strong>Championships</strong><span class="navi-description">championships statistics</span></span></a>
+                        <li><a href="#"><span><strong>Championships</strong><span class="navi-description">Matches &amp; fixtures</span></span></a>
                             <ul class="sub-menu">
-	                            <li><a href="_demo-colors/color-autumn.html"><span>Singles</span></a></li>
-	                            <li><a href="_demo-colors/color-black.html"><span>Doubles</span></a></li>
+	                            <li><a href="#"><span>Singles</span></a></li>
+	                            <li><a href="@Url.Action("Index", "Championship")"><span>Doubles</span></a></li>
                             </ul>
                         </li>
 
-                        <li><a href="template-gallery-3d.html"><span><strong>2012 FT Championship</strong><span class="navi-description">matches &amp; fistures</span></span></a>
-                            <ul class="sub-menu">
-	                            <li><a href="template-gallery-3d.html"><span>Groups &amp Matches</span></a></li>
-                                <li><a href="template-gallery-4-columns.html"><span>Fixture</span></a></li>
-                            </ul>
+                        <li><a href="@Url.Action("Index", "About")"><span><strong>About FTWeb</strong><span class="navi-description">Developers information</span></span></a>
 
                         </li>
 
@@ -140,10 +134,8 @@
                         <div class="top-footer"><a href="#" class="link-top">top</a></div>
  
                         <ul>
-                            <li><a href="index-jquery-1.html">Home</a></li>
-                            <li><a href="template-sitemap.html">Sitemap</a></li>
-                            <li><a href="template-contact-iphone.html">Contact</a></li>
-                            <li><a href="template-blog.html">Blog</a></li>
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("JJ" + Convert.ToChar(8482), "Index", "About")</li>
                         </ul>
                     </div><!-- end foot_right -->
                 </div><!-- end info -->

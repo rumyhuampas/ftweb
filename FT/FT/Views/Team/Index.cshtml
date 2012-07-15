@@ -7,7 +7,7 @@
 
 <table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablecb" id="dyntable">
     <div class="tableoptions">
-        @Html.ActionLink("New", "Create", "Team", new { @class = "ka-form-submit tablebtn" })
+        @Html.ActionLink("New", "Create", "Team", null, new { @class = "ka-form-submit tablebtn" })
     </div>
     <thead>
         <tr>
@@ -29,10 +29,15 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    @Html.ActionLink("Delete", "Delete", "Team", new { teamId=item.Id }, null)
                 </td>
             @:</tr>
         }
     }
     </tbody>
 </table>
+<div class="button-wrapper submit-button-wrapper clearfix">
+    <div class="button-input-wrapper submit-button-input-wrapper">
+        @Html.ActionLink("Back", "Index", "Home", null, new { @class = "ka-form-submit" })
+    </div>
+</div>

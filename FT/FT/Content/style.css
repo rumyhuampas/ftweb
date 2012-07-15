@@ -523,6 +523,9 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 .video_right .video-main, .video_right .two-d-main, .video_right .three-d-main {float: right !important;}
 .video_right .video-sub, .video_right .two-d-sub, .video_right .three-d-sub {float: left !important;}
 
+.video-wide-main {width: 931px;height: 584px;float: left;background:url(themes/base/images/bg-video-wide.png) 0 0 no-repeat;position:relative;}
+.video-wide-frame {width: 911px;height: 504px;position: absolute;top: 10px;left: 10px;background: url(themes/base/images/preload-white.gif) center center no-repeat;}
+
 
 
 
@@ -1316,6 +1319,8 @@ table td, table th{padding:6px;}
 	background-image: url(themes/base/images/tables/sprites.png); background-repeat: no-repeat; background-position: -10px -47px; }
 .stdtable tbody tr:hover td.msgunread, .stdtable tbody tr.selected td.msgunread {
     background-image: url(themes/base/images/tables/sprites.png); background-repeat: no-repeat; background-position: -10px -47px; }
+    
+.matches tbody th, .stdtable tbody td { border-top: 1px solid #ccc;}
 
 
 .tableoptions { background: #eee url(themes/base/images/tables/titlebg.png) repeat-x top left; border: 1px solid #ccc; border-top: 1px solid #ccc; padding: 8px; }

@@ -295,11 +295,13 @@ namespace FT.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="name">Initial value of the Name property.</param>
-        public static championship Createchampionship(global::System.Int32 id, global::System.String name)
+        /// <param name="type">Initial value of the Type property.</param>
+        public static championship Createchampionship(global::System.Int32 id, global::System.String name, global::System.String type)
         {
             championship championship = new championship();
             championship.Id = id;
             championship.Name = name;
+            championship.Type = type;
             return championship;
         }
 
@@ -356,6 +358,30 @@ namespace FT.Models
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Type
+        {
+            get
+            {
+                return _Type;
+            }
+            set
+            {
+                OnTypeChanging(value);
+                ReportPropertyChanging("Type");
+                _Type = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Type");
+                OnTypeChanged();
+            }
+        }
+        private global::System.String _Type;
+        partial void OnTypeChanging(global::System.String value);
+        partial void OnTypeChanged();
 
         #endregion
     

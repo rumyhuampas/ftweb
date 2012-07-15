@@ -1,0 +1,49 @@
+﻿@model FT.Models.championship
+
+@{
+    ViewBag.Title = "Championships";
+    ViewBag.Subtitle = "Matches";
+}
+
+
+@foreach (var m in FT.Controllers.ChampionshipController.fixtureHelper.matches)
+{            
+    <table cellpadding="0" cellspacing="0" border="0" class="stdtable matches" id="dyntable">
+        <tbody>
+            <tr>
+                <td>@m.teamA.Name</td>
+                @foreach (var res in m.result)
+                {
+                    if (res.teamA > res.teamB)
+                    {
+                        <td><b>@res.teamA</b></td>
+                    }
+                    else
+                    {
+                        <td>@res.teamA</td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>@m.teamB.Name</td>
+                @foreach (var res in m.result)
+                {
+                    if (res.teamB > res.teamA)
+                    {
+                        <td><b>@res.teamB</b></td>
+                    }
+                    else
+                    {
+                        <td>@res.teamB</td>
+                    }
+                }
+            </tr>
+        </tbody>
+    </table>
+    <br />
+}
+<div class="button-wrapper submit-button-wrapper clearfix">
+    <div class="button-input-wrapper submit-button-input-wrapper">
+        @Html.ActionLink("Back", "Details", "Championship", new { champId = Model.Id }, new { @class = "ka-form-submit" })
+    </div>
+</div>

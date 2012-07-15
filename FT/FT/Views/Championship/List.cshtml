@@ -7,14 +7,17 @@
 
 <table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablecb" id="dyntable">
     <div class="tableoptions">
-        @Html.ActionLink("New", "Create", "Championship", new { @class = "ka-form-submit tablebtn" })
+        @Html.ActionLink("New", "Create", "Championship", null, new { @class = "ka-form-submit tablebtn" })
     </div>
     <thead>
         <tr>
             <th class="head0">
                 <div class="DataTables_sort_wrapper">Name<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
-            <th class="head1" style="width:150px">
+            <th class="head1">
+                <div class="DataTables_sort_wrapper">Type<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+            </th>
+            <th class="head0" style="width:150px">
                 <div class="DataTables_sort_wrapper">Actions<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
         </tr>
@@ -29,10 +32,18 @@
                     @Html.ActionLink(item.Name, "Details", "Championship", new { champId=item.Id }, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { champId = item.Id })
+                    @item.Type
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "Championship", new { champId = item.Id }, null)
                 </td>
             @:</tr>
         }
     }
     </tbody>
 </table>
+<div class="button-wrapper submit-button-wrapper clearfix">
+    <div class="button-input-wrapper submit-button-input-wrapper">
+        @Html.ActionLink("Back", "Index", "Championship", null, new { @class = "ka-form-submit" })
+    </div>
+</div>

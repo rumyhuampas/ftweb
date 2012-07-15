@@ -21,21 +21,48 @@ namespace FT.Extensions
         public int Points;
     }
 
+    public class MatchRes{
+        public int teamA;
+        public int teamB;
+    }
+
+    public class FixtureMatch{
+        public team teamA;
+        public team teamB;
+        public List<MatchRes> result;
+
+        public FixtureMatch()
+        {
+            result = new List<MatchRes>();
+        }
+
+        public void AddRes(int teamARes, int teamBRes){
+            MatchRes res = new MatchRes();
+            res.teamA = teamARes;
+            res.teamB = teamBRes;
+            result.Add(res);
+        }
+    }
+
     public class FixtureHelper
     {
         private ftEntities db;
         private int champId;
         public List<FixtureRow> rows;
+        public List<FixtureMatch> matches;
 
         public FixtureHelper(int championshipId)
         {
             db = new ftEntities();
             champId = championshipId;
             rows = new List<FixtureRow>();
+            matches = new List<FixtureMatch>();
         }
 
         public void BuildFixture()
         {
+            GenerateChampMatches();
+
             IQueryable<championship_teams> champTeamsList = from ct in db.championship_teams
                                                             where ct.championship_Id == champId
                                                             select ct;
@@ -46,6 +73,32 @@ namespace FT.Extensions
                 rows.Add(GenerateTeamResults(ct.team));
             }
             OrderTeams(rows);
+        }
+
+        private void GenerateChampMatches()
+        {
+            IQueryable<match> champMatchesList = from cm in db.championship_matches
+                                                 join m in db.matches on cm.match_Id equals m.Id
+                                                 where cm.championship_Id == champId
+                                                 select m;
+            List<match> champMatches = champMatchesList.ToList();
+            foreach (match m in champMatches)
+            {
+                FixtureMatch FMatch = new FixtureMatch();
+                FMatch.teamA = m.team;
+                FMatch.teamB = m.team1;
+
+                var matchResults = (from mr in db.match_results
+                                 where mr.match_Id == m.Id
+                                 select mr).OrderBy(mr => mr.Set);
+
+                foreach (var item in matchResults)
+                {
+                    FMatch.AddRes(item.team_a_games, item.team_b_games);
+                }
+
+                matches.Add(FMatch);
+            }
         }
 
         private FixtureRow GenerateTeamResults(team team)
