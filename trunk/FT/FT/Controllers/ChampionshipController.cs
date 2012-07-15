@@ -232,5 +232,13 @@ namespace FT.Controllers
                                   select c).First();
             return View(champ);
         }
+
+        public ActionResult Playoffs(int champId)
+        {
+            championship champ = (from c in db.championships
+                                  where c.Id == champId
+                                  select c).First();
+            return View(champ);
+        }
     }
 }
