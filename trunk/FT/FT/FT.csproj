@@ -177,7 +177,9 @@
     <Content Include="Content\themes\base\images\karma-teal-grey\bg-footer.jpg" />
     <Content Include="Content\themes\base\images\karma-teal-grey\bg-header-holder.jpg" />
     <Content Include="Content\themes\base\images\Logo.PNG" />
+    <Content Include="Content\themes\base\images\Logo1.png" />
     <Content Include="Content\themes\base\images\Logo2.PNG" />
+    <Content Include="Content\themes\base\images\Logo3.png" />
     <Content Include="Content\themes\base\images\preload-small-white.gif" />
     <Content Include="Content\themes\base\images\preload-small.gif" />
     <Content Include="Content\themes\base\images\preload-white.gif" />
