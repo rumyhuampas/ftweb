@@ -1355,6 +1355,30 @@ namespace FT.Models
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Logo
+        {
+            get
+            {
+                return _Logo;
+            }
+            set
+            {
+                OnLogoChanging(value);
+                ReportPropertyChanging("Logo");
+                _Logo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Logo");
+                OnLogoChanged();
+            }
+        }
+        private global::System.String _Logo;
+        partial void OnLogoChanging(global::System.String value);
+        partial void OnLogoChanged();
 
         #endregion
     

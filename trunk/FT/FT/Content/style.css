@@ -1178,6 +1178,7 @@ img a, a img {cursor:pointer;}
 /* preloading */
 .preload_full, .preload_regular, .preload_small, .preload_two_col_large, .preload_two_col_small, .preload_three_col_large, .preload_three_col_small{background: url(themes/base/images/preload.gif) center center no-repeat;margin:8px 0 0 9px;float:left;}
 .preload_four_col_small, .preload_four_col_large{background: url(themes/base/images/preload-small.gif) center center no-repeat !important;margin:8px 0 0 9px;float:left;}
+.preload_four_col_small, .nopreload_four_col_large{margin:8px 0 0 9px;float:left;}
 
 .preload_full {width: 922px;height: 201px;}
 .preload_regular {width: 703px;height: 201px;}
@@ -1187,6 +1188,7 @@ img a, a img {cursor:pointer;}
 .preload_three_col_large{width: 275px;height: 145px;}
 .preload_three_col_small{width: 202px;height: 113px;}
 .preload_four_col_large{width: 190px;height: 111px;}
+.nopreload_four_col_large{width: 190px;height: 111px;}
 .preload_four_col_small{width: 135px;height: 76px;}
 
 .modern_banner_full iframe{margin:8px 0 0 9px;float:left;}

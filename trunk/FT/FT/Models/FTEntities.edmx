@@ -110,6 +110,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Logo" Type="text" />
         </EntityType>
         <Association Name="FK__championship_matches_championships">
           <End Role="championships" Type="ftModel.Store.championships" Multiplicity="1" />
@@ -332,6 +333,7 @@
           <NavigationProperty Name="matches" Relationship="ftModel.FK__matches_teams" FromRole="team" ToRole="match" />
           <NavigationProperty Name="matches1" Relationship="ftModel.FK__matches_teams_2" FromRole="team" ToRole="match" />
           <NavigationProperty Name="team_player" Relationship="ftModel.FK_team_player_teams" FromRole="team" ToRole="team_player" />
+          <Property Type="String" Name="Logo" />
         </EntityType>
         <Association Name="FK__championship_matches_championships">
           <End Type="ftModel.championship" Role="championship" Multiplicity="1" />
@@ -502,6 +504,7 @@
           <EntitySetMapping Name="teams">
             <EntityTypeMapping TypeName="ftModel.team">
               <MappingFragment StoreEntitySet="teams">
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
