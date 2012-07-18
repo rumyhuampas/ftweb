@@ -25,16 +25,20 @@ namespace FT.Controllers
         {
             TeamController.teamHelper = null;
             TeamController.playersHelper = null;
-            return View(db.teams.OrderBy(teams => teams.Name));
+            List<team> teamList = db.teams.OrderBy(teams => teams.Name).ToList();
+            return View(teamList);
             //return View();
         }
 
         //
         // GET: /Team/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int teamId)
         {
-            return View();
+            var team = (from t in db.teams
+                     where t.Id == teamId
+                     select t).First();
+            return View(team);
         }
 
         //

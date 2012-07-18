@@ -1,0 +1,29 @@
+﻿@model FT.Models.team
+
+@{
+    ViewBag.Title = "Teams";
+    ViewBag.Subtitle = "Details";
+}
+
+<div class="main-holder home-holder">
+    <div class="content_full_width">
+        <div class="home-bnr-jquery">
+             <div class="home-banner-main">
+                <h2>@Html.Label(Model.Name)</h2>
+                <br />
+                <h2>Players:</h2>
+                @foreach (var tp in Model.team_player)
+                {
+                    <p>@Html.Label(tp.player.Name)</p>
+                }
+             </div><!-- end home-banner-main -->
+
+             <div class="home-banner-sub">
+                 <div class="home-banner-sub-content">
+                    <a href="#"><img src="@Html.Raw(Model.Logo ?? "")" width="404" height="256"></a>
+                    <div class="home-banner-bottom">&nbsp;</div>
+                 </div><!-- end home-banner-sub-content -->
+             </div><!-- end home-banner-sub -->
+        </div><!-- end home-bnr-jquery -->
+    </div><!-- end content -->
+</div>
