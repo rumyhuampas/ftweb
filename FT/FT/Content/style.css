@@ -470,7 +470,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 .home-bnr-jquery ul li {width: 940px;height: 283px;}
 .home-bnr-jquery ul li.jqslider{display: none;}
 .home-jquery-content {padding-top: 45px;}
-.home-bnr-jquery .home-banner-sub {width: 432px;height:270px;background:url(themes/base/images/global-sprite.png) 0 -1188px no-repeat;top:13px;right:35px;position:absolute;}
+.home-bnr-jquery .home-banner-sub {width: 432px;height:270px;background:url(themes/base/images/global-sprite.png) 0 -1188px no-repeat;top:3px;right:35px;position:absolute;}
 .home-bnr-jquery .home-banner-sub-content {width: 404px;height:256px;margin: 14px 0 0 14px;}
 .home-banner-bottom {width: 404px;height:7px;background:url(themes/base/images/jquery-btm-shdw.png) 0 0 no-repeat;top:263px;right:14px;position:absolute;z-index:4;}
 .home-bnr-jquery .home-banner-main {width: 375px;top:40px;left:45px;position:absolute;}
