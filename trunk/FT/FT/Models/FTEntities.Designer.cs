@@ -26,6 +26,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("ftModel", "FK__matches_teams_2", "team", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.team), "match", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.match), true)]
 [assembly: EdmRelationshipAttribute("ftModel", "FK_team_player_players", "player", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.player), "team_player", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.team_player), true)]
 [assembly: EdmRelationshipAttribute("ftModel", "FK_team_player_teams", "team", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.team), "team_player", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.team_player), true)]
+[assembly: EdmRelationshipAttribute("ftModel", "FK_match_results_matches", "match", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.match), "match_results", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.match_results), true)]
 
 #endregion
 
@@ -1010,6 +1011,28 @@ namespace FT.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_match_results_matches", "match_results")]
+        public EntityCollection<match_results> match_results
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<match_results>("ftModel.FK_match_results_matches", "match_results");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<match_results>("ftModel.FK_match_results_matches", "match_results", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -1171,6 +1194,47 @@ namespace FT.Models
 
         #endregion
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_match_results_matches", "match")]
+        public match match
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<match>("ftModel.FK_match_results_matches", "match").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<match>("ftModel.FK_match_results_matches", "match").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<match> matchReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<match>("ftModel.FK_match_results_matches", "match");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<match>("ftModel.FK_match_results_matches", "match", value);
+                }
+            }
+        }
+
+        #endregion
     }
     
     /// <summary>
@@ -1249,6 +1313,30 @@ namespace FT.Models
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Image
+        {
+            get
+            {
+                return _Image;
+            }
+            set
+            {
+                OnImageChanging(value);
+                ReportPropertyChanging("Image");
+                _Image = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Image");
+                OnImageChanged();
+            }
+        }
+        private global::System.String _Image;
+        partial void OnImageChanging(global::System.String value);
+        partial void OnImageChanged();
 
         #endregion
     
