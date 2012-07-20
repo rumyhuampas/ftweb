@@ -17,19 +17,32 @@
 	        <div class="iphorm-inner">
                 <div class="iphorm-message"></div>
 	            <div class="iphorm-container clearfix">
-	                <!-- Begin Name element -->
+
                     <div class="element-wrapper name-element-wrapper clearfix">
                         @Html.LabelFor(model => model.Name)  
-                        <!--label for="name">Name <span class="required">(required)</span></label>-->
                         <div class="input-wrapper name-input-wrapper">
                             @Html.TextBoxFor(model => model.Name, new {@class="name-element" })
                             <p>
                             @Html.ValidationMessageFor(model => model.Name)
                             </p>
-                            <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
                     </div>
-                    <!-- End Name element -->
+
+                    <div class="element-wrapper name-element-wrapper clearfix">
+                        @Html.LabelFor(model => model.Image)  
+                        <div class="input-wrapper name-input-wrapper">
+                            @Html.TextBoxFor(model => model.Image, new { @id= "playerimageurl", @class = "name-element" })
+                        </div>
+                    </div>
+
+                    <div class="modern_img_frame modern_four_col_large">
+                        <div class="nopreload_four_col_large">
+ 	                        <div class="attachment-fadeIn" style="display: block; ">
+                                <img id="playerimageimg" src="" width="190" height="111">
+                            </div>
+                        </div>
+	                </div>
+
                     <!-- Begin Submit button -->
                     <div class="button-wrapper submit-button-wrapper clearfix">
                         <div class="button-input-wrapper submit-button-input-wrapper">

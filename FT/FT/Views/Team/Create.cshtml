@@ -20,30 +20,26 @@
 	            <div class="iphorm-container clearfix">
 	                <!-- Begin Name element -->
                     <div class="element-wrapper name-element-wrapper clearfix">
-                        @Html.LabelFor(model => model.Name)  
-                        <!--label for="name">Name <span class="required">(required)</span></label>-->
+                        @Html.LabelFor(model => model.Name)
                         <div class="input-wrapper name-input-wrapper">
                             @Html.TextBoxFor(model => model.Name, new { @class = "name-element" })
                             <p>
                             @Html.ValidationMessageFor(model => model.Name)
                             </p>
-                            <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
                     </div>
 
                     <div class="element-wrapper name-element-wrapper clearfix">
                         @Html.LabelFor(model => model.Logo)  
-                        <!--label for="name">Name <span class="required">(required)</span></label>-->
                         <div class="input-wrapper name-input-wrapper">
                             @Html.TextBoxFor(model => model.Logo, new { @id= "teamlogourl", @class = "name-element" })
-                            <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
                     </div>
 
                     <div class="modern_img_frame modern_four_col_large">
                         <div class="nopreload_four_col_large">
  	                        <div class="attachment-fadeIn" style="display: block; ">
-                                <a href="content-code-snippets.html"><img id="teamlogoimg" src="" width="190" height="111"></a>
+                                <img id="teamlogoimg" src="" width="190" height="111">
                             </div>
                         </div>
 	                </div>

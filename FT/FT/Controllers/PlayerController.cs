@@ -27,9 +27,12 @@ namespace FT.Controllers
         //
         // GET: /Player/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int playerId)
         {
-            return View();
+            var player = (from p in db.players
+                        where p.Id == playerId
+                        select p).First();
+            return View(player);
         }
 
         //

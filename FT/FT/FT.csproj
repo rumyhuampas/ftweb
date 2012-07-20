@@ -283,6 +283,7 @@
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Championship\Playoffs.cshtml" />
     <Content Include="Views\Team\Details.cshtml" />
+    <Content Include="Views\Player\Details.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
