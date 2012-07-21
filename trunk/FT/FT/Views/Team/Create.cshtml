@@ -8,6 +8,7 @@
 <script src="@Url.Content("~/Scripts/js/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/js/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
+@Html.Flash()
 
 <div class="iphorm-outer">
 @using (Html.BeginForm("Create", "Team", FormMethod.Post, new { @class = "iphorm" }))

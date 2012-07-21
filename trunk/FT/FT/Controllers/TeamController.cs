@@ -71,21 +71,28 @@ namespace FT.Controllers
                     return View(teamObj);
                 }
 
-                db.AddToteams(teamObj);
-                db.SaveChanges();
-                team_player tp = null;
-                foreach (player p in playersHelper.selectedPlayers)
+                if (TeamController.playersHelper.selectedPlayers.Count == 2)
                 {
-                    tp = new team_player();
-                    tp.Team_Id = teamObj.Id;
-                    tp.Player_Id = p.Id;
-                    db.AddToteam_player(tp);
-                }
-                db.SaveChanges();
-                TeamController.teamHelper = null;
-                TeamController.playersHelper = null;
+                    db.AddToteams(teamObj);
+                    db.SaveChanges();
+                    team_player tp = null;
+                    foreach (player p in playersHelper.selectedPlayers)
+                    {
+                        tp = new team_player();
+                        tp.Team_Id = teamObj.Id;
+                        tp.Player_Id = p.Id;
+                        db.AddToteam_player(tp);
+                    }
+                    db.SaveChanges();
+                    TeamController.teamHelper = null;
+                    TeamController.playersHelper = null;
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Team").WithFlash(new { msginfo = "Team successfully created." });
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Team").WithFlash(new { msgerror = "Team must have two players." });
+                }
             }
             catch
             {
@@ -96,7 +103,7 @@ namespace FT.Controllers
         public ActionResult DeletePlayer(int playerId)
         {
             TeamController.playersHelper.DeletePlayer(playerId);
-            return RedirectToAction("Create");
+            return RedirectToAction("Create", "Team");
         }
 
         //
@@ -146,11 +153,11 @@ namespace FT.Controllers
                 db.DeleteObject(t);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Team").WithFlash(new { msginfo = "Team successfully deleted." });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return RedirectToAction("Index", "Player").WithFlash(new { msgerror = ex.Message });
             }
         }
     }

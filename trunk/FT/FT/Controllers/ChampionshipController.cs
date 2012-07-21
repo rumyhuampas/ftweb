@@ -115,12 +115,11 @@ namespace FT.Controllers
                     ChampionshipController.teamsHelper = null;
                     ChampionshipController.champHelper = null;
 
-                    return RedirectToAction("List");
+                    return RedirectToAction("List", "Championship").WithFlash(new { msginfo = "Championship successfully created." });
                 }
                 else
                 {
                     return RedirectToAction("Create", "Championship").WithFlash(new { msgerror = "Teams must be at least 4." });
-                    //return View();
                 }
             }
             catch
@@ -132,7 +131,7 @@ namespace FT.Controllers
         public ActionResult DeleteTeam(int teamId)
         {
             ChampionshipController.teamsHelper.DeleteTeam(teamId);
-            return RedirectToAction("Create");
+            return RedirectToAction("Create", "Championship");
         }
         
         //
@@ -191,11 +190,11 @@ namespace FT.Controllers
                 db.DeleteObject(c);
                 db.SaveChanges();
 
-                return RedirectToAction("List");
+                return RedirectToAction("List", "Championship").WithFlash(new { msginfo = "Championship successfully deleted" });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return RedirectToAction("Index", "Championship").WithFlash(new { msgerror = ex.Message });
             }
         }
 
