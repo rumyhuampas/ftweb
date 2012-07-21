@@ -69,9 +69,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Extensions\ActionResultExtensions.cs" />
     <Compile Include="Extensions\FixtureHelper.cs" />
+    <Compile Include="Extensions\FlashHtmlExtensions.cs" />
+    <Compile Include="Extensions\FlashStorage.cs" />
     <Compile Include="Extensions\PlayersHelper.cs" />
     <Compile Include="Extensions\TeamsHelper.cs" />
+    <Compile Include="Extensions\WrappedActionResultWithFlash.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
