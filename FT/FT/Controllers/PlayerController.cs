@@ -54,7 +54,7 @@ namespace FT.Controllers
                 // TODO: Add insert logic here
                 db.AddToplayers(playerObj);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Player").WithFlash(new { msginfo = "Player successfully created." });
             }
             catch
             {
@@ -109,11 +109,11 @@ namespace FT.Controllers
                 db.DeleteObject(p);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Player").WithFlash(new { msginfo = "Player successfully deleted." });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return RedirectToAction("Index", "Player").WithFlash(new { msgerror = ex.Message });
             }
         }
     }
