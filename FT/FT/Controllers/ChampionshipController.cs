@@ -96,24 +96,32 @@ namespace FT.Controllers
                     return View(champObj);
                 }
 
-                db.AddTochampionships(champObj);
-                db.SaveChanges();
-                championship_teams ct = null;
-                foreach (team t in ChampionshipController.teamsHelper.selectedTeams)
+                if (ChampionshipController.teamsHelper.selectedTeams.Count > 3)
                 {
-                    ct = new championship_teams();
-                    ct.championship_Id = champObj.Id;
-                    ct.team_Id = t.Id;
-                    db.AddTochampionship_teams(ct);
+                    db.AddTochampionships(champObj);
+                    db.SaveChanges();
+                    championship_teams ct = null;
+                    foreach (team t in ChampionshipController.teamsHelper.selectedTeams)
+                    {
+                        ct = new championship_teams();
+                        ct.championship_Id = champObj.Id;
+                        ct.team_Id = t.Id;
+                        db.AddTochampionship_teams(ct);
+                    }
+                    db.SaveChanges();
+
+                    GenerateMatches(champObj.Id);
+
+                    ChampionshipController.teamsHelper = null;
+                    ChampionshipController.champHelper = null;
+
+                    return RedirectToAction("List");
                 }
-                db.SaveChanges();
-
-                GenerateMatches(champObj.Id);
-
-                ChampionshipController.teamsHelper = null;
-                ChampionshipController.champHelper = null;
-
-                return RedirectToAction("List");
+                else
+                {
+                    return RedirectToAction("Create", "Championship").WithFlash(new { msgerror = "Teams must be at least 4." });
+                    //return View();
+                }
             }
             catch
             {
