@@ -42,6 +42,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="championship_Id" Type="int" Nullable="false" />
     <Property Name="match_Id" Type="int" Nullable="false" />
+    <Property Name="type" Type="longtext" Nullable="false" />
   </EntityType>
   <EntityType Name="championship_teams">
     <Key>
@@ -202,6 +203,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="championship_Id" Nullable="false" />
           <Property Type="Int32" Name="match_Id" Nullable="false" />
+          <Property Type="String" Name="type" Nullable="false" />
           <NavigationProperty Name="championship" Relationship="ftModel.FK__championship_matches_championships" FromRole="championship_matches" ToRole="championship" />
           <NavigationProperty Name="match" Relationship="ftModel.FK__championship_matches_matches" FromRole="championship_matches" ToRole="match" />
         </EntityType>
@@ -343,6 +345,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="championship_Id" ColumnName="championship_Id" />
           <ScalarProperty Name="match_Id" ColumnName="match_Id" />
+          <ScalarProperty Name="type" ColumnName="type" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -431,31 +434,31 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="FTEntities">
-        <EntityTypeShape EntityType="ftModel.championship_matches" Width="1.5" PointX="5" PointY="5.375" Height="1.9802864583333317" />
-        <EntityTypeShape EntityType="ftModel.championship_teams" Width="1.5" PointX="5" PointY="8.125" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="ftModel.championship" Width="1.5" PointX="2.75" PointY="5.375" Height="1.9802864583333353" />
-        <EntityTypeShape EntityType="ftModel.match_results" Width="1.5" PointX="5.75" PointY="0.75" Height="1.9802864583333317" />
-        <EntityTypeShape EntityType="ftModel.match" Width="1.5" PointX="2.75" PointY="8.375" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ftModel.championship_matches" Width="1.5" PointX="5" PointY="5.375" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="ftModel.championship_teams" Width="1.5" PointX="5" PointY="8.5" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ftModel.championship" Width="1.5" PointX="2.75" PointY="5.375" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="ftModel.match_results" Width="1.5" PointX="5.75" PointY="0.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="ftModel.match" Width="1.5" PointX="2.75" PointY="8.5" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="ftModel.player" Width="1.5" PointX="0.75" PointY="1" Height="1.7879850260416677" />
         <EntityTypeShape EntityType="ftModel.team_player" Width="1.5" PointX="3" PointY="0.875" Height="1.9802864583333388" />
         <EntityTypeShape EntityType="ftModel.team" Width="1.5" PointX="0.75" PointY="4" Height="1.7879850260416674" />
         <AssociationConnector Association="ftModel.FK__championship_matches_championships" >
-          <ConnectorPoint PointX="4.25" PointY="6.3651432291666659" />
-          <ConnectorPoint PointX="5" PointY="6.3651432291666659" />
+          <ConnectorPoint PointX="4.25" PointY="6.3651432291666694" />
+          <ConnectorPoint PointX="5" PointY="6.3651432291666694" />
         </AssociationConnector>
         <AssociationConnector Association="ftModel.FK__championship_matches_matches" >
-          <ConnectorPoint PointX="4.25" PointY="8.3761528461538468" />
-          <ConnectorPoint PointX="4.625" PointY="8.0011528461538468" />
-          <ConnectorPoint PointX="4.625" PointY="6.8914668437499991" />
-          <ConnectorPoint PointX="5" PointY="6.8914668437499991" />
+          <ConnectorPoint PointX="4.25" PointY="8.5011528461538468" />
+          <ConnectorPoint PointX="4.625" PointY="8.1261528461538468" />
+          <ConnectorPoint PointX="4.625" PointY="6.987617559895833" />
+          <ConnectorPoint PointX="5" PointY="6.987617559895833" />
         </AssociationConnector>
         <AssociationConnector Association="ftModel.FK__championship_teams_championship" >
-          <ConnectorPoint PointX="4.25" PointY="7.2929777660256425" />
-          <ConnectorPoint PointX="4.5660744349011217" PointY="7.6090522009267634" />
-          <ConnectorPoint PointX="4.6839255650988791" PointY="7.7269033311245217" />
-          <ConnectorPoint PointX="4.8125" PointY="7.8554777660256425" />
-          <ConnectorPoint PointX="4.8125" PointY="9.0189925130208337" />
-          <ConnectorPoint PointX="5" PointY="9.0189925130208337" />
+          <ConnectorPoint PointX="4.25" PointY="7.2929777660256461" />
+          <ConnectorPoint PointX="4.5660744349011217" PointY="7.6090522009267669" />
+          <ConnectorPoint PointX="4.6839255650988791" PointY="7.7269033311245252" />
+          <ConnectorPoint PointX="4.8125" PointY="7.8554777660256461" />
+          <ConnectorPoint PointX="4.8125" PointY="9.3939925130208337" />
+          <ConnectorPoint PointX="5" PointY="9.3939925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="ftModel.FK_team_player_players" >
           <ConnectorPoint PointX="2.25" PointY="1.8939925130208337" />

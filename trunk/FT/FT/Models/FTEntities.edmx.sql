@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 07/22/2012 04:48:42
+-- Date Created: 07/22/2012 15:45:16
 -- Generated from EDMX file: C:\Users\Javier\Documents\Visual Studio 2010\Projects\FT\FT\Models\FTEntities.edmx
 -- --------------------------------------------------
 
@@ -68,7 +68,8 @@ GO
 CREATE TABLE [dbo].[championship_matches] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [championship_Id] int  NOT NULL,
-    [match_Id] int  NOT NULL
+    [match_Id] int  NOT NULL,
+    [type] longtext  NOT NULL
 );
 GO
 
