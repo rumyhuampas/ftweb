@@ -305,5 +305,17 @@ namespace FT.Controllers
                                   select c).First();
             return View(champ);
         }
+
+        public static bool EnablePlayoffs()
+        {
+            foreach (var m in fixtureHelper.matches)
+            {
+                if (m.result.Count == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
