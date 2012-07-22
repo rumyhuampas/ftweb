@@ -36,7 +36,7 @@
                         @Html.LabelFor(model => model.Type)  
                         <!--label for="name">Name <span class="required">(required)</span></label>-->
                         <div class="input-wrapper name-input-wrapper">
-                            @Html.DropDownListFor(model=>model.Type, FT.Controllers.ChampionshipController.GetChampTypes())
+                        @Html.DropDownList("champtype", FT.Controllers.ChampionshipController.GetChampTypes(), new { @Id="champtype" })
                             <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         <label>Player</label>
                         <!--label for="name">Name <span class="required">(required)</span></label>-->
                         <div class="input-wrapper name-input-wrapper">
-                            @Html.DropDownList("teamId", FT.Controllers.ChampionshipController.teamsHelper.GetAllTeams())
+                            <select id="champteams" name="champteams"></select>
                             <!--input class="name-element" id="name" type="text" name="name">-->
                         </div>
                         <input class="ka-form-submit" type="submit" name="btnSubmit" value="AddTeam"/>
@@ -68,7 +68,7 @@
                         </thead>
 
                         <tbody>
-                            @foreach (FT.Models.team t in FT.Controllers.ChampionshipController.teamsHelper.selectedTeams)
+                            @foreach (FT.Extensions.ChampTeam t in FT.Controllers.ChampionshipController.teamsHelper.selectedTeams)
                             {
                                 <tr>
                                     <td>@t.Id</td>

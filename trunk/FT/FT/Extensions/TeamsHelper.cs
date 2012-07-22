@@ -7,17 +7,24 @@ using System.Web.Mvc;
 
 namespace FT.Extensions
 {
+    public class ChampTeam
+    {
+        public string Type { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
     public class TeamsHelper
     {
         private ftEntities db;
-        public List<team> selectedTeams;
+        public List<ChampTeam> selectedTeams;
 
         public TeamsHelper()
         {
-            selectedTeams = new List<team>();
+            selectedTeams = new List<ChampTeam>();
         }
 
-        public void AddIfNotExist(team t)
+        public void AddIfNotExist(ChampTeam t)
         {
             bool found = false;
             for (int i = 0; i < selectedTeams.Count; i++)
@@ -51,12 +58,12 @@ namespace FT.Extensions
             }
         }
 
-        public SelectList GetAllTeams()
+        /*public SelectList GetAllTeams()
         {
             db = new ftEntities();
             var teams = (from t in db.teams
                            select t).OrderBy(team => team.Name);
             return new SelectList(teams, "Id", "Name");
-        }
+        }*/
     }
 }
