@@ -447,12 +447,14 @@ namespace FT.Models
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="championship_Id">Initial value of the championship_Id property.</param>
         /// <param name="match_Id">Initial value of the match_Id property.</param>
-        public static championship_matches Createchampionship_matches(global::System.Int32 id, global::System.Int32 championship_Id, global::System.Int32 match_Id)
+        /// <param name="type">Initial value of the type property.</param>
+        public static championship_matches Createchampionship_matches(global::System.Int32 id, global::System.Int32 championship_Id, global::System.Int32 match_Id, global::System.String type)
         {
             championship_matches championship_matches = new championship_matches();
             championship_matches.Id = id;
             championship_matches.championship_Id = championship_Id;
             championship_matches.match_Id = match_Id;
+            championship_matches.type = type;
             return championship_matches;
         }
 
@@ -533,6 +535,30 @@ namespace FT.Models
         private global::System.Int32 _match_Id;
         partial void Onmatch_IdChanging(global::System.Int32 value);
         partial void Onmatch_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String type
+        {
+            get
+            {
+                return _type;
+            }
+            set
+            {
+                OntypeChanging(value);
+                ReportPropertyChanging("type");
+                _type = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("type");
+                OntypeChanged();
+            }
+        }
+        private global::System.String _type;
+        partial void OntypeChanging(global::System.String value);
+        partial void OntypeChanged();
 
         #endregion
     

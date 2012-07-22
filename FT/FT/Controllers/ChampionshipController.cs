@@ -284,6 +284,7 @@ namespace FT.Controllers
                     championship_matches cm = new championship_matches();
                     cm.championship_Id = champId;
                     cm.match_Id = m.Id;
+                    cm.type = "GROUP";
                     db.AddTochampionship_matches(cm);
                     db.SaveChanges();
                 }
@@ -303,7 +304,43 @@ namespace FT.Controllers
             championship champ = (from c in db.championships
                                   where c.Id == champId
                                   select c).First();
+            GeneratePlayoffMatches(champId);
             return View(champ);
+        }
+
+        public void GeneratePlayoffMatches(int champId)
+        {
+            /*int plyoffsMatchesCount = (from cm in db.championship_matches
+                                       where cm.type == "PLAYOFF" && cm.championship_Id == champId
+                                       select cm).Count();
+            if (plyoffsMatchesCount == 0)
+            {
+                GeneratePlayoffMatches(champId);
+            }
+
+            List<FixtureRow> list = new List<FixtureRow>();
+            for (int i = 0; i < 4; i++)
+            {
+                list.Add(fixtureHelper.rows[i]);
+            }
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                for (int j = i + 1; j < list.Count; j++)
+                {
+                    match m = new match();
+                    m.team_a_Id = list[i].Team.Id;
+                    m.team_b_Id = list[j].Team.Id;
+                    db.AddTomatches(m);
+                    db.SaveChanges();
+                    championship_matches cm = new championship_matches();
+                    cm.championship_Id = champId;
+                    cm.match_Id = m.Id;
+                    cm.type = "PLAYOFF";
+                    db.AddTochampionship_matches(cm);
+                    db.SaveChanges();
+                }
+            }*/
         }
 
         public static bool EnablePlayoffs()

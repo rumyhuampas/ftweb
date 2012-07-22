@@ -2029,3 +2029,11 @@ border-radius: 5px;
 .portfolio_content_top_portrait {float: left;width: 293px;height: 389px;}
 .port_img_portrait_full {width: 612px;height: 792px;float: left;position: absolute;top:8px;left:9px;}
 .portfolio_portrait_full_last {float: right;width: 630px;height: 836px;position: relative;}
+
+
+/*---------------------------------------------------------------*/
+/* PLAYOFFS
+/*---------------------------------------------------------------*/
+.playoffs {width: 980px; float: left;}
+.playoffs .team{background:#BDBDBD; width:33%;}
+.playoffs .vs{float:right;}
