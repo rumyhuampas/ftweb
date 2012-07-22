@@ -144,6 +144,7 @@
     <Content Include="Content\themes\base\images\bg-tab-box.gif" />
     <Content Include="Content\themes\base\images\bg-video.png" />
     <Content Include="Content\themes\base\images\bg_quote_wrap.png" />
+    <Content Include="Content\themes\base\images\brackets.jpg" />
     <Content Include="Content\themes\base\images\buttons\bluishBtn.png" />
     <Content Include="Content\themes\base\images\buttons\dark_blue_btn.png" />
     <Content Include="Content\themes\base\images\buttons\greenishBtn.png" />

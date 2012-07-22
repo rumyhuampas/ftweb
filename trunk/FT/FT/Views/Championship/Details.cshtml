@@ -11,7 +11,14 @@
 <table cellpadding="0" cellspacing="0" border="0" class="stdtable stdtablecb" id="dyntable">
     <div class="tableoptions">
         @Html.ActionLink("Matches", "GetMatches", "Championship", new { champId = Model.Id }, new { @class = "ka-form-submit tablebtn" })
-        @Html.ActionLink("Playoffs", "Playoffs", "Championship", new { champId = Model.Id }, new { @class = "ka-form-submit tablebtn" })
+        @if (FT.Controllers.ChampionshipController.EnablePlayoffs())
+        {
+            @Html.ActionLink("Playoffs", "Playoffs", "Championship", new { champId = Model.Id }, new { @class = "ka-form-submit tablebtn" })
+        }
+        else
+        {
+            <a class="ka-form-submit tablebtn disabled">Playoffs</a>
+        }
     </div>
     <thead>
         <tr>
@@ -58,7 +65,8 @@
 
     @{
         int i = 1;
-        foreach (var item in FT.Controllers.ChampionshipController.fixtureHelper.rows) {
+        foreach (var item in FT.Controllers.ChampionshipController.fixtureHelper.rows)
+        {
             @:<tr>
                 <td>@i</td>
                 <td>@item.Team.Name</td>

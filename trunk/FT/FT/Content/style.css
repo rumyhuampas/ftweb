@@ -244,6 +244,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 #content .two_thirds_last {float:right;width:470px;margin:0;}
 #content .three_fourth {float:left;width:550px;margin:0;}
 #content .three_fourth_last {float:right;width:530px;margin:0;}
+#content .nomargin{margin:0;}
 
 
 .content_full_width .one_half {float:left;width:455px !important;margin-right:30px !important;}
@@ -260,6 +261,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 .content_full_width .two_thirds_last {float:right;width:595px !important;margin:0 !important;}
 .content_full_width .three_fourth {float:left;width:690px !important;margin:0 !important;}
 .content_full_width .three_fourth_last {float:right;width:685px !important;margin:0 !important;}
+.content_full_width .nomargin{margin:0 !important;}
 
 .content_full_width .two_thirds_last .one_third, .content_full_width .two_thirds_last .one_third_last, .content_full_width .two_thirds .one_third, .content_full_width .two_thirds .one_third_last {width:280px !important;}
 
@@ -473,7 +475,7 @@ body {margin:0;background:#f4f4f2;font:1.2em/19px "helvetica neue",Helvetica,Ari
 .home-bnr-jquery .home-banner-sub {width: 432px;height:270px;background:url(themes/base/images/global-sprite.png) 0 -1188px no-repeat;top:3px;right:35px;position:absolute;}
 .home-bnr-jquery .home-banner-sub-content {width: 404px;height:256px;margin: 14px 0 0 14px;}
 .home-banner-bottom {width: 404px;height:7px;background:url(themes/base/images/jquery-btm-shdw.png) 0 0 no-repeat;top:263px;right:14px;position:absolute;z-index:4;}
-.home-bnr-jquery .home-banner-main {width: 375px;top:40px;left:45px;position:absolute;}
+.home-bnr-jquery .home-banner-main {width: 420px;top:40px;left:25px;position:absolute;}
 .home-jquery-content {padding-top: 45px;}
 .home-bnr-jquery .home-banner-sub-full {width: 940px;height:283px;top:0px;left:0px;position:absolute;margin:0;padding:0;background:none;}
 .home-bnr-jquery .home-banner-sub-full p {top:0px;left:0px;position:absolute;margin:0;padding:0;background:none;}
