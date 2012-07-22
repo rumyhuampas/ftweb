@@ -15,6 +15,13 @@
                 @foreach (var tp in Model.team_player)
                 {
                     <p>@Html.Label(tp.player.Name)</p>
+                    <div class="modern_img_frame modern_four_col_large">
+                        <div class="nopreload_four_col_large">
+ 	                        <div class="attachment-fadeIn" style="display: block; ">
+                                <img id="teamlogoimg" src="@tp.player.Image" width="190" height="111">
+                            </div>
+                        </div>
+	                </div>
                 }
              </div><!-- end home-banner-main -->
 

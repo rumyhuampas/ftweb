@@ -14,7 +14,7 @@ namespace FT.Controllers
         public static TeamsHelper teamsHelper;
         public static championship champHelper;
         public static FixtureHelper fixtureHelper;
-        public static string selectedType;
+        public static string selectedType = "SINGLE";
 
         public ChampionshipController()
         {
@@ -119,10 +119,9 @@ namespace FT.Controllers
             try
             {
                 ChampionshipController.champHelper = champObj;
-
+                string champType = Request["champtype"];
                 if (btnSubmit == "AddTeam")
                 {
-                    string champType = Request["champtype"];
                     int champTeamId = Convert.ToInt32(Request["champteams"]);
                     ChampTeam team = new ChampTeam();
                     team.Id = champTeamId;
@@ -147,6 +146,7 @@ namespace FT.Controllers
 
                 if (ChampionshipController.teamsHelper.selectedTeams.Count > 3)
                 {
+                    champObj.Type = champType;
                     db.AddTochampionships(champObj);
                     db.SaveChanges();
                     championship_teams ct = null;
@@ -171,9 +171,9 @@ namespace FT.Controllers
                     return RedirectToAction("Create", "Championship").WithFlash(new { msgerror = "Teams must be at least 4." });
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return RedirectToAction("List", "Championship").WithFlash(new { msgerror = ex.Message });
             }
         }
 
@@ -252,7 +252,7 @@ namespace FT.Controllers
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Index", "Championship").WithFlash(new { msgerror = ex.Message });
+                return RedirectToAction("List", "Championship").WithFlash(new { msgerror = ex.Message });
             }
         }
 

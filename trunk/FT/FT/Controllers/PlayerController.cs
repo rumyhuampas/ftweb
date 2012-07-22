@@ -54,9 +54,9 @@ namespace FT.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Player").WithFlash(new { msginfo = "Player successfully created." });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return RedirectToAction("Index", "Player").WithFlash(new { msgerror = ex.Message });
             }
         }
         

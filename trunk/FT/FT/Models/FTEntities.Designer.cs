@@ -21,12 +21,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("ftModel", "FK__championship_matches_championships", "championship", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.championship), "championship_matches", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.championship_matches), true)]
 [assembly: EdmRelationshipAttribute("ftModel", "FK__championship_matches_matches", "match", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.match), "championship_matches", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.championship_matches), true)]
 [assembly: EdmRelationshipAttribute("ftModel", "FK__championship_teams_championship", "championship", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.championship), "championship_teams", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.championship_teams), true)]
-[assembly: EdmRelationshipAttribute("ftModel", "FK__championship_teams_teams", "team", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.team), "championship_teams", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.championship_teams), true)]
-[assembly: EdmRelationshipAttribute("ftModel", "FK__matches_teams", "team", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.team), "match", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.match), true)]
-[assembly: EdmRelationshipAttribute("ftModel", "FK__matches_teams_2", "team", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.team), "match", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.match), true)]
 [assembly: EdmRelationshipAttribute("ftModel", "FK_team_player_players", "player", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.player), "team_player", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.team_player), true)]
 [assembly: EdmRelationshipAttribute("ftModel", "FK_team_player_teams", "team", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.team), "team_player", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.team_player), true)]
-[assembly: EdmRelationshipAttribute("ftModel", "FK_match_results_matches", "match", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.match), "match_results", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.match_results), true)]
 
 #endregion
 
@@ -765,44 +761,6 @@ namespace FT.Models
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK__championship_teams_teams", "team")]
-        public team team
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK__championship_teams_teams", "team").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK__championship_teams_teams", "team").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<team> teamReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK__championship_teams_teams", "team");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<team>("ftModel.FK__championship_teams_teams", "team", value);
-                }
-            }
-        }
 
         #endregion
     }
@@ -932,104 +890,6 @@ namespace FT.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<championship_matches>("ftModel.FK__championship_matches_matches", "championship_matches", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK__matches_teams", "team")]
-        public team team
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK__matches_teams", "team").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK__matches_teams", "team").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<team> teamReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK__matches_teams", "team");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<team>("ftModel.FK__matches_teams", "team", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK__matches_teams_2", "team")]
-        public team team1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK__matches_teams_2", "team").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK__matches_teams_2", "team").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<team> team1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<team>("ftModel.FK__matches_teams_2", "team");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<team>("ftModel.FK__matches_teams_2", "team", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_match_results_matches", "match_results")]
-        public EntityCollection<match_results> match_results
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<match_results>("ftModel.FK_match_results_matches", "match_results");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<match_results>("ftModel.FK_match_results_matches", "match_results", value);
                 }
             }
         }
@@ -1194,47 +1054,6 @@ namespace FT.Models
 
         #endregion
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_match_results_matches", "match")]
-        public match match
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<match>("ftModel.FK_match_results_matches", "match").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<match>("ftModel.FK_match_results_matches", "match").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<match> matchReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<match>("ftModel.FK_match_results_matches", "match");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<match>("ftModel.FK_match_results_matches", "match", value);
-                }
-            }
-        }
-
-        #endregion
     }
     
     /// <summary>
@@ -1471,72 +1290,6 @@ namespace FT.Models
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK__championship_teams_teams", "championship_teams")]
-        public EntityCollection<championship_teams> championship_teams
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<championship_teams>("ftModel.FK__championship_teams_teams", "championship_teams");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<championship_teams>("ftModel.FK__championship_teams_teams", "championship_teams", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK__matches_teams", "match")]
-        public EntityCollection<match> matches
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<match>("ftModel.FK__matches_teams", "match");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<match>("ftModel.FK__matches_teams", "match", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK__matches_teams_2", "match")]
-        public EntityCollection<match> matches1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<match>("ftModel.FK__matches_teams_2", "match");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<match>("ftModel.FK__matches_teams_2", "match", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.

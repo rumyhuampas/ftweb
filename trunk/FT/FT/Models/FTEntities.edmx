@@ -5,227 +5,163 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ftModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="ftModelStoreContainer">
-          <EntitySet Name="championship_matches" EntityType="ftModel.Store.championship_matches" store:Type="Tables" Schema="ft" />
-          <EntitySet Name="championship_teams" EntityType="ftModel.Store.championship_teams" store:Type="Tables" Schema="ft" />
-          <EntitySet Name="championships" EntityType="ftModel.Store.championships" store:Type="Tables" Schema="ft" />
-          <EntitySet Name="match_results" EntityType="ftModel.Store.match_results" store:Type="Tables" Schema="ft" />
-          <EntitySet Name="matches" EntityType="ftModel.Store.matches" store:Type="Tables" Schema="ft" />
-          <EntitySet Name="players" EntityType="ftModel.Store.players" store:Type="Tables" Schema="ft" />
-          <EntitySet Name="team_player" EntityType="ftModel.Store.team_player" store:Type="Tables" Schema="ft" />
-          <EntitySet Name="teams" EntityType="ftModel.Store.teams" store:Type="Tables" Schema="ft" />
-          <AssociationSet Name="FK_championship_matches_championships" Association="ftModel.Store.FK_championship_matches_championships">
-            <End Role="championships" EntitySet="championships" />
-            <End Role="championship_matches" EntitySet="championship_matches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_championship_matches_matches" Association="ftModel.Store.FK_championship_matches_matches">
-            <End Role="matches" EntitySet="matches" />
-            <End Role="championship_matches" EntitySet="championship_matches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_championship_teams_championships" Association="ftModel.Store.FK_championship_teams_championships">
-            <End Role="championships" EntitySet="championships" />
-            <End Role="championship_teams" EntitySet="championship_teams" />
-          </AssociationSet>
-          <AssociationSet Name="FK_championship_teams_teams" Association="ftModel.Store.FK_championship_teams_teams">
-            <End Role="teams" EntitySet="teams" />
-            <End Role="championship_teams" EntitySet="championship_teams" />
-          </AssociationSet>
-          <AssociationSet Name="FK_match_results_matches" Association="ftModel.Store.FK_match_results_matches">
-            <End Role="matches" EntitySet="matches" />
-            <End Role="match_results" EntitySet="match_results" />
-          </AssociationSet>
-          <AssociationSet Name="FK_matches_teams" Association="ftModel.Store.FK_matches_teams">
-            <End Role="teams" EntitySet="teams" />
-            <End Role="matches" EntitySet="matches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_matches_teams_2" Association="ftModel.Store.FK_matches_teams_2">
-            <End Role="teams" EntitySet="teams" />
-            <End Role="matches" EntitySet="matches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_team_player_players" Association="ftModel.Store.FK_team_player_players">
-            <End Role="players" EntitySet="players" />
-            <End Role="team_player" EntitySet="team_player" />
-          </AssociationSet>
-          <AssociationSet Name="FK_team_player_teams" Association="ftModel.Store.FK_team_player_teams">
-            <End Role="teams" EntitySet="teams" />
-            <End Role="team_player" EntitySet="team_player" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="championship_matches">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="championship_Id" Type="int" Nullable="false" />
-          <Property Name="match_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="championship_teams">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="championship_Id" Type="int" Nullable="false" />
-          <Property Name="team_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="championships">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Type" Type="varchar" Nullable="false" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="match_results">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="match_Id" Type="int" Nullable="false" />
-          <Property Name="Set" Type="int" Nullable="false" />
-          <Property Name="team_a_games" Type="int" Nullable="false" />
-          <Property Name="team_b_games" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="matches">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="team_a_Id" Type="int" Nullable="false" />
-          <Property Name="team_b_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="players">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
-          <Property Name="Image" Type="text" />
-        </EntityType>
-        <EntityType Name="team_player">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Team_Id" Type="int" Nullable="false" />
-          <Property Name="Player_Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="teams">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
-          <Property Name="Logo" Type="text" />
-        </EntityType>
-        <Association Name="FK_championship_matches_championships">
-          <End Role="championships" Type="ftModel.Store.championships" Multiplicity="1" />
-          <End Role="championship_matches" Type="ftModel.Store.championship_matches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="championships">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="championship_matches">
-              <PropertyRef Name="championship_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_championship_matches_matches">
-          <End Role="matches" Type="ftModel.Store.matches" Multiplicity="1" />
-          <End Role="championship_matches" Type="ftModel.Store.championship_matches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="matches">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="championship_matches">
-              <PropertyRef Name="match_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_championship_teams_championships">
-          <End Role="championships" Type="ftModel.Store.championships" Multiplicity="1" />
-          <End Role="championship_teams" Type="ftModel.Store.championship_teams" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="championships">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="championship_teams">
-              <PropertyRef Name="championship_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_championship_teams_teams">
-          <End Role="teams" Type="ftModel.Store.teams" Multiplicity="1" />
-          <End Role="championship_teams" Type="ftModel.Store.championship_teams" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="teams">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="championship_teams">
-              <PropertyRef Name="team_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_match_results_matches">
-          <End Role="matches" Type="ftModel.Store.matches" Multiplicity="1" />
-          <End Role="match_results" Type="ftModel.Store.match_results" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="matches">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="match_results">
-              <PropertyRef Name="match_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_matches_teams">
-          <End Role="teams" Type="ftModel.Store.teams" Multiplicity="1" />
-          <End Role="matches" Type="ftModel.Store.matches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="teams">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="matches">
-              <PropertyRef Name="team_a_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_matches_teams_2">
-          <End Role="teams" Type="ftModel.Store.teams" Multiplicity="1" />
-          <End Role="matches" Type="ftModel.Store.matches" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="teams">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="matches">
-              <PropertyRef Name="team_b_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_team_player_players">
-          <End Role="players" Type="ftModel.Store.players" Multiplicity="1" />
-          <End Role="team_player" Type="ftModel.Store.team_player" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="players">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="team_player">
-              <PropertyRef Name="Player_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_team_player_teams">
-          <End Role="teams" Type="ftModel.Store.teams" Multiplicity="1" />
-          <End Role="team_player" Type="ftModel.Store.team_player" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="teams">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="team_player">
-              <PropertyRef Name="Team_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema></edmx:StorageModels>
+  <EntityContainer Name="ftModelStoreContainer">
+    <EntitySet Name="championship_matches" EntityType="ftModel.Store.championship_matches" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="championship_teams" EntityType="ftModel.Store.championship_teams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="championships" EntityType="ftModel.Store.championships" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="match_results" EntityType="ftModel.Store.match_results" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="matches" EntityType="ftModel.Store.matches" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="players" EntityType="ftModel.Store.players" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="team_player" EntityType="ftModel.Store.team_player" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="teams" EntityType="ftModel.Store.teams" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__championship_matches_championships" Association="ftModel.Store.FK__championship_matches_championships">
+      <End Role="championship" EntitySet="championships" />
+      <End Role="championship_matches" EntitySet="championship_matches" />
+    </AssociationSet>
+    <AssociationSet Name="FK__championship_matches_matches" Association="ftModel.Store.FK__championship_matches_matches">
+      <End Role="match" EntitySet="matches" />
+      <End Role="championship_matches" EntitySet="championship_matches" />
+    </AssociationSet>
+    <AssociationSet Name="FK__championship_teams_championship" Association="ftModel.Store.FK__championship_teams_championship">
+      <End Role="championship" EntitySet="championships" />
+      <End Role="championship_teams" EntitySet="championship_teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_team_player_players" Association="ftModel.Store.FK_team_player_players">
+      <End Role="player" EntitySet="players" />
+      <End Role="team_player" EntitySet="team_player" />
+    </AssociationSet>
+    <AssociationSet Name="FK_team_player_teams" Association="ftModel.Store.FK_team_player_teams">
+      <End Role="team" EntitySet="teams" />
+      <End Role="team_player" EntitySet="team_player" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="championship_matches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="championship_Id" Type="int" Nullable="false" />
+    <Property Name="match_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="championship_teams">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="championship_Id" Type="int" Nullable="false" />
+    <Property Name="team_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="championships">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="longtext" Nullable="false" />
+    <Property Name="Type" Type="longtext" Nullable="false" />
+  </EntityType>
+  <EntityType Name="match_results">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="match_Id" Type="int" Nullable="false" />
+    <Property Name="Set" Type="int" Nullable="false" />
+    <Property Name="team_a_games" Type="int" Nullable="false" />
+    <Property Name="team_b_games" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="matches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="team_b_Id" Type="int" Nullable="false" />
+    <Property Name="team_a_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="players">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="longtext" Nullable="false" />
+    <Property Name="Image" Type="longtext" Nullable="true" />
+  </EntityType>
+  <EntityType Name="team_player">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Team_Id" Type="int" Nullable="false" />
+    <Property Name="Player_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="teams">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="longtext" Nullable="false" />
+    <Property Name="Logo" Type="longtext" Nullable="true" />
+  </EntityType>
+  <Association Name="FK__championship_matches_championships">
+    <End Role="championship" Type="ftModel.Store.championships" Multiplicity="1" />
+    <End Role="championship_matches" Type="ftModel.Store.championship_matches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="championship">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="championship_matches">
+        <PropertyRef Name="championship_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__championship_matches_matches">
+    <End Role="match" Type="ftModel.Store.matches" Multiplicity="1" />
+    <End Role="championship_matches" Type="ftModel.Store.championship_matches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="match">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="championship_matches">
+        <PropertyRef Name="match_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__championship_teams_championship">
+    <End Role="championship" Type="ftModel.Store.championships" Multiplicity="1" />
+    <End Role="championship_teams" Type="ftModel.Store.championship_teams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="championship">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="championship_teams">
+        <PropertyRef Name="championship_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_team_player_players">
+    <End Role="player" Type="ftModel.Store.players" Multiplicity="1" />
+    <End Role="team_player" Type="ftModel.Store.team_player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="player">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="team_player">
+        <PropertyRef Name="Player_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_team_player_teams">
+    <End Role="team" Type="ftModel.Store.teams" Multiplicity="1" />
+    <End Role="team_player" Type="ftModel.Store.team_player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="team">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="team_player">
+        <PropertyRef Name="Team_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ftModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -250,18 +186,6 @@
             <End Role="championship" EntitySet="championships" />
             <End Role="championship_teams" EntitySet="championship_teams" />
           </AssociationSet>
-          <AssociationSet Name="FK__championship_teams_teams" Association="ftModel.FK__championship_teams_teams">
-            <End Role="team" EntitySet="teams" />
-            <End Role="championship_teams" EntitySet="championship_teams" />
-          </AssociationSet>
-          <AssociationSet Name="FK__matches_teams" Association="ftModel.FK__matches_teams">
-            <End Role="team" EntitySet="teams" />
-            <End Role="match" EntitySet="matches" />
-          </AssociationSet>
-          <AssociationSet Name="FK__matches_teams_2" Association="ftModel.FK__matches_teams_2">
-            <End Role="team" EntitySet="teams" />
-            <End Role="match" EntitySet="matches" />
-          </AssociationSet>
           <AssociationSet Name="FK_team_player_players" Association="ftModel.FK_team_player_players">
             <End Role="player" EntitySet="players" />
             <End Role="team_player" EntitySet="team_player" />
@@ -269,10 +193,6 @@
           <AssociationSet Name="FK_team_player_teams" Association="ftModel.FK_team_player_teams">
             <End Role="team" EntitySet="teams" />
             <End Role="team_player" EntitySet="team_player" />
-          </AssociationSet>
-          <AssociationSet Name="FK_match_results_matches" Association="ftModel.FK_match_results_matches">
-            <End Role="match" EntitySet="matches" />
-            <End Role="match_results" EntitySet="match_results" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="championship_matches">
@@ -293,7 +213,6 @@
           <Property Type="Int32" Name="championship_Id" Nullable="false" />
           <Property Type="Int32" Name="team_Id" Nullable="false" />
           <NavigationProperty Name="championship" Relationship="ftModel.FK__championship_teams_championship" FromRole="championship_teams" ToRole="championship" />
-          <NavigationProperty Name="team" Relationship="ftModel.FK__championship_teams_teams" FromRole="championship_teams" ToRole="team" />
         </EntityType>
         <EntityType Name="championship">
           <Key>
@@ -314,7 +233,6 @@
           <Property Type="Int32" Name="Set" Nullable="false" />
           <Property Type="Int32" Name="team_a_games" Nullable="false" />
           <Property Type="Int32" Name="team_b_games" Nullable="false" />
-          <NavigationProperty Name="match" Relationship="ftModel.FK_match_results_matches" FromRole="match_results" ToRole="match" />
         </EntityType>
         <EntityType Name="match">
           <Key>
@@ -324,9 +242,6 @@
           <Property Type="Int32" Name="team_b_Id" Nullable="false" />
           <Property Type="Int32" Name="team_a_Id" Nullable="false" />
           <NavigationProperty Name="championship_matches" Relationship="ftModel.FK__championship_matches_matches" FromRole="match" ToRole="championship_matches" />
-          <NavigationProperty Name="team" Relationship="ftModel.FK__matches_teams" FromRole="match" ToRole="team" />
-          <NavigationProperty Name="team1" Relationship="ftModel.FK__matches_teams_2" FromRole="match" ToRole="team" />
-          <NavigationProperty Name="match_results" Relationship="ftModel.FK_match_results_matches" FromRole="match" ToRole="match_results" />
         </EntityType>
         <EntityType Name="player">
           <Key>
@@ -334,8 +249,8 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" Nullable="false" />
-          <NavigationProperty Name="team_player" Relationship="ftModel.FK_team_player_players" FromRole="player" ToRole="team_player" />
           <Property Type="String" Name="Image" />
+          <NavigationProperty Name="team_player" Relationship="ftModel.FK_team_player_players" FromRole="player" ToRole="team_player" />
         </EntityType>
         <EntityType Name="team_player">
           <Key>
@@ -353,11 +268,8 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" Nullable="false" />
-          <NavigationProperty Name="championship_teams" Relationship="ftModel.FK__championship_teams_teams" FromRole="team" ToRole="championship_teams" />
-          <NavigationProperty Name="matches" Relationship="ftModel.FK__matches_teams" FromRole="team" ToRole="match" />
-          <NavigationProperty Name="matches1" Relationship="ftModel.FK__matches_teams_2" FromRole="team" ToRole="match" />
-          <NavigationProperty Name="team_player" Relationship="ftModel.FK_team_player_teams" FromRole="team" ToRole="team_player" />
           <Property Type="String" Name="Logo" />
+          <NavigationProperty Name="team_player" Relationship="ftModel.FK_team_player_teams" FromRole="team" ToRole="team_player" />
         </EntityType>
         <Association Name="FK__championship_matches_championships">
           <End Type="ftModel.championship" Role="championship" Multiplicity="1" />
@@ -395,42 +307,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__championship_teams_teams">
-          <End Type="ftModel.team" Role="team" Multiplicity="1" />
-          <End Type="ftModel.championship_teams" Role="championship_teams" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="team">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="championship_teams">
-              <PropertyRef Name="team_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__matches_teams">
-          <End Type="ftModel.team" Role="team" Multiplicity="1" />
-          <End Type="ftModel.match" Role="match" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="team">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="match">
-              <PropertyRef Name="team_a_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__matches_teams_2">
-          <End Type="ftModel.team" Role="team" Multiplicity="1" />
-          <End Type="ftModel.match" Role="match" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="team">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="match">
-              <PropertyRef Name="team_b_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_team_player_players">
           <End Type="ftModel.player" Role="player" Multiplicity="1" />
           <End Type="ftModel.team_player" Role="team_player" Multiplicity="*" />
@@ -455,101 +331,88 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_match_results_matches">
-          <End Type="ftModel.match" Role="match" Multiplicity="1" />
-          <End Type="ftModel.match_results" Role="match_results" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="match">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="match_results">
-              <PropertyRef Name="match_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ftModelStoreContainer" CdmEntityContainer="ftEntities">
-          <EntitySetMapping Name="championship_matches">
-            <EntityTypeMapping TypeName="ftModel.championship_matches">
-              <MappingFragment StoreEntitySet="championship_matches">
-                <ScalarProperty Name="match_Id" ColumnName="match_Id" />
-                <ScalarProperty Name="championship_Id" ColumnName="championship_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="championship_teams">
-            <EntityTypeMapping TypeName="ftModel.championship_teams">
-              <MappingFragment StoreEntitySet="championship_teams">
-                <ScalarProperty Name="team_Id" ColumnName="team_Id" />
-                <ScalarProperty Name="championship_Id" ColumnName="championship_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="championships">
-            <EntityTypeMapping TypeName="ftModel.championship">
-              <MappingFragment StoreEntitySet="championships">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="match_results">
-            <EntityTypeMapping TypeName="ftModel.match_results">
-              <MappingFragment StoreEntitySet="match_results">
-                <ScalarProperty Name="team_b_games" ColumnName="team_b_games" />
-                <ScalarProperty Name="team_a_games" ColumnName="team_a_games" />
-                <ScalarProperty Name="Set" ColumnName="Set" />
-                <ScalarProperty Name="match_Id" ColumnName="match_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="matches">
-            <EntityTypeMapping TypeName="ftModel.match">
-              <MappingFragment StoreEntitySet="matches">
-                <ScalarProperty Name="team_a_Id" ColumnName="team_a_Id" />
-                <ScalarProperty Name="team_b_Id" ColumnName="team_b_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="players">
-            <EntityTypeMapping TypeName="ftModel.player">
-              <MappingFragment StoreEntitySet="players">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="team_player">
-            <EntityTypeMapping TypeName="ftModel.team_player">
-              <MappingFragment StoreEntitySet="team_player">
-                <ScalarProperty Name="Player_Id" ColumnName="Player_Id" />
-                <ScalarProperty Name="Team_Id" ColumnName="Team_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="teams">
-            <EntityTypeMapping TypeName="ftModel.team">
-              <MappingFragment StoreEntitySet="teams">
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ftModelStoreContainer" CdmEntityContainer="ftEntities">
+    <EntitySetMapping Name="championship_matches">
+      <EntityTypeMapping TypeName="IsTypeOf(ftModel.championship_matches)">
+        <MappingFragment StoreEntitySet="championship_matches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="championship_Id" ColumnName="championship_Id" />
+          <ScalarProperty Name="match_Id" ColumnName="match_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="championship_teams">
+      <EntityTypeMapping TypeName="IsTypeOf(ftModel.championship_teams)">
+        <MappingFragment StoreEntitySet="championship_teams">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="championship_Id" ColumnName="championship_Id" />
+          <ScalarProperty Name="team_Id" ColumnName="team_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="championships">
+      <EntityTypeMapping TypeName="IsTypeOf(ftModel.championship)">
+        <MappingFragment StoreEntitySet="championships">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="match_results">
+      <EntityTypeMapping TypeName="IsTypeOf(ftModel.match_results)">
+        <MappingFragment StoreEntitySet="match_results">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="match_Id" ColumnName="match_Id" />
+          <ScalarProperty Name="Set" ColumnName="Set" />
+          <ScalarProperty Name="team_a_games" ColumnName="team_a_games" />
+          <ScalarProperty Name="team_b_games" ColumnName="team_b_games" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="matches">
+      <EntityTypeMapping TypeName="IsTypeOf(ftModel.match)">
+        <MappingFragment StoreEntitySet="matches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="team_b_Id" ColumnName="team_b_Id" />
+          <ScalarProperty Name="team_a_Id" ColumnName="team_a_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="players">
+      <EntityTypeMapping TypeName="IsTypeOf(ftModel.player)">
+        <MappingFragment StoreEntitySet="players">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="team_player">
+      <EntityTypeMapping TypeName="IsTypeOf(ftModel.team_player)">
+        <MappingFragment StoreEntitySet="team_player">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Team_Id" ColumnName="Team_Id" />
+          <ScalarProperty Name="Player_Id" ColumnName="Player_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="teams">
+      <EntityTypeMapping TypeName="IsTypeOf(ftModel.team)">
+        <MappingFragment StoreEntitySet="teams">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
@@ -568,73 +431,40 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="FTEntities">
-        <EntityTypeShape EntityType="ftModel.championship_matches" Width="1.5" PointX="5.25" PointY="7.25" Height="1.9802864583333317" />
-        <EntityTypeShape EntityType="ftModel.championship_teams" Width="1.5" PointX="3" PointY="3.5" Height="1.9802864583333317" />
-        <EntityTypeShape EntityType="ftModel.championship" Width="1.5" PointX="0.75" PointY="1.5" Height="1.9802864583333353" />
-        <EntityTypeShape EntityType="ftModel.match_results" Width="1.5" PointX="5.75" PointY="1.25" Height="1.9802864583333317" />
-        <EntityTypeShape EntityType="ftModel.match" Width="1.5" PointX="3" PointY="7.25" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="ftModel.player" Width="1.5" PointX="3.75" PointY="0.75" Height="1.5956835937500031" />
-        <EntityTypeShape EntityType="ftModel.team_player" Width="1.5" PointX="6" PointY="4.5" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="ftModel.team" Width="1.5" PointX="0.75" PointY="4.5" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="ftModel.championship_matches" Width="1.5" PointX="5" PointY="5.375" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="ftModel.championship_teams" Width="1.5" PointX="5" PointY="8.125" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ftModel.championship" Width="1.5" PointX="2.75" PointY="5.375" Height="1.9802864583333353" />
+        <EntityTypeShape EntityType="ftModel.match_results" Width="1.5" PointX="5.75" PointY="0.75" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="ftModel.match" Width="1.5" PointX="2.75" PointY="8.375" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ftModel.player" Width="1.5" PointX="0.75" PointY="1" Height="1.7879850260416677" />
+        <EntityTypeShape EntityType="ftModel.team_player" Width="1.5" PointX="3" PointY="0.875" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="ftModel.team" Width="1.5" PointX="0.75" PointY="4" Height="1.7879850260416674" />
         <AssociationConnector Association="ftModel.FK__championship_matches_championships" >
-          <ConnectorPoint PointX="2.25" PointY="3.1629036458333335" />
-          <ConnectorPoint PointX="3.2604166666666665" PointY="3.1629036458333331" />
-          <ConnectorPoint PointX="3.4270833333333335" PointY="3.1629036458333335" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="3.1629036458333331" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="3.1629036458333335" />
-          <ConnectorPoint PointX="5.5" PointY="3.1629036458333335" />
-          <ConnectorPoint PointX="5.5" PointY="7.25" />
+          <ConnectorPoint PointX="4.25" PointY="6.3651432291666659" />
+          <ConnectorPoint PointX="5" PointY="6.3651432291666659" />
         </AssociationConnector>
         <AssociationConnector Association="ftModel.FK__championship_matches_matches" >
-          <ConnectorPoint PointX="4.5" PointY="8.1283268229166659" />
-          <ConnectorPoint PointX="5.25" PointY="8.1283268229166659" />
+          <ConnectorPoint PointX="4.25" PointY="8.3761528461538468" />
+          <ConnectorPoint PointX="4.625" PointY="8.0011528461538468" />
+          <ConnectorPoint PointX="4.625" PointY="6.8914668437499991" />
+          <ConnectorPoint PointX="5" PointY="6.8914668437499991" />
         </AssociationConnector>
         <AssociationConnector Association="ftModel.FK__championship_teams_championship" >
-          <ConnectorPoint PointX="2.25" PointY="2.8661075260416675" />
-          <ConnectorPoint PointX="3.34375" PointY="2.8661075260416675" />
-          <ConnectorPoint PointX="3.34375" PointY="3.5" />
-        </AssociationConnector>
-        <AssociationConnector Association="ftModel.FK__championship_teams_teams" >
-          <ConnectorPoint PointX="2.25" PointY="4.9901432291666659" />
-          <ConnectorPoint PointX="3" PointY="4.9901432291666659" />
-        </AssociationConnector>
-        <AssociationConnector Association="ftModel.FK__matches_teams" >
-          <ConnectorPoint PointX="1.2460921875" PointY="6.5853483072916665" />
-          <ConnectorPoint PointX="1.2460921875" PointY="8.59728743302319" />
-          <ConnectorPoint PointX="3" PointY="8.59728743302319" />
-        </AssociationConnector>
-        <AssociationConnector Association="ftModel.FK__matches_teams_2" >
-          <ConnectorPoint PointX="1.77929859375" PointY="6.5853483072916665" />
-          <ConnectorPoint PointX="1.77929859375" PointY="7.8923912165115953" />
-          <ConnectorPoint PointX="3" PointY="7.8923912165115953" />
+          <ConnectorPoint PointX="4.25" PointY="7.2929777660256425" />
+          <ConnectorPoint PointX="4.5660744349011217" PointY="7.6090522009267634" />
+          <ConnectorPoint PointX="4.6839255650988791" PointY="7.7269033311245217" />
+          <ConnectorPoint PointX="4.8125" PointY="7.8554777660256425" />
+          <ConnectorPoint PointX="4.8125" PointY="9.0189925130208337" />
+          <ConnectorPoint PointX="5" PointY="9.0189925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="ftModel.FK_team_player_players" >
-          <ConnectorPoint PointX="4.90625" PointY="2.342306315104167" />
-          <ConnectorPoint PointX="4.90625" PointY="5.9591759052259938" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="5.9591759052259929" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="5.9591759052259938" />
-          <ConnectorPoint PointX="5.416666666666667" PointY="5.9591759052259929" />
-          <ConnectorPoint PointX="5.583333333333333" PointY="5.9591759052259938" />
-          <ConnectorPoint PointX="6" PointY="5.9591759052259938" />
+          <ConnectorPoint PointX="2.25" PointY="1.8939925130208337" />
+          <ConnectorPoint PointX="3" PointY="1.8939925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="ftModel.FK_team_player_teams" >
-          <ConnectorPoint PointX="2.25" PointY="5.5991931646186544" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="5.5991931646186535" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="5.5991931646186544" />
-          <ConnectorPoint PointX="5.041666666666667" PointY="5.5991931646186535" />
-          <ConnectorPoint PointX="5.208333333333333" PointY="5.5991931646186544" />
-          <ConnectorPoint PointX="5.416666666666667" PointY="5.5991931646186535" />
-          <ConnectorPoint PointX="5.583333333333333" PointY="5.5991931646186544" />
-          <ConnectorPoint PointX="6" PointY="5.5991931646186544" />
-        </AssociationConnector>
-        <AssociationConnector Association="ftModel.FK_match_results_matches" >
-          <ConnectorPoint PointX="4.5000000000000018" PointY="7.25" />
-          <ConnectorPoint PointX="5.125" PointY="6.6250000000000018" />
-          <ConnectorPoint PointX="5.125" PointY="3.5460009765624996" />
-          <ConnectorPoint PointX="5.375" PointY="3.5460009765624996" />
-          <ConnectorPoint PointX="5.4410744349011209" PointY="3.4799265416613783" />
-          <ConnectorPoint PointX="5.5589255650988791" PointY="3.3620754114636204" />
-          <ConnectorPoint PointX="5.75" PointY="3.1710009765625" />
+          <ConnectorPoint PointX="2.25" PointY="4.65625" />
+          <ConnectorPoint PointX="4.40625" PointY="4.65625" />
+          <ConnectorPoint PointX="4.40625" PointY="2.8552864583333388" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -8,7 +8,7 @@ namespace FT.Extensions
 {
     public class FixtureRow
     {
-        public team Team;
+        public ChampTeam Team;
         public int Played;
         public int Won;
         public int Lost;
@@ -27,8 +27,8 @@ namespace FT.Extensions
     }
 
     public class FixtureMatch{
-        public team teamA;
-        public team teamB;
+        public ChampTeam teamA;
+        public ChampTeam teamB;
         public List<MatchRes> result;
 
         public FixtureMatch()
@@ -48,6 +48,7 @@ namespace FT.Extensions
     {
         private ftEntities db;
         private int champId;
+        private championship champ;
         public List<FixtureRow> rows;
         public List<FixtureMatch> matches;
 
@@ -55,6 +56,9 @@ namespace FT.Extensions
         {
             db = new ftEntities();
             champId = championshipId;
+            champ = (from c in db.championships
+                     where c.Id == champId
+                     select c).First();
             rows = new List<FixtureRow>();
             matches = new List<FixtureMatch>();
         }
@@ -70,9 +74,32 @@ namespace FT.Extensions
             List<championship_teams> champTeams = champTeamsList.ToList();
             foreach (championship_teams ct in champTeams)
             {
-                rows.Add(GenerateTeamResults(ct.team));
+                rows.Add(GenerateTeamResults(BuildChampTeam(ct.team_Id)));
             }
             OrderTeams(rows);
+        }
+
+        private ChampTeam BuildChampTeam(int id)
+        {
+            ChampTeam team = new ChampTeam();
+            team.Id = id;
+            if (champ.Type == "SINGLE")
+            {
+                player pObj = (from p in db.players
+                               where p.Id == team.Id
+                               select p).First();
+                team.Name = pObj.Name;
+                team.Type = "PLAYER";
+            }
+            else
+            {
+                team tObj = (from t in db.teams
+                             where t.Id == team.Id
+                             select t).First();
+                team.Name = tObj.Name;
+                team.Type = "TEAM";
+            }
+            return team;
         }
 
         private void GenerateChampMatches()
@@ -85,8 +112,8 @@ namespace FT.Extensions
             foreach (match m in champMatches)
             {
                 FixtureMatch FMatch = new FixtureMatch();
-                FMatch.teamA = m.team;
-                FMatch.teamB = m.team1;
+                FMatch.teamA = BuildChampTeam(m.team_a_Id);
+                FMatch.teamB = BuildChampTeam(m.team_b_Id);
 
                 var matchResults = (from mr in db.match_results
                                  where mr.match_Id == m.Id
@@ -101,7 +128,7 @@ namespace FT.Extensions
             }
         }
 
-        private FixtureRow GenerateTeamResults(team team)
+        private FixtureRow GenerateTeamResults(ChampTeam team)
         {
             FixtureRow row = new FixtureRow();
             row.Team = team;
