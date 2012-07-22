@@ -24,14 +24,13 @@
 
     //CHAMP TEAMS
     jQuery("#champtype").ready(function () {
-        jQuery.get(location.protocol + '//' + location.host + '/Championship/GetChampTeams', { champType: jQuery("#champtype").val() }, function (data) {
-            jQuery('#champteams').empty();
-            jQuery.each(data, function (key, value) {
-                jQuery('#champteams').append('<option value="' + value.Value + '">' + value.Text + '</option>');
-            });
-            jQuery.get(location.protocol + '//' + location.host + '/Championship/GetSelectedType', null, function (data) {
-                jQuery("#champtype").val(data);
-                //TODO: add change code here
+        jQuery.get(location.protocol + '//' + location.host + '/Championship/GetSelectedType', null, function (data) {
+            jQuery("#champtype").val(data);
+            jQuery.get(location.protocol + '//' + location.host + '/Championship/GetChampTeams', { champType: jQuery("#champtype").val() }, function (data) {
+                jQuery('#champteams').empty();
+                jQuery.each(data, function (key, value) {
+                    jQuery('#champteams').append('<option value="' + value.Value + '">' + value.Text + '</option>');
+                });
             });
         });
     });
@@ -44,10 +43,9 @@
             jQuery.each(data, function (key, value) {
                 jQuery('#champteams').append('<option value="' + value.Value + '">' + value.Text + '</option>');
             });
-            jQuery.get(location.protocol + '//' + location.host + '/Championship/SetSelectedType', { champType: jQuery("#champtype").val() }, function (data) { });
+            jQuery.get(location.protocol + '//' + location.host + '/Championship/SetSelectedType', { champType: jQuery("#champtype").val() }, function (data) {
+                jQuery.get(location.protocol + '//' + location.host + '/Championship/CleanSelectedTeams', null, function (data) { });
+            });
         });
-        /*jQuery.get(location.protocol + '//' + location.host + '/Championship/CleanSelectedTeams', null, function (data) {
-            
-        });*/
     });
 });

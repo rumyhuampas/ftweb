@@ -222,6 +222,7 @@
     <Content Include="Content\themes\base\secondary-teal-grey.css" />
     <Content Include="Content\themes\base\standard.css" />
     <Content Include="Global.asax" />
+    <Content Include="Models\FTEntities.edmx.sql" />
     <Content Include="Scripts\js\general.js" />
     <Content Include="Scripts\js\jquery-1-slider.js" />
     <Content Include="Scripts\js\jquery-1.4.2.min.js" />
