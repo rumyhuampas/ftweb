@@ -310,37 +310,83 @@ namespace FT.Controllers
 
         public void GeneratePlayoffMatches(int champId)
         {
-            /*int plyoffsMatchesCount = (from cm in db.championship_matches
-                                       where cm.type == "PLAYOFF" && cm.championship_Id == champId
-                                       select cm).Count();
-            if (plyoffsMatchesCount == 0)
+            IQueryable<championship_matches> semiMatches = from cm in db.championship_matches
+                                       where cm.type == "SEMIFINAL" && cm.championship_Id == champId
+                                       select cm;
+            if (semiMatches.Count() == 0)
             {
-                GeneratePlayoffMatches(champId);
-            }
-
-            List<FixtureRow> list = new List<FixtureRow>();
-            for (int i = 0; i < 4; i++)
-            {
-                list.Add(fixtureHelper.rows[i]);
-            }
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                for (int j = i + 1; j < list.Count; j++)
+                for (int i = 0; i < 2; i++)
                 {
                     match m = new match();
-                    m.team_a_Id = list[i].Team.Id;
-                    m.team_b_Id = list[j].Team.Id;
+                    m.team_a_Id = fixtureHelper.rows[i].Team.Id;
+                    m.team_b_Id = fixtureHelper.rows[i + 2].Team.Id;
                     db.AddTomatches(m);
                     db.SaveChanges();
                     championship_matches cm = new championship_matches();
                     cm.championship_Id = champId;
                     cm.match_Id = m.Id;
-                    cm.type = "PLAYOFF";
+                    cm.type = "SEMIFINAL";
                     db.AddTochampionship_matches(cm);
                     db.SaveChanges();
                 }
-            }*/
+            }
+            else
+            {
+                int finalCount = (from cm in db.championship_matches
+                                  where cm.type == "FINAL" && cm.championship_Id == champId
+                                  select cm).Count();
+                if (finalCount == 0)
+                {
+                    List<championship_matches> semiMatcheslist = semiMatches.ToList();
+
+                    var semiResult1 = (from cm in db.championship_matches
+                                      join cmr in db.match_results on cm.match_Id equals cmr.match_Id
+                                      where cm.type == "SEMIFINAL" && cm.championship_Id == champId && cm.match_Id == semiMatcheslist[0].match_Id
+                                      group cmr by cmr.match_Id into res
+                                      select new { SumA = res.Sum(model => model.team_a_games), SumB = res.Sum(model => model.team_b_games) }).First();
+                    if (semiResult1 != null)
+                    {
+                        var semiResult2 = (from cm in db.championship_matches
+                                         join cmr in db.match_results on cm.match_Id equals cmr.match_Id
+                                         where cm.type == "SEMIFINAL" && cm.championship_Id == champId && cm.match_Id == semiMatcheslist[1].match_Id
+                                         group cmr by cmr.match_Id into res
+                                         select new { SumA = res.Sum(model => model.team_a_games), SumB = res.Sum(model => model.team_b_games) }).First();
+                        if (semiResult2 != null)
+                        {
+                            int teamId1;
+                            if (semiResult1.SumA > semiResult1.SumB)
+                            {
+                                teamId1 = semiMatcheslist[0].match.team_a_Id;
+                            }
+                            else
+                            {
+                                teamId1 = semiMatcheslist[0].match.team_b_Id;
+                            }
+                            int teamId2;
+                            if (semiResult2.SumA > semiResult2.SumB)
+                            {
+                                teamId2 = semiMatcheslist[1].match.team_a_Id;
+                            }
+                            else
+                            {
+                                teamId2 = semiMatcheslist[1].match.team_b_Id;
+                            }
+
+                            match m = new match();
+                            m.team_a_Id = teamId1;
+                            m.team_b_Id = teamId2;
+                            db.AddTomatches(m);
+                            db.SaveChanges();
+                            championship_matches cm = new championship_matches();
+                            cm.championship_Id = champId;
+                            cm.match_Id = m.Id;
+                            cm.type = "FINAL";
+                            db.AddTochampionship_matches(cm);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+            }
         }
 
         public static bool EnablePlayoffs()
