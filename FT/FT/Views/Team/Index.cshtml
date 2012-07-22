@@ -34,7 +34,7 @@
         foreach (var item in Model) {
             @:<tr>
                 <td>
-                    @Html.ActionLink(item.Name, "Details", "Team", new { @teamId=item.Id }, null);
+                    @Html.ActionLink(item.Name, "Details", "Team", new { @teamId=item.Id }, null)
                 </td>
                     foreach (var tp in item.team_player)
                     {

@@ -10,10 +10,11 @@ namespace FT.Controllers
 {
     public class ChampionshipController : Controller
     {
-        private ftEntities db;
+        private static ftEntities db;
         public static TeamsHelper teamsHelper;
         public static championship champHelper;
         public static FixtureHelper fixtureHelper;
+        public static string selectedType;
 
         public ChampionshipController()
         {
@@ -76,6 +77,39 @@ namespace FT.Controllers
             return new SelectList(types, "Text", "Value");
         }
 
+        public JsonResult GetChampTeams(string champType)
+        {
+            if (champType == "SINGLE")
+            {
+                var players = (from p in db.players
+                             select p).OrderBy(player => player.Name);
+                return Json(new SelectList(players, "Id", "Name"), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var teams = (from t in db.teams
+                             select t).OrderBy(team => team.Name);
+                return Json(new SelectList(teams, "Id", "Name"), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult CleanSelectedTeams()
+        {
+            if (ChampionshipController.teamsHelper != null) ChampionshipController.teamsHelper.Clear();
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SetSelectedType(string champType)
+        {
+            selectedType = champType;
+            return Json(selectedType, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetSelectedType()
+        {
+            return Json(selectedType, JsonRequestBehavior.AllowGet);
+        }
+
         //
         // POST: /Championship/Create
 
@@ -88,11 +122,26 @@ namespace FT.Controllers
 
                 if (btnSubmit == "AddTeam")
                 {
-                    int teamId = Convert.ToInt32(Request["teamId"]);
-                    team t = (from teams in db.teams
-                                where teams.Id == teamId
-                                select teams).First();
-                    ChampionshipController.teamsHelper.AddIfNotExist(t);
+                    string champType = Request["champtype"];
+                    int champTeamId = Convert.ToInt32(Request["champteams"]);
+                    ChampTeam team = new ChampTeam();
+                    team.Id = champTeamId;
+                    if(champType == "SINGLE"){
+                        player p = (from players in db.players
+                                    where players.Id == champTeamId
+                                    select players).First();
+                        team.Name = p.Name;
+                        team.Type = "PLAYER";
+                    }
+                    else{
+                        team t = (from teams in db.teams
+                                  where teams.Id == champTeamId
+                                  select teams).First();
+                        team.Name = t.Name;
+                        team.Type = "TEAM";
+                    }
+
+                    ChampionshipController.teamsHelper.AddIfNotExist(team);
                     return View(champObj);
                 }
 
@@ -101,7 +150,7 @@ namespace FT.Controllers
                     db.AddTochampionships(champObj);
                     db.SaveChanges();
                     championship_teams ct = null;
-                    foreach (team t in ChampionshipController.teamsHelper.selectedTeams)
+                    foreach (ChampTeam t in ChampionshipController.teamsHelper.selectedTeams)
                     {
                         ct = new championship_teams();
                         ct.championship_Id = champObj.Id;
@@ -137,7 +186,7 @@ namespace FT.Controllers
         //
         // GET: /Championship/Edit/5
  
-        public ActionResult Edit(int id)
+        /*public ActionResult Edit(int id)
         {
             return View();
         }
@@ -158,7 +207,7 @@ namespace FT.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
         //
         // GET: /Championship/Delete/5
@@ -167,10 +216,10 @@ namespace FT.Controllers
         {
             try
             {
-                IQueryable<championship_teams> list = from cts in db.championship_teams
+                IQueryable<championship_teams> champTeams = from cts in db.championship_teams
                                                       where cts.championship_Id == champId
                                                       select cts;
-                foreach (championship_teams ct in list)
+                foreach (championship_teams ct in champTeams)
                 {
                     db.DeleteObject(ct);
                 }
@@ -178,6 +227,15 @@ namespace FT.Controllers
                 IQueryable<championship_matches> champMatches = from cm in db.championship_matches
                                                                 where cm.championship_Id == champId
                                                                 select cm;
+                List<championship_matches> champMatchesList = champMatches.ToList();
+                foreach (championship_matches cm in champMatchesList)
+                {
+                    match m = (from matches in db.matches
+                               where matches.Id == cm.match_Id
+                               select matches).First();
+                    db.DeleteObject(m);
+                }
+
                 foreach (championship_matches cm in champMatches)
                 {
                     db.DeleteObject(cm);

@@ -21,7 +21,6 @@ namespace FT.Controllers
         public ActionResult Index()
         {
             return View(db.players.OrderBy(players => players.Name));
-            //return View();
         }
 
         //
@@ -51,7 +50,6 @@ namespace FT.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
                 db.AddToplayers(playerObj);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Player").WithFlash(new { msginfo = "Player successfully created." });
@@ -65,7 +63,7 @@ namespace FT.Controllers
         //
         // GET: /Player/Edit/5
  
-        public ActionResult Edit(int id)
+        /*public ActionResult Edit(int id)
         {
             return View();
         }
@@ -86,7 +84,7 @@ namespace FT.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
         //
         // GET: /Player/Delete/5

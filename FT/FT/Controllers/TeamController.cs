@@ -109,7 +109,7 @@ namespace FT.Controllers
         //
         // GET: /Team/Edit/5
  
-        public ActionResult Edit(int id)
+        /*public ActionResult Edit(int id)
         {
             return View();
         }
@@ -130,7 +130,7 @@ namespace FT.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
         //
         // GET: /Team/Delete/5
