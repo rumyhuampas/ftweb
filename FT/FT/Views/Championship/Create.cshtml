@@ -7,6 +7,34 @@
 
 <script src="@Url.Content("~/Scripts/js/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/js/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    //CHAMP TEAMS
+    jQuery("#champtype").ready(function () {
+        jQuery.get('@Url.Action("GetSelectedType","Championship")', null, function (data) {
+            jQuery("#champtype").val(data);
+            jQuery.get('@Url.Action("GetChampTeams","Championship")', { champType: jQuery("#champtype").val() }, function (data) {
+                jQuery('#champteams').empty();
+                jQuery.each(data, function (key, value) {
+                    jQuery('#champteams').append('<option value="' + value.Value + '">' + value.Text + '</option>');
+                });
+            });
+        });
+    });
+
+
+    jQuery("#champtype").change(function () {
+        jQuery('#champteams').empty();
+        jQuery('#dyntable tbody').empty();
+        jQuery.get('@Url.Action("GetChampTeams","Championship")', { champType: jQuery("#champtype").val() }, function (data) {
+            jQuery.each(data, function (key, value) {
+                jQuery('#champteams').append('<option value="' + value.Value + '">' + value.Text + '</option>');
+            });
+            jQuery.get('@Url.Action("GetSelectedType","Championship")', { champType: jQuery("#champtype").val() }, function (data) {
+                jQuery.get('@Url.Action("CleanSelectedTeams", "Championship")', null, function (data) { });
+            });
+        });
+    });
+</script>
 
 @Html.Flash()
 
