@@ -2034,6 +2034,7 @@ border-radius: 5px;
 /*---------------------------------------------------------------*/
 /* PLAYOFFS
 /*---------------------------------------------------------------*/
-.playoffs {width: 980px; float: left;}
+.playoffs {width: 830px; float: left;}
 .playoffs .team{background:#BDBDBD; width:33%;}
 .playoffs .vs{float:right;}
+.trophy{background: url(themes/base/images/trophy3.png) 0px 0px no-repeat; margin-top: 50px; width: 128px; height: 128px; display: inline-block;}

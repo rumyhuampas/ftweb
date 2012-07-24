@@ -379,6 +379,30 @@ namespace FT.Models
         private global::System.String _Type;
         partial void OnTypeChanging(global::System.String value);
         partial void OnTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> champion_Id
+        {
+            get
+            {
+                return _champion_Id;
+            }
+            set
+            {
+                Onchampion_IdChanging(value);
+                ReportPropertyChanging("champion_Id");
+                _champion_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("champion_Id");
+                Onchampion_IdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _champion_Id;
+        partial void Onchampion_IdChanging(Nullable<global::System.Int32> value);
+        partial void Onchampion_IdChanged();
 
         #endregion
     
