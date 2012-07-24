@@ -218,6 +218,9 @@
     <Content Include="Content\themes\base\images\tables\sort_desc.png" />
     <Content Include="Content\themes\base\images\tables\sprites.png" />
     <Content Include="Content\themes\base\images\tables\titlebg.png" />
+    <Content Include="Content\themes\base\images\trophy.jpg" />
+    <Content Include="Content\themes\base\images\trophy2.png" />
+    <Content Include="Content\themes\base\images\trophy3.png" />
     <Content Include="Content\themes\base\karma-teal-grey.css" />
     <Content Include="Content\themes\base\secondary-teal-grey.css" />
     <Content Include="Content\themes\base\standard.css" />
@@ -308,7 +311,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>7046</DevelopmentServerPort>
+          <DevelopmentServerPort>28066</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

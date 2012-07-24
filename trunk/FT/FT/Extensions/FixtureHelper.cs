@@ -30,6 +30,7 @@ namespace FT.Extensions
         public ChampTeam teamA;
         public ChampTeam teamB;
         public List<MatchRes> result;
+        public string type;
 
         public FixtureMatch()
         {
@@ -51,6 +52,7 @@ namespace FT.Extensions
         private championship champ;
         public List<FixtureRow> rows;
         public List<FixtureMatch> matches;
+        public List<FixtureMatch> playoffsMatches;
 
         public FixtureHelper(int championshipId)
         {
@@ -61,6 +63,7 @@ namespace FT.Extensions
                      select c).First();
             rows = new List<FixtureRow>();
             matches = new List<FixtureMatch>();
+            playoffsMatches = new List<FixtureMatch>();
         }
 
         public void BuildFixture()
@@ -106,7 +109,7 @@ namespace FT.Extensions
         {
             IQueryable<match> champMatchesList = from cm in db.championship_matches
                                                  join m in db.matches on cm.match_Id equals m.Id
-                                                 where cm.championship_Id == champId
+                                                 where cm.championship_Id == champId && cm.type == "GROUP"
                                                  select m;
             List<match> champMatches = champMatchesList.ToList();
             foreach (match m in champMatches)
@@ -114,6 +117,7 @@ namespace FT.Extensions
                 FixtureMatch FMatch = new FixtureMatch();
                 FMatch.teamA = BuildChampTeam(m.team_a_Id);
                 FMatch.teamB = BuildChampTeam(m.team_b_Id);
+                FMatch.type = "GROUP";
 
                 var matchResults = (from mr in db.match_results
                                  where mr.match_Id == m.Id
@@ -237,6 +241,62 @@ namespace FT.Extensions
                 }
             }
             while (changed == true);
+        }
+
+        public void GenerateChampPlayoffsMatches()
+        {
+            if (playoffsMatches.Count == 0)
+            {
+                IQueryable<match> semiMatches = from cm in db.championship_matches
+                                                join m in db.matches on cm.match_Id equals m.Id
+                                                where cm.championship_Id == champId && cm.type == "SEMIFINAL"
+                                                select m;
+                List<match> semiMatchesList = semiMatches.ToList();
+                foreach (match m in semiMatchesList)
+                {
+                    FixtureMatch FMatch = new FixtureMatch();
+                    FMatch.teamA = BuildChampTeam(m.team_a_Id);
+                    FMatch.teamB = BuildChampTeam(m.team_b_Id);
+                    FMatch.type = "SEMIFINAL";
+
+                    var matchResults = (from mr in db.match_results
+                                        where mr.match_Id == m.Id
+                                        select mr).OrderBy(mr => mr.Set);
+
+                    foreach (var item in matchResults)
+                    {
+                        FMatch.AddRes(item.team_a_games, item.team_b_games);
+                    }
+
+                    playoffsMatches.Add(FMatch);
+                }
+
+                IQueryable<match> finalMatchList = from cm in db.championship_matches
+                                    join m in db.matches on cm.match_Id equals m.Id
+                                    where cm.championship_Id == champId && cm.type == "FINAL"
+                                    select m;
+
+                match finalMatchObj = null;
+                if (finalMatchList.Count() > 0)
+                {
+                    finalMatchObj = finalMatchList.First();
+                    FixtureMatch FinalMatch = new FixtureMatch();
+                    FinalMatch.teamA = BuildChampTeam(finalMatchObj.team_a_Id);
+                    FinalMatch.teamB = BuildChampTeam(finalMatchObj.team_b_Id);
+                    FinalMatch.type = "FINAL";
+
+                    var finalMatchResults = (from mr in db.match_results
+                                             where mr.match_Id == finalMatchObj.Id
+                                             select mr).OrderBy(mr => mr.Set);
+
+                    foreach (var item in finalMatchResults)
+                    {
+                        FinalMatch.AddRes(item.team_a_games, item.team_b_games);
+                    }
+
+                    playoffsMatches.Add(FinalMatch);
+                }
+            }
         }
     }
 }

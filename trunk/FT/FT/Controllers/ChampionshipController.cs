@@ -10,7 +10,7 @@ namespace FT.Controllers
 {
     public class ChampionshipController : Controller
     {
-        private static ftEntities db;
+        public static ftEntities db;
         public static TeamsHelper teamsHelper;
         public static championship champHelper;
         public static FixtureHelper fixtureHelper;
@@ -310,10 +310,9 @@ namespace FT.Controllers
 
         public void GeneratePlayoffMatches(int champId)
         {
-            IQueryable<championship_matches> semiMatches = from cm in db.championship_matches
-                                       where cm.type == "SEMIFINAL" && cm.championship_Id == champId
-                                       select cm;
-            if (semiMatches.Count() == 0)
+            fixtureHelper.GenerateChampPlayoffsMatches();
+
+            if (fixtureHelper.playoffsMatches.Count == 0)
             {
                 for (int i = 0; i < 2; i++)
                 {
@@ -328,63 +327,72 @@ namespace FT.Controllers
                     cm.type = "SEMIFINAL";
                     db.AddTochampionship_matches(cm);
                     db.SaveChanges();
+
+                    fixtureHelper.playoffsMatches.Clear();
                 }
             }
             else
             {
-                int finalCount = (from cm in db.championship_matches
-                                  where cm.type == "FINAL" && cm.championship_Id == champId
-                                  select cm).Count();
-                if (finalCount == 0)
+                ChampTeam teamA = null;
+                ChampTeam teamB = null;
+                int semiCount = 0;
+                bool createFinal = false;
+                foreach (FixtureMatch fm in fixtureHelper.playoffsMatches)
                 {
-                    List<championship_matches> semiMatcheslist = semiMatches.ToList();
-
-                    var semiResult1 = (from cm in db.championship_matches
-                                      join cmr in db.match_results on cm.match_Id equals cmr.match_Id
-                                      where cm.type == "SEMIFINAL" && cm.championship_Id == champId && cm.match_Id == semiMatcheslist[0].match_Id
-                                      group cmr by cmr.match_Id into res
-                                      select new { SumA = res.Sum(model => model.team_a_games), SumB = res.Sum(model => model.team_b_games) }).First();
-                    if (semiResult1 != null)
+                    int teamARes = 0;
+                    int teamBRes = 0;
+                    if (fm.type == "SEMIFINAL")
                     {
-                        var semiResult2 = (from cm in db.championship_matches
-                                         join cmr in db.match_results on cm.match_Id equals cmr.match_Id
-                                         where cm.type == "SEMIFINAL" && cm.championship_Id == champId && cm.match_Id == semiMatcheslist[1].match_Id
-                                         group cmr by cmr.match_Id into res
-                                         select new { SumA = res.Sum(model => model.team_a_games), SumB = res.Sum(model => model.team_b_games) }).First();
-                        if (semiResult2 != null)
+                        semiCount++;
+                        foreach (MatchRes res in fm.result)
                         {
-                            int teamId1;
-                            if (semiResult1.SumA > semiResult1.SumB)
-                            {
-                                teamId1 = semiMatcheslist[0].match.team_a_Id;
-                            }
+                            teamARes += res.teamA;
+                            teamBRes += res.teamB;
+                        }
+                        if (teamARes > teamBRes)
+                        {
+                            if (semiCount == 1) teamA = fm.teamA;
                             else
                             {
-                                teamId1 = semiMatcheslist[0].match.team_b_Id;
+                                teamB = fm.teamA;
+                                createFinal = true;
                             }
-                            int teamId2;
-                            if (semiResult2.SumA > semiResult2.SumB)
-                            {
-                                teamId2 = semiMatcheslist[1].match.team_a_Id;
-                            }
+                        }
+                        else
+                        {
+                            if (semiCount == 1) teamA = fm.teamB;
                             else
                             {
-                                teamId2 = semiMatcheslist[1].match.team_b_Id;
+                                teamB = fm.teamB;
+                                createFinal = true;
                             }
-
-                            match m = new match();
-                            m.team_a_Id = teamId1;
-                            m.team_b_Id = teamId2;
-                            db.AddTomatches(m);
-                            db.SaveChanges();
-                            championship_matches cm = new championship_matches();
-                            cm.championship_Id = champId;
-                            cm.match_Id = m.Id;
-                            cm.type = "FINAL";
-                            db.AddTochampionship_matches(cm);
-                            db.SaveChanges();
                         }
                     }
+                    else
+                    {
+                        if (fm.type == "FINAL")
+                        {
+                            createFinal = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (createFinal)
+                {
+                    match m = new match();
+                    m.team_a_Id = teamA.Id;
+                    m.team_b_Id = teamB.Id;
+                    db.AddTomatches(m);
+                    db.SaveChanges();
+                    championship_matches cm = new championship_matches();
+                    cm.championship_Id = champId;
+                    cm.match_Id = m.Id;
+                    cm.type = "FINAL";
+                    db.AddTochampionship_matches(cm);
+                    db.SaveChanges();
+
+                    fixtureHelper.playoffsMatches.Clear();
                 }
             }
         }

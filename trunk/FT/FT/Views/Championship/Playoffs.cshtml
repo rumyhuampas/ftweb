@@ -6,20 +6,138 @@
 }
 
 <table class="playoffs">
-    <tr><td class="team">TEAM A</td></tr>
-    <tr><td class="vs">VS</td><td class="team">test</td></tr>
-    <tr><td class="team">TEAM B</td></tr>
-    <tr><td></td><td class="vs">VS</td><td class="team">test</td></tr>
-    <tr><td class="team">TEAM A</td></tr>
-    <tr><td class="vs">VS</td><td class="team">test</td></tr>
-    <tr><td class="team">TEAM B</td></tr>
+    @{
+        FixtureMatch semi1 = null;
+        FixtureMatch semi2 = null;
+        FixtureMatch final = null;
+        int semicount = 0;
+        foreach (FixtureMatch fm in FT.Controllers.ChampionshipController.fixtureHelper.playoffsMatches)
+        {
+            if (fm.type == "SEMIFINAL")
+            {
+                semicount++;
+                if (semicount == 1)
+                {
+                    semi1 = fm;
+                }
+                else
+                {
+                    semi2 = fm;
+                }
+            }
+            else
+            {
+                if (fm.type == "FINAL")
+                {
+                    final = fm;
+                }
+            }
+        }
+    }
+    @{
+        if (final != null)
+        {
+            ChampTeam ct = null;
+            if(Model.Type == "SINGLE"){
+                var item = from p in FT.Controllers.ChampionshipController.db.players
+                        where p.Id == Model.champion_Id
+                        select p;
+                if(item.Count() > 0){
+                    FT.Models.player player = item.First();
+                    ct = new ChampTeam();
+                    ct.Id = player.Id;
+                    ct.Name = player.Name;
+                    ct.Type = "PLAYER";
+                }
+            }
+            else{
+                var item = from t in FT.Controllers.ChampionshipController.db.teams
+                        where t.Id == Model.champion_Id
+                        select t;
+                if (item.Count() > 0)
+                {
+                    FT.Models.team team = item.First();
+                    ct = new ChampTeam();
+                    ct.Id = team.Id;
+                    ct.Name = team.Name;
+                    ct.Type = "TEAM";
+                }
+            }
+            
+            <tr><td class="team">@semi1.teamA.Name</td></tr>
+            <tr><td class="vs">VS</td><td class="team">@final.teamA.Name</td></tr>
+            <tr><td class="team">@semi1.teamB.Name</td></tr>
+            if(ct != null){
+                <tr><td></td><td class="vs">VS</td><td class="team">@ct.Name</td></tr>    
+            }
+            else
+            {
+                <tr><td></td><td class="vs">VS</td><td class="team">Champion</td></tr>
+            }
+            <tr><td class="team">@semi2.teamA.Name</td></tr>
+            <tr><td class="vs">VS</td><td class="team">@final.teamB.Name</td></tr>
+            <tr><td class="team">@semi2.teamB.Name</td></tr>
+        }
+        else
+        {
+            <tr><td class="team">@semi1.teamA.Name</td></tr>
+            <tr><td class="vs">VS</td><td class="team">Winner Semi 1</td></tr>
+            <tr><td class="team">@semi1.teamB.Name</td></tr>
+            <tr><td></td><td class="vs">VS</td><td class="team">Champion</td></tr>
+            <tr><td class="team">@semi2.teamA.Name</td></tr>
+            <tr><td class="vs">VS</td><td class="team">Winner Semi 2</td></tr>
+            <tr><td class="team">@semi2.teamB.Name</td></tr>
+        }
+        
+    }
 </table>
+<div class="trophy"></div>
 
 <div style="clear: both;"></div>
 
+<br />
+
+@foreach (var m in FT.Controllers.ChampionshipController.fixtureHelper.playoffsMatches)
+{            
+    <table cellpadding="0" cellspacing="0" border="0" class="stdtable matches" id="dyntable">
+        <tbody>
+            <tr>@m.type</tr>
+            <tr>
+                <td>@m.teamA.Name</td>
+                @foreach (var res in m.result)
+                {
+                    if (res.teamA > res.teamB)
+                    {
+                        <td><b>@res.teamA</b></td>
+                    }
+                    else
+                    {
+                        <td>@res.teamA</td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>@m.teamB.Name</td>
+                @foreach (var res in m.result)
+                {
+                    if (res.teamB > res.teamA)
+                    {
+                        <td><b>@res.teamB</b></td>
+                    }
+                    else
+                    {
+                        <td>@res.teamB</td>
+                    }
+                }
+            </tr>
+        </tbody>
+    </table>
+    <br />
+}
+
 <div class="button-wrapper submit-button-wrapper clearfix">
     <div class="button-input-wrapper submit-button-input-wrapper">
-        @Html.ActionLink("Back", "Index", "Team", null, new { @class = "ka-form-submit" })
+        @Html.ActionLink("Back", "List", "Championship", null, new { @class = "ka-form-submit" })
     </div>
 </div>
 
