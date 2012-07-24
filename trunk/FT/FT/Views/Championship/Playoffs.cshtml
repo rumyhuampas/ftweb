@@ -137,7 +137,7 @@
 
 <div class="button-wrapper submit-button-wrapper clearfix">
     <div class="button-input-wrapper submit-button-input-wrapper">
-        @Html.ActionLink("Back", "List", "Championship", null, new { @class = "ka-form-submit" })
+        @Html.ActionLink("Back", "Details", "Championship", new { @champId = Model.Id }, new { @class = "ka-form-submit" })
     </div>
 </div>
 

@@ -120,8 +120,8 @@ namespace FT.Extensions
                 FMatch.type = "GROUP";
 
                 var matchResults = (from mr in db.match_results
-                                 where mr.match_Id == m.Id
-                                 select mr).OrderBy(mr => mr.Set);
+                                    where mr.match_Id == m.Id
+                                    select mr).OrderBy(mr => mr.Set);
 
                 foreach (var item in matchResults)
                 {
@@ -245,57 +245,56 @@ namespace FT.Extensions
 
         public void GenerateChampPlayoffsMatches()
         {
-            if (playoffsMatches.Count == 0)
+            playoffsMatches.Clear();
+
+            IQueryable<match> semiMatches = from cm in db.championship_matches
+                                            join m in db.matches on cm.match_Id equals m.Id
+                                            where cm.championship_Id == champId && cm.type == "SEMIFINAL"
+                                            select m;
+            List<match> semiMatchesList = semiMatches.ToList();
+            foreach (match m in semiMatchesList)
             {
-                IQueryable<match> semiMatches = from cm in db.championship_matches
-                                                join m in db.matches on cm.match_Id equals m.Id
-                                                where cm.championship_Id == champId && cm.type == "SEMIFINAL"
-                                                select m;
-                List<match> semiMatchesList = semiMatches.ToList();
-                foreach (match m in semiMatchesList)
+                FixtureMatch FMatch = new FixtureMatch();
+                FMatch.teamA = BuildChampTeam(m.team_a_Id);
+                FMatch.teamB = BuildChampTeam(m.team_b_Id);
+                FMatch.type = "SEMIFINAL";
+
+                var matchResults = (from mr in db.match_results
+                                    where mr.match_Id == m.Id
+                                    select mr).OrderBy(mr => mr.Set);
+
+                foreach (var item in matchResults)
                 {
-                    FixtureMatch FMatch = new FixtureMatch();
-                    FMatch.teamA = BuildChampTeam(m.team_a_Id);
-                    FMatch.teamB = BuildChampTeam(m.team_b_Id);
-                    FMatch.type = "SEMIFINAL";
-
-                    var matchResults = (from mr in db.match_results
-                                        where mr.match_Id == m.Id
-                                        select mr).OrderBy(mr => mr.Set);
-
-                    foreach (var item in matchResults)
-                    {
-                        FMatch.AddRes(item.team_a_games, item.team_b_games);
-                    }
-
-                    playoffsMatches.Add(FMatch);
+                    FMatch.AddRes(item.team_a_games, item.team_b_games);
                 }
 
-                IQueryable<match> finalMatchList = from cm in db.championship_matches
-                                    join m in db.matches on cm.match_Id equals m.Id
-                                    where cm.championship_Id == champId && cm.type == "FINAL"
-                                    select m;
+                playoffsMatches.Add(FMatch);
+            }
 
-                match finalMatchObj = null;
-                if (finalMatchList.Count() > 0)
+            IQueryable<match> finalMatchList = from cm in db.championship_matches
+                                               join m in db.matches on cm.match_Id equals m.Id
+                                               where cm.championship_Id == champId && cm.type == "FINAL"
+                                               select m;
+
+            match finalMatchObj = null;
+            if (finalMatchList.Count() > 0)
+            {
+                finalMatchObj = finalMatchList.First();
+                FixtureMatch FinalMatch = new FixtureMatch();
+                FinalMatch.teamA = BuildChampTeam(finalMatchObj.team_a_Id);
+                FinalMatch.teamB = BuildChampTeam(finalMatchObj.team_b_Id);
+                FinalMatch.type = "FINAL";
+
+                var finalMatchResults = (from mr in db.match_results
+                                         where mr.match_Id == finalMatchObj.Id
+                                         select mr).OrderBy(mr => mr.Set);
+
+                foreach (var item in finalMatchResults)
                 {
-                    finalMatchObj = finalMatchList.First();
-                    FixtureMatch FinalMatch = new FixtureMatch();
-                    FinalMatch.teamA = BuildChampTeam(finalMatchObj.team_a_Id);
-                    FinalMatch.teamB = BuildChampTeam(finalMatchObj.team_b_Id);
-                    FinalMatch.type = "FINAL";
-
-                    var finalMatchResults = (from mr in db.match_results
-                                             where mr.match_Id == finalMatchObj.Id
-                                             select mr).OrderBy(mr => mr.Set);
-
-                    foreach (var item in finalMatchResults)
-                    {
-                        FinalMatch.AddRes(item.team_a_games, item.team_b_games);
-                    }
-
-                    playoffsMatches.Add(FinalMatch);
+                    FinalMatch.AddRes(item.team_a_games, item.team_b_games);
                 }
+
+                playoffsMatches.Add(FinalMatch);
             }
         }
     }
