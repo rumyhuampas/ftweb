@@ -21,9 +21,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DeployIisAppPath>FTWEB/FT</DeployIisAppPath>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -73,6 +75,7 @@
     <Compile Include="Extensions\FixtureHelper.cs" />
     <Compile Include="Extensions\FlashHtmlExtensions.cs" />
     <Compile Include="Extensions\FlashStorage.cs" />
+    <Compile Include="Extensions\GeneralHelper.cs" />
     <Compile Include="Extensions\PlayersHelper.cs" />
     <Compile Include="Extensions\TeamsHelper.cs" />
     <Compile Include="Extensions\WrappedActionResultWithFlash.cs" />

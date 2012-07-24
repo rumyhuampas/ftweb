@@ -64,21 +64,30 @@
                         <!-- ***************** - Main Navigation - ***************** -->
                         <ul id="menu-main-nav">
                         <li><a href="@Url.Action("Index", "Player")"><span><strong>Players</strong><span class="navi-description">Players information</span></span></a>
-                            <ul class="sub-menu">
-	                            <li><a href="@Url.Action("Create", "Player")"><span>Add new player</span></a></li>
-	                        </ul>
+                            @if (GeneralHelper.DEBUG())
+                            {
+                                <ul class="sub-menu">
+	                                <li><a href="@Url.Action("Create", "Player")"><span>Add new player</span></a></li>
+	                            </ul>
+                            }
                         </li>
 
                         <li><a href="@Url.Action("Index", "Team")"><span><strong>Teams</strong><span class="navi-description">Teams information</span></span></a>
-                            <ul class="sub-menu">
-                                <li><a href="@Url.Action("Create", "Team")"><span>Add new team</span></a></li>
-                            </ul>
+                            @if (GeneralHelper.DEBUG())
+                            {
+                                <ul class="sub-menu">
+                                    <li><a href="@Url.Action("Create", "Team")"><span>Add new team</span></a></li>
+                                </ul>
+                            }
                         </li>
 
                         <li><a href="@Url.Action("List", "Championship")"><span><strong>Championships</strong><span class="navi-description">Matches &amp; fixtures</span></span></a>
-                            <ul class="sub-menu">
-	                            <li><a href="@Url.Action("Create", "Championship")"><span>Add new championship</span></a></li>
-                            </ul>
+                            @if (GeneralHelper.DEBUG())
+                            {
+                                <ul class="sub-menu">
+	                                <li><a href="@Url.Action("Create", "Championship")"><span>Add new championship</span></a></li>
+                                </ul>
+                            }
                         </li>
 
                         <li><a href="@Url.Action("Index", "About")"><span><strong>About FTWeb</strong><span class="navi-description">Developers information</span></span></a>

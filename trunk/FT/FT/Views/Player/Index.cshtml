@@ -16,9 +16,12 @@
             <th class="head0">
                 <div class="DataTables_sort_wrapper">Name<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
             </th>
-            <th class="head1" style="width:150px">
-                <div class="DataTables_sort_wrapper">Actions<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
-            </th>
+            @if (GeneralHelper.DEBUG())
+            {
+                <th class="head1" style="width:150px">
+                    <div class="DataTables_sort_wrapper">Actions<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span></div>
+                </th>
+            }
         </tr>
     </thead>
 
@@ -30,9 +33,12 @@
                 <td>
                     @Html.ActionLink(item.Name, "Details", "Player", new { @playerId = item.Id }, null)
                 </td>
+            if (GeneralHelper.DEBUG())
+            {
                 <td>
                     @Html.ActionLink("Delete", "Delete", "Player", new { playerId=item.Id }, null)
                 </td>
+            }
             @:</tr>
         }
     }
