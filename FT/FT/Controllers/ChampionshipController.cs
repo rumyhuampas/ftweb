@@ -328,7 +328,7 @@ namespace FT.Controllers
                     db.AddTochampionship_matches(cm);
                     db.SaveChanges();
 
-                    fixtureHelper.playoffsMatches.Clear();
+                    fixtureHelper.GenerateChampPlayoffsMatches();
                 }
             }
             else
@@ -343,6 +343,11 @@ namespace FT.Controllers
                     int teamBRes = 0;
                     if (fm.type == "SEMIFINAL")
                     {
+                        if (fm.result.Count == 0)
+                        {
+                            createFinal = false;
+                            break;
+                        }
                         semiCount++;
                         foreach (MatchRes res in fm.result)
                         {
@@ -373,6 +378,20 @@ namespace FT.Controllers
                         if (fm.type == "FINAL")
                         {
                             createFinal = false;
+                            if (fm.result.Count != 0)
+                            {
+                                foreach (MatchRes res in fm.result)
+                                {
+                                    teamARes += res.teamA;
+                                    teamBRes += res.teamB;
+                                }
+                                championship champ = (from c in db.championships
+                                                      where c.Id == champId
+                                                      select c).First();
+                                if (teamARes > teamBRes) champ.champion_Id = fm.teamA.Id;
+                                else champ.champion_Id = fm.teamB.Id;
+                                db.SaveChanges();
+                            }
                             break;
                         }
                     }
@@ -392,7 +411,7 @@ namespace FT.Controllers
                     db.AddTochampionship_matches(cm);
                     db.SaveChanges();
 
-                    fixtureHelper.playoffsMatches.Clear();
+                    fixtureHelper.GenerateChampPlayoffsMatches();
                 }
             }
         }
