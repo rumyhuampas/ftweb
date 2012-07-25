@@ -23,6 +23,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("ftModel", "FK__championship_teams_championship", "championship", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.championship), "championship_teams", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.championship_teams), true)]
 [assembly: EdmRelationshipAttribute("ftModel", "FK_team_player_players", "player", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.player), "team_player", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.team_player), true)]
 [assembly: EdmRelationshipAttribute("ftModel", "FK_team_player_teams", "team", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.team), "team_player", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.team_player), true)]
+[assembly: EdmRelationshipAttribute("ftModel", "FK_gallery_gallery_items_galleries", "gallery", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.gallery), "gallery_gallery_items", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.gallery_gallery_items), true)]
+[assembly: EdmRelationshipAttribute("ftModel", "FK_gallery_gallery_items_gallery_item", "gallery_item", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FT.Models.gallery_item), "gallery_gallery_items", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FT.Models.gallery_gallery_items), true)]
 
 #endregion
 
@@ -201,6 +203,54 @@ namespace FT.Models
             }
         }
         private ObjectSet<team> _teams;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<gallery> galleries
+        {
+            get
+            {
+                if ((_galleries == null))
+                {
+                    _galleries = base.CreateObjectSet<gallery>("galleries");
+                }
+                return _galleries;
+            }
+        }
+        private ObjectSet<gallery> _galleries;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<gallery_gallery_items> gallery_gallery_items
+        {
+            get
+            {
+                if ((_gallery_gallery_items == null))
+                {
+                    _gallery_gallery_items = base.CreateObjectSet<gallery_gallery_items>("gallery_gallery_items");
+                }
+                return _gallery_gallery_items;
+            }
+        }
+        private ObjectSet<gallery_gallery_items> _gallery_gallery_items;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<gallery_item> gallery_item
+        {
+            get
+            {
+                if ((_gallery_item == null))
+                {
+                    _gallery_item = base.CreateObjectSet<gallery_item>("gallery_item");
+                }
+                return _gallery_item;
+            }
+        }
+        private ObjectSet<gallery_item> _gallery_item;
 
         #endregion
         #region AddTo Methods
@@ -267,6 +317,30 @@ namespace FT.Models
         public void AddToteams(team team)
         {
             base.AddObject("teams", team);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the galleries EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTogalleries(gallery gallery)
+        {
+            base.AddObject("galleries", gallery);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the gallery_gallery_items EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTogallery_gallery_items(gallery_gallery_items gallery_gallery_items)
+        {
+            base.AddObject("gallery_gallery_items", gallery_gallery_items);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the gallery_item EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTogallery_item(gallery_item gallery_item)
+        {
+            base.AddObject("gallery_item", gallery_item);
         }
 
         #endregion
@@ -808,6 +882,504 @@ namespace FT.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<championship>("ftModel.FK__championship_teams_championship", "championship", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ftModel", Name="gallery")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class gallery : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new gallery object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="cover_Id">Initial value of the Cover_Id property.</param>
+        public static gallery Creategallery(global::System.Int32 id, global::System.String name, global::System.Int32 cover_Id)
+        {
+            gallery gallery = new gallery();
+            gallery.Id = id;
+            gallery.Name = name;
+            gallery.Cover_Id = cover_Id;
+            return gallery;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Cover_Id
+        {
+            get
+            {
+                return _Cover_Id;
+            }
+            set
+            {
+                OnCover_IdChanging(value);
+                ReportPropertyChanging("Cover_Id");
+                _Cover_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Cover_Id");
+                OnCover_IdChanged();
+            }
+        }
+        private global::System.Int32 _Cover_Id;
+        partial void OnCover_IdChanging(global::System.Int32 value);
+        partial void OnCover_IdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_gallery_gallery_items_galleries", "gallery_gallery_items")]
+        public EntityCollection<gallery_gallery_items> gallery_gallery_items
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<gallery_gallery_items>("ftModel.FK_gallery_gallery_items_galleries", "gallery_gallery_items");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<gallery_gallery_items>("ftModel.FK_gallery_gallery_items_galleries", "gallery_gallery_items", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ftModel", Name="gallery_gallery_items")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class gallery_gallery_items : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new gallery_gallery_items object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="gallery_Id">Initial value of the gallery_Id property.</param>
+        /// <param name="item_Id">Initial value of the item_Id property.</param>
+        public static gallery_gallery_items Creategallery_gallery_items(global::System.Int32 id, global::System.Int32 gallery_Id, global::System.Int32 item_Id)
+        {
+            gallery_gallery_items gallery_gallery_items = new gallery_gallery_items();
+            gallery_gallery_items.Id = id;
+            gallery_gallery_items.gallery_Id = gallery_Id;
+            gallery_gallery_items.item_Id = item_Id;
+            return gallery_gallery_items;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 gallery_Id
+        {
+            get
+            {
+                return _gallery_Id;
+            }
+            set
+            {
+                Ongallery_IdChanging(value);
+                ReportPropertyChanging("gallery_Id");
+                _gallery_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("gallery_Id");
+                Ongallery_IdChanged();
+            }
+        }
+        private global::System.Int32 _gallery_Id;
+        partial void Ongallery_IdChanging(global::System.Int32 value);
+        partial void Ongallery_IdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 item_Id
+        {
+            get
+            {
+                return _item_Id;
+            }
+            set
+            {
+                Onitem_IdChanging(value);
+                ReportPropertyChanging("item_Id");
+                _item_Id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("item_Id");
+                Onitem_IdChanged();
+            }
+        }
+        private global::System.Int32 _item_Id;
+        partial void Onitem_IdChanging(global::System.Int32 value);
+        partial void Onitem_IdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_gallery_gallery_items_galleries", "gallery")]
+        public gallery gallery
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<gallery>("ftModel.FK_gallery_gallery_items_galleries", "gallery").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<gallery>("ftModel.FK_gallery_gallery_items_galleries", "gallery").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<gallery> galleryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<gallery>("ftModel.FK_gallery_gallery_items_galleries", "gallery");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<gallery>("ftModel.FK_gallery_gallery_items_galleries", "gallery", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_gallery_gallery_items_gallery_item", "gallery_item")]
+        public gallery_item gallery_item
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<gallery_item>("ftModel.FK_gallery_gallery_items_gallery_item", "gallery_item").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<gallery_item>("ftModel.FK_gallery_gallery_items_gallery_item", "gallery_item").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<gallery_item> gallery_itemReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<gallery_item>("ftModel.FK_gallery_gallery_items_gallery_item", "gallery_item");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<gallery_item>("ftModel.FK_gallery_gallery_items_gallery_item", "gallery_item", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ftModel", Name="gallery_item")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class gallery_item : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new gallery_item object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="type">Initial value of the Type property.</param>
+        /// <param name="url">Initial value of the Url property.</param>
+        public static gallery_item Creategallery_item(global::System.Int32 id, global::System.String type, global::System.String url)
+        {
+            gallery_item gallery_item = new gallery_item();
+            gallery_item.Id = id;
+            gallery_item.Type = type;
+            gallery_item.Url = url;
+            return gallery_item;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Type
+        {
+            get
+            {
+                return _Type;
+            }
+            set
+            {
+                OnTypeChanging(value);
+                ReportPropertyChanging("Type");
+                _Type = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Type");
+                OnTypeChanged();
+            }
+        }
+        private global::System.String _Type;
+        partial void OnTypeChanging(global::System.String value);
+        partial void OnTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Url
+        {
+            get
+            {
+                return _Url;
+            }
+            set
+            {
+                OnUrlChanging(value);
+                ReportPropertyChanging("Url");
+                _Url = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Url");
+                OnUrlChanged();
+            }
+        }
+        private global::System.String _Url;
+        partial void OnUrlChanging(global::System.String value);
+        partial void OnUrlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ftModel", "FK_gallery_gallery_items_gallery_item", "gallery_gallery_items")]
+        public EntityCollection<gallery_gallery_items> gallery_gallery_items
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<gallery_gallery_items>("ftModel.FK_gallery_gallery_items_gallery_item", "gallery_gallery_items");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<gallery_gallery_items>("ftModel.FK_gallery_gallery_items_gallery_item", "gallery_gallery_items", value);
                 }
             }
         }

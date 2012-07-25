@@ -9,6 +9,9 @@
           <EntitySet Name="championship_matches" EntityType="ftModel.Store.championship_matches" store:Type="Tables" Schema="ft" />
           <EntitySet Name="championship_teams" EntityType="ftModel.Store.championship_teams" store:Type="Tables" Schema="ft" />
           <EntitySet Name="championships" EntityType="ftModel.Store.championships" store:Type="Tables" Schema="ft" />
+          <EntitySet Name="galleries" EntityType="ftModel.Store.galleries" store:Type="Tables" Schema="ft" />
+          <EntitySet Name="gallery_gallery_items" EntityType="ftModel.Store.gallery_gallery_items" store:Type="Tables" Schema="ft" />
+          <EntitySet Name="gallery_item" EntityType="ftModel.Store.gallery_item" store:Type="Tables" Schema="ft" />
           <EntitySet Name="match_results" EntityType="ftModel.Store.match_results" store:Type="Tables" Schema="ft" />
           <EntitySet Name="matches" EntityType="ftModel.Store.matches" store:Type="Tables" Schema="ft" />
           <EntitySet Name="players" EntityType="ftModel.Store.players" store:Type="Tables" Schema="ft" />
@@ -25,6 +28,14 @@
           <AssociationSet Name="FK__championship_teams_championship" Association="ftModel.Store.FK__championship_teams_championship">
             <End Role="championships" EntitySet="championships" />
             <End Role="championship_teams" EntitySet="championship_teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gallery_gallery_items_galleries" Association="ftModel.Store.FK_gallery_gallery_items_galleries">
+            <End Role="galleries" EntitySet="galleries" />
+            <End Role="gallery_gallery_items" EntitySet="gallery_gallery_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gallery_gallery_items_gallery_item" Association="ftModel.Store.FK_gallery_gallery_items_gallery_item">
+            <End Role="gallery_item" EntitySet="gallery_item" />
+            <End Role="gallery_gallery_items" EntitySet="gallery_gallery_items" />
           </AssociationSet>
           <AssociationSet Name="FK_team_player_players" Association="ftModel.Store.FK_team_player_players">
             <End Role="players" EntitySet="players" />
@@ -60,6 +71,32 @@
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Type" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="champion_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="galleries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="4000" />
+          <Property Name="Cover_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gallery_gallery_items">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="gallery_Id" Type="int" Nullable="false" />
+          <Property Name="item_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gallery_item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Url" Type="text" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="match_results">
           <Key>
@@ -139,6 +176,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_gallery_gallery_items_galleries">
+          <End Role="galleries" Type="ftModel.Store.galleries" Multiplicity="1" />
+          <End Role="gallery_gallery_items" Type="ftModel.Store.gallery_gallery_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="galleries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="gallery_gallery_items">
+              <PropertyRef Name="gallery_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gallery_gallery_items_gallery_item">
+          <End Role="gallery_item" Type="ftModel.Store.gallery_item" Multiplicity="1" />
+          <End Role="gallery_gallery_items" Type="ftModel.Store.gallery_gallery_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery_item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="gallery_gallery_items">
+              <PropertyRef Name="item_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_team_player_players">
           <End Role="players" Type="ftModel.Store.players" Multiplicity="1" />
           <End Role="team_player" Type="ftModel.Store.team_player" Multiplicity="*" />
@@ -195,6 +256,17 @@
           <AssociationSet Name="FK_team_player_teams" Association="ftModel.FK_team_player_teams">
             <End Role="team" EntitySet="teams" />
             <End Role="team_player" EntitySet="team_player" />
+          </AssociationSet>
+          <EntitySet Name="galleries" EntityType="ftModel.gallery" />
+          <EntitySet Name="gallery_gallery_items" EntityType="ftModel.gallery_gallery_items" />
+          <EntitySet Name="gallery_item" EntityType="ftModel.gallery_item" />
+          <AssociationSet Name="FK_gallery_gallery_items_galleries" Association="ftModel.FK_gallery_gallery_items_galleries">
+            <End Role="gallery" EntitySet="galleries" />
+            <End Role="gallery_gallery_items" EntitySet="gallery_gallery_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gallery_gallery_items_gallery_item" Association="ftModel.FK_gallery_gallery_items_gallery_item">
+            <End Role="gallery_item" EntitySet="gallery_item" />
+            <End Role="gallery_gallery_items" EntitySet="gallery_gallery_items" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="championship_matches">
@@ -335,6 +407,60 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="gallery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Description" />
+          <Property Type="Int32" Name="Cover_Id" Nullable="false" />
+          <NavigationProperty Name="gallery_gallery_items" Relationship="ftModel.FK_gallery_gallery_items_galleries" FromRole="gallery" ToRole="gallery_gallery_items" />
+        </EntityType>
+        <EntityType Name="gallery_gallery_items">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="gallery_Id" Nullable="false" />
+          <Property Type="Int32" Name="item_Id" Nullable="false" />
+          <NavigationProperty Name="gallery" Relationship="ftModel.FK_gallery_gallery_items_galleries" FromRole="gallery_gallery_items" ToRole="gallery" />
+          <NavigationProperty Name="gallery_item" Relationship="ftModel.FK_gallery_gallery_items_gallery_item" FromRole="gallery_gallery_items" ToRole="gallery_item" />
+        </EntityType>
+        <EntityType Name="gallery_item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Type" Nullable="false" />
+          <Property Type="String" Name="Url" Nullable="false" />
+          <Property Type="String" Name="Title" />
+          <NavigationProperty Name="gallery_gallery_items" Relationship="ftModel.FK_gallery_gallery_items_gallery_item" FromRole="gallery_item" ToRole="gallery_gallery_items" />
+        </EntityType>
+        <Association Name="FK_gallery_gallery_items_galleries">
+          <End Type="ftModel.gallery" Role="gallery" Multiplicity="1" />
+          <End Type="ftModel.gallery_gallery_items" Role="gallery_gallery_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="gallery_gallery_items">
+              <PropertyRef Name="gallery_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_gallery_gallery_items_gallery_item">
+          <End Type="ftModel.gallery_item" Role="gallery_item" Multiplicity="1" />
+          <End Type="ftModel.gallery_gallery_items" Role="gallery_gallery_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery_item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="gallery_gallery_items">
+              <PropertyRef Name="item_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -417,6 +543,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="galleries">
+            <EntityTypeMapping TypeName="ftModel.gallery">
+              <MappingFragment StoreEntitySet="galleries">
+                <ScalarProperty Name="Cover_Id" ColumnName="Cover_Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gallery_gallery_items">
+            <EntityTypeMapping TypeName="ftModel.gallery_gallery_items">
+              <MappingFragment StoreEntitySet="gallery_gallery_items">
+                <ScalarProperty Name="item_Id" ColumnName="item_Id" />
+                <ScalarProperty Name="gallery_Id" ColumnName="gallery_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gallery_item">
+            <EntityTypeMapping TypeName="ftModel.gallery_item">
+              <MappingFragment StoreEntitySet="gallery_item">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -471,6 +626,18 @@
           <ConnectorPoint PointX="2.25" PointY="4.65625" />
           <ConnectorPoint PointX="4.40625" PointY="4.65625" />
           <ConnectorPoint PointX="4.40625" PointY="2.8552864583333388" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ftModel.gallery" Width="1.5" PointX="7.375" PointY="3.875" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="ftModel.gallery_gallery_items" Width="1.5" PointX="9.625" PointY="3.875" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="ftModel.gallery_item" Width="1.5" PointX="7.375" PointY="6.875" Height="1.9802864583333388" />
+        <AssociationConnector Association="ftModel.FK_gallery_gallery_items_galleries" >
+          <ConnectorPoint PointX="8.875" PointY="4.8651432291666659" />
+          <ConnectorPoint PointX="9.625" PointY="4.8651432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="ftModel.FK_gallery_gallery_items_gallery_item" >
+          <ConnectorPoint PointX="8.875" PointY="7.8651432291666694" />
+          <ConnectorPoint PointX="10.375" PointY="7.8651432291666694" />
+          <ConnectorPoint PointX="10.375" PointY="5.8552864583333388" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<FT.Models.gallery>
+
+@{
+    ViewBag.Title = "Gallery";
+    ViewBag.Subtitle = "Index";
+}
+
+<div class="main-holder home-holder">
+    <div class="content_full_width">
+    <!-- ***************** - Homepage Content Area - ***************** -->
+        <div class="home-jquery-content">
+            @foreach (var item in Model)
+            {
+                FT.Models.gallery_item gitem = (from gi in FT.Controllers.GalleryController.db.gallery_item
+                                                where gi.Id == item.Cover_Id
+                                                select gi).First();
+                <div class="one_fourth">
+	                <div class="modern_img_frame modern_four_col_large">
+                        <div class="preload_four_col_large">
+ 	                        <div class="attachment-fadeIn" style="display: block;">
+                                <a href="@Url.Action("Details", "Gallery", new { @galleryId = item.Id })">
+                                    <img width="190" height="111" alt="CSS Template" src="@gitem.Url">
+                                </a>
+                            </div>
+                        </div>
+	                </div><!-- end modern_img_frame -->
+ 
+                    <h6>@item.Name</h6>
+                    <p>@item.Description</p>
+                </div><!-- end first one_fourth_column -->
+            }
+
+            <br class="clear"> 
+
+        </div><!-- end home-jquery-content -->
+        <!-- ***************** - END Homepage Content Area - ***************** --> 
+    </div><!-- end content -->
+    <br />
+    <div class="button-wrapper submit-button-wrapper clearfix">
+        <div class="button-input-wrapper submit-button-input-wrapper">
+            @Html.ActionLink("Back", "Index", "Home", null, new { @class = "ka-form-submit" })
+        </div>
+    </div>
+</div>

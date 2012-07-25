@@ -1,0 +1,61 @@
+﻿@model IEnumerable<FT.Models.gallery_gallery_items>
+
+@{
+    ViewBag.Title = "Gallery";
+    ViewBag.Subtitle = "Details";
+}
+
+<div class="main-holder home-holder">
+    <div class="content_full_width">
+    <!-- ***************** - Homepage Content Area - ***************** -->
+        <div class="home-jquery-content">
+        @{
+            foreach (var item in Model)
+            {
+                <div class="one_fourth">
+	                <div class="modern_img_frame modern_four_col_large">
+                        <div class="preload_four_col_large">
+ 	                        <div class="attachment-fadeIn" style="display: block;">
+                                <a class="gallerySlide"  href="@item.gallery_item.Url" title="@item.gallery_item.Title">
+                                    <img width="190" height="111" alt="CSS Template" src="@item.gallery_item.Url">
+                                </a>
+                            </div>
+                        </div>
+	                </div><!-- end modern_img_frame -->
+                </div><!-- end first one_fourth_column -->
+            }
+         }
+
+            <br class="clear"> 
+
+            <div class="testimonials" style="position: relative; height: 115px; display: block;">
+                <blockquote style="position: absolute; top: 0px; left: 0px; display: none; z-index: 4; opacity: 0;">
+                    <p>Thanks so much for fixing my issue so quickly, I would just like to say that your company has provided such amazing customer service/ support to date it has really blown me away (it is very rare in business today)<cite>&ndash;Themeforest Member</cite>
+                    </p>
+                </blockquote>
+                <blockquote style="position: absolute; top: 0px; left: 0px; display: none; z-index: 4; opacity: 0; width: 800px; height: 93px;">
+                    <p>Pretty impressed with the customer service from TrueThemes. I have rarely seen such after purchase customer service. He actually logged into my server , fixed the file and sent me an explanation on how he fixed it. I am glad I made this purchase.If you are looking for a great theme and great after purchase service , you have found the guy right here...<cite>&ndash;Themeforest Member</cite>
+                    </p>
+                </blockquote>
+                <blockquote style="position: absolute; top: 0px; left: 0px; display: block; z-index: 5; opacity: 1; width: 800px; height: 115px;">
+                    <p>Thanks again for helping me, I just want to say your level of attention to your theme buyers on providing tech support has been amazing. From helping me with 3rd party plugins to fixing CSS code in my site, I have never got this amount of support from buying a theme anywhere else, and I've purchased lot of themes in my day. You provide the best level of support, and I really appreciate you helping me with my website.<cite>&ndash;Themeforest Member</cite>
+                    </p>
+                </blockquote>
+                <blockquote style="position: absolute; top: 0px; left: 0px; display: none; z-index: 1; opacity: 0;">
+                    <p>I have downloaded 8 themes from themeforest. This has been the easiest to customize out of them all. I've never turned a website around so fast! I'll be looking for more themes from fivesquared in the future. Thanks!<cite>&ndash;Themeforest Member</cite>
+                    </p>
+                </blockquote>
+            </div>
+
+        </div><!-- end home-jquery-content -->
+        <!-- ***************** - END Homepage Content Area - ***************** --> 
+    </div><!-- end content -->
+    <br />
+    <div class="button-wrapper submit-button-wrapper clearfix">
+        <div class="button-input-wrapper submit-button-input-wrapper">
+            @Html.ActionLink("Back", "Index", "Gallery", null, new { @class = "ka-form-submit" })
+        </div>
+    </div>
+</div>
+
+
