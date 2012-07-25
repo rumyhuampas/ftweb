@@ -21,4 +21,7 @@
     jQuery('.notification .close').click(function () {
         jQuery(this).parent().fadeOut();
     });
+
+    //jQuery(".inline").colorbox({ inline: true, width: '60%', height: '500px' });
+    jQuery(".gallerySlide").colorbox({ rel: 'gallerySlide', slideshow: true });
 });
