@@ -5,22 +5,22 @@
     ViewBag.Subtitle = Model.Name;
 }
 
-<div class="main-holder home-holder">
-    <div class="content_full_width">
-        <div class="home-bnr-jquery">
-             <div class="home-banner-main">
-                <h2>@Html.Label(Model.Name)</h2>
-             </div><!-- end home-banner-main -->
+<div class="content_full_width portfolio_layout">
+    <div class="one_third">
+        <div class="modern_portrait_img_frame_thumb modern_portrait_thumb">
+            <div class="preload modern_preload_portrait_thumb">
+                <img src="@Html.Raw(Model.Image ?? "")" alt="Lorem Ipsum" width="275" height="355" />
+            </div><!-- end preload -->
+        </div><!-- end modern_portrait_img -->
+    </div>
 
-             <div class="home-banner-sub">
-                 <div class="home-banner-sub-content">
-                    <img src="@Html.Raw(Model.Image ?? "")" width="404" height="256" />
-                    <div class="home-banner-bottom">&nbsp;</div>
-                 </div><!-- end home-banner-sub-content -->
-             </div><!-- end home-banner-sub -->
-        </div><!-- end home-bnr-jquery -->
-    </div><!-- end content -->
+    <div class="one_third">
+        <h3>@Model.Name</h3>
+        <p><em></em></p>
+    </div><!-- end portfolio_one_column -->
+
 </div>
+
 <div class="button-wrapper submit-button-wrapper clearfix">
     <div class="button-input-wrapper submit-button-input-wrapper">
         @Html.ActionLink("Back", "Index", "Player", null, new { @class = "ka-form-submit" })

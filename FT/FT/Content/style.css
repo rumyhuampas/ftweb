@@ -1205,6 +1205,7 @@ img a, a img {cursor:pointer;}
 .preload_full, .preload_regular, .preload_small, .preload_two_col_large, .preload_two_col_small, .preload_three_col_large, .preload_three_col_small{background: url(themes/base/images/preload.gif) center center no-repeat;margin:8px 0 0 9px;float:left;}
 .preload_four_col_small, .preload_four_col_large{background: url(themes/base/images/preload-small.gif) center center no-repeat !important;margin:8px 0 0 9px;float:left;}
 .preload_four_col_small, .nopreload_four_col_large{margin:8px 0 0 9px;float:left;}
+.preload_four_col_small, .player_four_col_large{margin:8px 0 0 9px;float:left;}
 
 .preload_full {width: 922px;height: 201px;}
 .preload_regular {width: 703px;height: 201px;}
@@ -1216,6 +1217,8 @@ img a, a img {cursor:pointer;}
 .preload_four_col_large{width: 190px;height: 111px;}
 .nopreload_four_col_large{width: 190px;height: 111px;}
 .preload_four_col_small{width: 135px;height: 76px;}
+
+.player_four_col_large{width: 190px;height: 250px;}
 
 .modern_banner_full iframe{margin:8px 0 0 9px;float:left;}
 
@@ -1999,6 +2002,8 @@ border-radius: 5px;
 /* MODERN */
 .modern_preload_portrait_thumb{background: url(themes/base/images/preload-small.gif) center center no-repeat !important;margin:8px 0 0 9px;float:left;}
 .modern_preload_portrait_full, .modern_preload_full{background: url(themes/base/images/preload.gif) center center no-repeat !important;margin:8px 0 0 9px;float:left;}
+
+.modern_nopreload_portrait_thumb{margin:8px 0 0 9px;float:left;}
 
 .modern_portrait_img_frame {background: url(themes/base/images/image-frame-portrait-modern.png) 0px 0px no-repeat;margin-bottom: 6px;}
 .modern_portrait_img_frame_thumb {background: url(themes/base/images/image-frame-portrait-modern.png) -631px 0px no-repeat;margin-bottom: 6px;}
