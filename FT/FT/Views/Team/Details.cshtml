@@ -5,38 +5,41 @@
     ViewBag.Subtitle = Model.Name;
 }
 
-<div class="main-holder home-holder">
-    <div class="content_full_width">
-        <div class="home-bnr-jquery">
-             <div class="home-banner-main">
-                <h2 style="text-align: center;">@Html.Label(Model.Name)</h2>
-                <br />
+<div class="content_full_width portfolio_layout">
+    <div class="one_half">
+        <div class="portfolio_content_top">
+            <div class="port_img_two">
+                <div class="preload preload_two">
+                    <img src="@Html.Raw(Model.Logo ?? "")" alt="Lorem Ipsum" width="437" height="234" />
+                </div>
+            </div><!-- end preload -->
+        </div><!-- end modern_portrait_img -->
+    </div>
 
-                @foreach (var tp in Model.team_player)
-                {
-                    <div class="one_fourth nomargin">
-	                    <div class="modern_img_frame modern_four_col_large">
-                            <div class="nopreload_four_col_large">
- 	                            <div class="attachment-fadeIn" style="display: block; ">
-                                    <img src="@Html.Raw(tp.player.Image)" alt="CSS Template" width="190" height="111" />
-                                </div>
-                            </div>
-	                    </div><!-- end modern_img_frame -->
- 
-                        <h2>@Html.Label(tp.player.Name)</h2>
-                    </div>
+    <div class="one_third">
+        <h3>@Model.Name</h3>
+        <p><em></em></p>
+    </div><!-- end portfolio_one_column -->
+</div>
 
-                }
-             </div><!-- end home-banner-main -->
-
-             <div class="home-banner-sub">
-                 <div class="home-banner-sub-content">
-                    <img src="@Html.Raw(Model.Logo ?? "")" width="404" height="256" />
-                    <div class="home-banner-bottom">&nbsp;</div>
-                 </div><!-- end home-banner-sub-content -->
-             </div><!-- end home-banner-sub -->
-        </div><!-- end home-bnr-jquery -->
-    </div><!-- end content -->
+<h2>Players</h2>
+<div class="content_full_width portfolio_layout">
+@foreach (var item in Model.team_player)
+{
+    <div class="one_third">
+        <div class="portfolio_content_top_portrait">
+            <div class="modern_portrait_img_frame_thumb modern_portrait_thumb">
+                <div class="preload modern_nopreload_portrait_thumb">
+                    <img src="@Html.Raw(item.player.Image ?? "")" alt="Lorem Ipsum" width="275" height="355" />
+                </div>
+            </div><!-- end preload -->
+        </div><!-- end modern_portrait_img -->
+        <div>
+            <h3>@item.player.Name</h3>
+            <p><em></em></p>
+        </div>
+    </div>
+}
 </div>
 
 <div class="button-wrapper submit-button-wrapper clearfix">
